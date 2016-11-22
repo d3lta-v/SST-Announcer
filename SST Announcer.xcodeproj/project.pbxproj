@@ -8,20 +8,26 @@
 
 /* Begin PBXBuildFile section */
 		220C95551DDFF4AB00805B0D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220C95541DDFF4AB00805B0D /* AppDelegate.swift */; };
-		220C95571DDFF4AB00805B0D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220C95561DDFF4AB00805B0D /* ViewController.swift */; };
 		220C955A1DDFF4AB00805B0D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 220C95581DDFF4AB00805B0D /* Main.storyboard */; };
 		220C955C1DDFF4AB00805B0D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 220C955B1DDFF4AB00805B0D /* Assets.xcassets */; };
 		220C955F1DDFF4AB00805B0D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 220C955D1DDFF4AB00805B0D /* LaunchScreen.storyboard */; };
+		22F85D451DE4834C001B04B2 /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F85D441DE4834C001B04B2 /* MainTableViewController.swift */; };
+		22F85D471DE4850B001B04B2 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F85D461DE4850B001B04B2 /* PostViewController.swift */; };
+		507BCC44D7C0432A848C2443 /* Pods_SST_Announcer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9D610D166B71AE5A85913D1 /* Pods_SST_Announcer.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		220C95511DDFF4AB00805B0D /* SST Announcer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SST Announcer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		220C95541DDFF4AB00805B0D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		220C95561DDFF4AB00805B0D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		220C95591DDFF4AB00805B0D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		220C955B1DDFF4AB00805B0D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		220C955E1DDFF4AB00805B0D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		220C95601DDFF4AB00805B0D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		22F85D441DE4834C001B04B2 /* MainTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
+		22F85D461DE4850B001B04B2 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		B9D610D166B71AE5A85913D1 /* Pods_SST_Announcer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SST_Announcer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD3C20A7A9DD825B28326710 /* Pods-SST Announcer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SST Announcer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SST Announcer/Pods-SST Announcer.debug.xcconfig"; sourceTree = "<group>"; };
+		E960538C2A6EA12EFBF04A57 /* Pods-SST Announcer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SST Announcer.release.xcconfig"; path = "Pods/Target Support Files/Pods-SST Announcer/Pods-SST Announcer.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +35,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				507BCC44D7C0432A848C2443 /* Pods_SST_Announcer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1D60D0F4250119858BA60CD2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BD3C20A7A9DD825B28326710 /* Pods-SST Announcer.debug.xcconfig */,
+				E960538C2A6EA12EFBF04A57 /* Pods-SST Announcer.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		220C95481DDFF4AB00805B0D = {
 			isa = PBXGroup;
 			children = (
 				220C95531DDFF4AB00805B0D /* SST Announcer */,
 				220C95521DDFF4AB00805B0D /* Products */,
+				1D60D0F4250119858BA60CD2 /* Pods */,
+				D60347DEF079D5740334AB92 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -55,13 +73,30 @@
 			isa = PBXGroup;
 			children = (
 				220C95541DDFF4AB00805B0D /* AppDelegate.swift */,
-				220C95561DDFF4AB00805B0D /* ViewController.swift */,
+				22F85D431DE4833F001B04B2 /* View Controllers */,
 				220C95581DDFF4AB00805B0D /* Main.storyboard */,
 				220C955B1DDFF4AB00805B0D /* Assets.xcassets */,
 				220C955D1DDFF4AB00805B0D /* LaunchScreen.storyboard */,
 				220C95601DDFF4AB00805B0D /* Info.plist */,
 			);
 			path = "SST Announcer";
+			sourceTree = "<group>";
+		};
+		22F85D431DE4833F001B04B2 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				22F85D441DE4834C001B04B2 /* MainTableViewController.swift */,
+				22F85D461DE4850B001B04B2 /* PostViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		D60347DEF079D5740334AB92 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B9D610D166B71AE5A85913D1 /* Pods_SST_Announcer.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +106,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 220C95631DDFF4AB00805B0D /* Build configuration list for PBXNativeTarget "SST Announcer" */;
 			buildPhases = (
+				1A47AFAC0BA6DFE913069674 /* [CP] Check Pods Manifest.lock */,
 				220C954D1DDFF4AB00805B0D /* Sources */,
 				220C954E1DDFF4AB00805B0D /* Frameworks */,
 				220C954F1DDFF4AB00805B0D /* Resources */,
+				2D5B8F0EFAB6BA58393895F9 /* [CP] Embed Pods Frameworks */,
+				9A558FB79D4442D7D9F8DE4F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -132,12 +170,61 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1A47AFAC0BA6DFE913069674 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		2D5B8F0EFAB6BA58393895F9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SST Announcer/Pods-SST Announcer-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9A558FB79D4442D7D9F8DE4F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SST Announcer/Pods-SST Announcer-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		220C954D1DDFF4AB00805B0D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				220C95571DDFF4AB00805B0D /* ViewController.swift in Sources */,
+				22F85D471DE4850B001B04B2 /* PostViewController.swift in Sources */,
+				22F85D451DE4834C001B04B2 /* MainTableViewController.swift in Sources */,
 				220C95551DDFF4AB00805B0D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -259,12 +346,14 @@
 		};
 		220C95641DDFF4AB00805B0D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BD3C20A7A9DD825B28326710 /* Pods-SST Announcer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 7K6ZTDFM48;
 				INFOPLIST_FILE = "SST Announcer/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "industries.fourier.SST-Announcer";
+				PRODUCT_BUNDLE_IDENTIFIER = sg.edu.sst.panziyue.Announcer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -272,12 +361,14 @@
 		};
 		220C95651DDFF4AB00805B0D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E960538C2A6EA12EFBF04A57 /* Pods-SST Announcer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 7K6ZTDFM48;
 				INFOPLIST_FILE = "SST Announcer/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "industries.fourier.SST-Announcer";
+				PRODUCT_BUNDLE_IDENTIFIER = sg.edu.sst.panziyue.Announcer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -302,6 +393,7 @@
 				220C95651DDFF4AB00805B0D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
