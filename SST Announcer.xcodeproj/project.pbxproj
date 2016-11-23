@@ -25,6 +25,7 @@
 		220C95601DDFF4AB00805B0D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		22F85D441DE4834C001B04B2 /* MainTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
 		22F85D461DE4850B001B04B2 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		22F85D481DE519DF001B04B2 /* SST Announcer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SST Announcer.entitlements"; sourceTree = "<group>"; };
 		B9D610D166B71AE5A85913D1 /* Pods_SST_Announcer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SST_Announcer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD3C20A7A9DD825B28326710 /* Pods-SST Announcer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SST Announcer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SST Announcer/Pods-SST Announcer.debug.xcconfig"; sourceTree = "<group>"; };
 		E960538C2A6EA12EFBF04A57 /* Pods-SST Announcer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SST Announcer.release.xcconfig"; path = "Pods/Target Support Files/Pods-SST Announcer/Pods-SST Announcer.release.xcconfig"; sourceTree = "<group>"; };
@@ -72,6 +73,7 @@
 		220C95531DDFF4AB00805B0D /* SST Announcer */ = {
 			isa = PBXGroup;
 			children = (
+				22F85D481DE519DF001B04B2 /* SST Announcer.entitlements */,
 				220C95541DDFF4AB00805B0D /* AppDelegate.swift */,
 				22F85D431DE4833F001B04B2 /* View Controllers */,
 				220C95581DDFF4AB00805B0D /* Main.storyboard */,
@@ -136,6 +138,14 @@
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = 7K6ZTDFM48;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -349,6 +359,7 @@
 			baseConfigurationReference = BD3C20A7A9DD825B28326710 /* Pods-SST Announcer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "SST Announcer/SST Announcer.entitlements";
 				DEVELOPMENT_TEAM = 7K6ZTDFM48;
 				INFOPLIST_FILE = "SST Announcer/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -364,6 +375,7 @@
 			baseConfigurationReference = E960538C2A6EA12EFBF04A57 /* Pods-SST Announcer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "SST Announcer/SST Announcer.entitlements";
 				DEVELOPMENT_TEAM = 7K6ZTDFM48;
 				INFOPLIST_FILE = "SST Announcer/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
