@@ -14,6 +14,8 @@ class MainTableViewController: UITableViewController {
 
     fileprivate var collapseDetailViewController = true //When selected, this should turn false
 
+    fileprivate var feeds: [FeedItem] = []
+
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
@@ -27,6 +29,12 @@ class MainTableViewController: UITableViewController {
 
         splitViewController!.delegate = self
         splitViewController!.preferredDisplayMode = .allVisible
+
+        // Simulate 10 dummy posts
+        // TODO: Remove it!
+        for _ in 0..<10 {
+            feeds.append(FeedItem(title: "Post Title", link: "", date: "", author: "", content: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit"))
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,13 +45,11 @@ class MainTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 10
+        return feeds.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -52,50 +58,12 @@ class MainTableViewController: UITableViewController {
         }
 
         // Configure the cell...
-        cell.titleLabel.text = "Post goes here"
-        cell.descriptionLabel.text = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit"
+        let currentFeedObject = feeds[indexPath.row]
+        cell.titleLabel.text = currentFeedObject.title
+        cell.descriptionLabel.text = currentFeedObject.content
 
         return cell
     }
-
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-    }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
 
     // MARK: - Navigation
 
@@ -108,7 +76,8 @@ class MainTableViewController: UITableViewController {
             var postViewController: PostViewController!
             if let navController = segue.destination as? UINavigationController {
                 postViewController = navController.topViewController as! PostViewController
-                postViewController.title = "ayy lmao"
+                let selectedPost = feeds[tableView.indexPathForSelectedRow!.row]
+                postViewController.title = selectedPost.title
             }
         }
     }
@@ -122,4 +91,5 @@ extension MainTableViewController: UISplitViewControllerDelegate {
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
         return collapseDetailViewController
     }
+
 }

@@ -56,21 +56,33 @@
                                                 <constraint firstAttribute="height" constant="66" id="0vs-QD-JGp"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="textColor" red="0.51784205436706543" green="0.58159953355789185" blue="0.58617168664932251" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ChevronRight" translatesAutoresizingMaskIntoConstraints="NO" id="vNd-La-WxG">
+                                            <rect key="frame" x="292" y="13" width="12" height="12"/>
+                                            <color key="tintColor" red="0.51784205436706543" green="0.58159953355789185" blue="0.58617168664932251" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="12" id="Lpd-f4-UNz"/>
+                                                <constraint firstAttribute="height" constant="12" id="Rtf-4Q-otV"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="vNd-La-WxG" secondAttribute="trailing" constant="16" id="1gO-4F-bYy"/>
                                         <constraint firstAttribute="bottom" secondItem="xqh-cg-KPF" secondAttribute="bottom" constant="8" id="Dpu-uJ-bzq"/>
                                         <constraint firstAttribute="trailing" secondItem="1Ct-mL-5at" secondAttribute="trailing" constant="28" id="IU9-83-Qsa"/>
+                                        <constraint firstItem="vNd-La-WxG" firstAttribute="leading" secondItem="1Ct-mL-5at" secondAttribute="trailing" id="Qza-pL-PrA"/>
                                         <constraint firstItem="1Ct-mL-5at" firstAttribute="top" secondItem="goN-Ga-m6D" secondAttribute="top" constant="8" id="TkK-3e-A49"/>
                                         <constraint firstAttribute="trailing" secondItem="xqh-cg-KPF" secondAttribute="trailing" constant="28" id="bIb-HM-ZFf"/>
                                         <constraint firstItem="1Ct-mL-5at" firstAttribute="leading" secondItem="goN-Ga-m6D" secondAttribute="leading" constant="28" id="cHq-za-FXU"/>
+                                        <constraint firstItem="vNd-La-WxG" firstAttribute="centerY" secondItem="1Ct-mL-5at" secondAttribute="centerY" id="hZA-nM-p44"/>
                                         <constraint firstItem="xqh-cg-KPF" firstAttribute="leading" secondItem="goN-Ga-m6D" secondAttribute="leading" constant="28" id="kTj-dL-mf2"/>
                                         <constraint firstItem="xqh-cg-KPF" firstAttribute="top" secondItem="1Ct-mL-5at" secondAttribute="bottom" id="xlU-hr-FW8"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="chevronImageView" destination="vNd-La-WxG" id="6Fp-sT-6li"/>
                                     <outlet property="descriptionLabel" destination="xqh-cg-KPF" id="NFd-Y1-Ple"/>
                                     <outlet property="titleLabel" destination="1Ct-mL-5at" id="2At-SV-41n"/>
                                     <segue destination="Iqn-Zk-s5G" kind="showDetail" identifier="presentPostFromMain" id="UhS-25-RRp"/>
@@ -136,6 +148,9 @@
             <point key="canvasLocation" x="188" y="587"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="ChevronRight" width="12" height="12"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="UhS-25-RRp"/>
     </inferredMetricsTieBreakers>
