@@ -18,7 +18,7 @@
                         <viewControllerLayoutGuide type="bottom" id="EQz-ep-ab6"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="sZ2-Qt-ye5">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -32,27 +32,49 @@
         <scene sceneID="knb-Db-aCh">
             <objects>
                 <tableViewController clearsSelectionOnViewWillAppear="NO" id="LNX-bT-QQC" customClass="MainTableViewController" customModule="SST_Announcer" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="gy5-m6-kiN">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="106" sectionHeaderHeight="28" sectionFooterHeight="28" id="gy5-m6-kiN">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="basiccell" textLabel="ymE-9p-g1d" style="IBUITableViewCellStyleDefault" id="ftN-S8-2X5">
-                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="postcell" rowHeight="106" id="ftN-S8-2X5" customClass="PostTableViewCell" customModule="SST_Announcer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="320" height="106"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ftN-S8-2X5" id="goN-Ga-m6D">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="105"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ymE-9p-g1d">
-                                            <rect key="frame" x="15" y="0.0" width="290" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Ct-mL-5at">
+                                            <rect key="frame" x="28" y="8" width="264" height="23"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xqh-cg-KPF">
+                                            <rect key="frame" x="28" y="31" width="264" height="66"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="66" id="0vs-QD-JGp"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="xqh-cg-KPF" secondAttribute="bottom" constant="8" id="Dpu-uJ-bzq"/>
+                                        <constraint firstAttribute="trailing" secondItem="1Ct-mL-5at" secondAttribute="trailing" constant="28" id="IU9-83-Qsa"/>
+                                        <constraint firstItem="1Ct-mL-5at" firstAttribute="top" secondItem="goN-Ga-m6D" secondAttribute="top" constant="8" id="TkK-3e-A49"/>
+                                        <constraint firstAttribute="trailing" secondItem="xqh-cg-KPF" secondAttribute="trailing" constant="28" id="bIb-HM-ZFf"/>
+                                        <constraint firstItem="1Ct-mL-5at" firstAttribute="leading" secondItem="goN-Ga-m6D" secondAttribute="leading" constant="28" id="cHq-za-FXU"/>
+                                        <constraint firstItem="xqh-cg-KPF" firstAttribute="leading" secondItem="goN-Ga-m6D" secondAttribute="leading" constant="28" id="kTj-dL-mf2"/>
+                                        <constraint firstItem="xqh-cg-KPF" firstAttribute="top" secondItem="1Ct-mL-5at" secondAttribute="bottom" id="xlU-hr-FW8"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="descriptionLabel" destination="xqh-cg-KPF" id="NFd-Y1-Ple"/>
+                                    <outlet property="titleLabel" destination="1Ct-mL-5at" id="2At-SV-41n"/>
+                                    <segue destination="Iqn-Zk-s5G" kind="showDetail" identifier="presentPostFromMain" id="UhS-25-RRp"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -61,13 +83,10 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Announcer" id="fWu-Cd-qDP"/>
-                    <connections>
-                        <segue destination="Iqn-Zk-s5G" kind="show" identifier="presentPostFromMain" id="FeT-47-OqJ"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bYB-wz-vsR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1141" y="-189"/>
+            <point key="canvasLocation" x="1140.625" y="-189.2578125"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="6Yb-S9-Eov">
@@ -118,6 +137,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="FeT-47-OqJ"/>
+        <segue reference="UhS-25-RRp"/>
     </inferredMetricsTieBreakers>
 </document>
