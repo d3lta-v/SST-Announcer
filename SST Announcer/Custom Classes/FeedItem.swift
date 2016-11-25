@@ -1,5 +1,5 @@
 //
-//  FeedKit.swift
+//  FeedItem.swift
 //  SST Announcer
 //
 //  Created by Pan Ziyue on 23/11/16.
@@ -9,6 +9,8 @@
 import Foundation
 
 public class FeedItem: NSObject, NSCoding {
+
+    // MARK: - Variables
 
     public var title: String
     public var link: String
@@ -24,7 +26,7 @@ public class FeedItem: NSObject, NSCoding {
         self.content = content
     }
 
-    // MARK: NSCoding
+    // MARK: - NSCoding
 
     required public init?(coder aDecoder: NSCoder) {
         self.title = (aDecoder.decodeObject(forKey: "title") as? String)!

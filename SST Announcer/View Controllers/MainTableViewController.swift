@@ -14,27 +14,19 @@ class MainTableViewController: UITableViewController {
 
     fileprivate var collapseDetailViewController = true //When selected, this should turn false
 
-    fileprivate var feeds: [FeedItem] = []
+    fileprivate var feeder = Feeder()
 
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-
         splitViewController!.delegate = self
         splitViewController!.preferredDisplayMode = .allVisible
 
-        // Simulate 10 dummy posts
-        // TODO: Remove it!
-        for _ in 0..<10 {
-            feeds.append(FeedItem(title: "Post Title", link: "", date: "", author: "", content: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit"))
-        }
+        // Start loading feeds asynchronously
+        feeder.delegate = self
+        feeder.requestFeedsAsynchronous()
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,7 +41,7 @@ class MainTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return feeds.count
+        return self.feeder.feeds.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -58,7 +50,7 @@ class MainTableViewController: UITableViewController {
         }
 
         // Configure the cell...
-        let currentFeedObject = feeds[indexPath.row]
+        let currentFeedObject = self.feeder.feeds[indexPath.row]
         cell.titleLabel.text = currentFeedObject.title
         cell.descriptionLabel.text = currentFeedObject.content
 
@@ -72,11 +64,10 @@ class MainTableViewController: UITableViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if segue.identifier == "presentPostFromMain" {
-            print("presented post")
             var postViewController: PostViewController!
             if let navController = segue.destination as? UINavigationController {
                 postViewController = navController.topViewController as! PostViewController
-                let selectedPost = feeds[tableView.indexPathForSelectedRow!.row]
+                let selectedPost = self.feeder.feeds[tableView.indexPathForSelectedRow!.row]
                 postViewController.title = selectedPost.title
             }
         }
@@ -90,6 +81,33 @@ extension MainTableViewController: UISplitViewControllerDelegate {
 
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
         return collapseDetailViewController
+    }
+
+}
+
+// MARK: - FeederDelegate
+
+extension MainTableViewController: FeederDelegate {
+
+    func feedLoadedPercent(_ percent: Double) {
+        print("Feed loaded percent: \(percent*100)")
+    }
+
+    func feedFinishedParsing(withFeedArray feedArray: [FeedItem]?, error: Error?) {
+        if let error = error {
+            // Parse error here
+            switch error {
+            case AnnouncerError.networkError:
+                print("Network error occured")
+            default:
+                print("Error occured")
+            }
+        } else {
+            // No error occured
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
     }
 
 }
