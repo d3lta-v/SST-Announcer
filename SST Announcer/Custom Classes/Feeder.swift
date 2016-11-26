@@ -77,7 +77,6 @@ extension Feeder: URLSessionDataDelegate {
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
         self.buffer.append(data)
         let percentDownloaded = Double(buffer.count) / Double(expectedContentLength)
-        print("Feed did receive percent: \(percentDownloaded)")
         self.delegate?.feedLoadedPercent(percentDownloaded)
     }
 
