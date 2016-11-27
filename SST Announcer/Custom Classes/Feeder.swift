@@ -113,6 +113,8 @@ extension Feeder: XMLParserDelegate {
 
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "entry" {
+            // Clean up "dirty" HTML by removing HTML comments and other undesirables caused by Blogger's editor
+            self.currentFeedItem.rawHtmlContent = self.currentFeedItem.rawHtmlContent.cleanHTML
             // Strip HTML tags away from the rawHtmlContent for better previews, as well as decoding HTML entities
             self.currentFeedItem.strippedHtmlContent = self.currentFeedItem.rawHtmlContent.stringByDecodingHTMLEntities.strippedHTML.trunc(140)
             // Append to feeds array

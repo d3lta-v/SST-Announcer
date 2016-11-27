@@ -28,7 +28,7 @@
             </objects>
             <point key="canvasLocation" x="1127" y="587"/>
         </scene>
-        <!--Announcer-->
+        <!--Table View Controller-->
         <scene sceneID="bwL-8h-Dp9">
             <objects>
                 <tableViewController clearsSelectionOnViewWillAppear="NO" id="Z7n-9D-5dN" sceneMemberID="viewController">
@@ -51,7 +51,7 @@
                             <outlet property="delegate" destination="Z7n-9D-5dN" id="jgR-iu-SqQ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Announcer" id="NaC-tL-5Te"/>
+                    <navigationItem key="navigationItem" id="NaC-tL-5Te"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LOj-Xb-Pv7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -56,13 +56,23 @@ class PostViewController: UIViewController {
     // MARK: - Private convienience functions
 
     private func loadFeed(_ item: FeedItem) {
+        //TODO: Add functions for displaying web view
+        if undisplayableTraitsExist(forItem: item) {
+            
+        } else {
+            self.displayFeedNormally(item)
+        }
+    }
+
+    private func displayFeedNormally(_ item: FeedItem) {
+        self.textView.isHidden = false
         let builderOptions = [
             DTDefaultFontFamily: UIFont.systemFont(ofSize: UIFont.systemFontSize).familyName,
             DTDefaultFontSize: String.getPixelSizeForDynamicType(),
             DTDefaultLineHeightMultiplier: "1.43",
             DTDefaultLinkColor: "#146FDF",
             DTDefaultLinkDecoration: "",
-        ]
+            ]
         guard let htmlData = item.rawHtmlContent.data(using: .utf8) else {
             //TODO: Show error
             return
@@ -72,6 +82,17 @@ class PostViewController: UIViewController {
             return
         }
         self.textView.attributedString = stringBuilder.generatedAttributedString()
+    }
+
+    private func undisplayableTraitsExist(forItem item: FeedItem) -> Bool {
+        let content = item.rawHtmlContent
+        if content.range(of: "<iframe") != nil {
+            return true
+        }
+        if content.range(of: "<table") != nil {
+            return true
+        }
+        return false
     }
 
     /*

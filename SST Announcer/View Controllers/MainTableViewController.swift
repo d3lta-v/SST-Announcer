@@ -59,17 +59,19 @@ class MainTableViewController: UITableViewController {
 
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
         if segue.identifier == "presentPostFromMain" {
             var postViewController: PostViewController!
             if let navController = segue.destination as? UINavigationController {
                 postViewController = navController.topViewController as! PostViewController
-                let selectedPost = self.feeder.feeds[tableView.indexPathForSelectedRow!.row]
-                postViewController.title = selectedPost.title
-                postViewController.feedObject = selectedPost
+                if let selectedIndexPath = self.tableView.indexPathForSelectedRow {
+                    let selectedPost = self.feeder.feeds[selectedIndexPath.row]
+                    postViewController.title = selectedPost.title
+                    postViewController.feedObject = selectedPost
+                } else {
+                    // The application initiated the segue from a push notification
+                    //TODO: Implement push-based segue
+                }
             }
         }
     }
