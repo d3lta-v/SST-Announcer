@@ -16,6 +16,15 @@ class PostViewController: UIViewController {
         // Do any additional setup after loading the view.
         navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
         navigationItem.leftItemsSupplementBackButton = true
+
+        // Automatically show popover if device is an iPad in Portrait
+        let horizontalIsRegular = UIScreen.main.traitCollection.horizontalSizeClass == .regular
+        let verticalIsRegular = UIScreen.main.traitCollection.verticalSizeClass == .regular
+        let isPortrait = UIInterfaceOrientationIsPortrait(UIApplication.shared.statusBarOrientation)
+        if horizontalIsRegular && verticalIsRegular && isPortrait {
+            let btn = self.splitViewController!.displayModeButtonItem
+            btn.target!.performSelector(inBackground: btn.action!, with: btn)
+        }
     }
 
     override func didReceiveMemoryWarning() {

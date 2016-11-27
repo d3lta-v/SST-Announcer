@@ -22,7 +22,7 @@ class MainTableViewController: UITableViewController {
         super.viewDidLoad()
 
         splitViewController!.delegate = self
-        splitViewController!.preferredDisplayMode = .allVisible
+        splitViewController!.preferredDisplayMode = .automatic
 
         // Start loading feeds asynchronously
         feeder.delegate = self
