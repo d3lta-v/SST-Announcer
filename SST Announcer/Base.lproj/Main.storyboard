@@ -26,7 +26,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UUT-aD-XSG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1127" y="587"/>
+            <point key="canvasLocation" x="1140" y="1021"/>
         </scene>
         <!--Announcer-->
         <scene sceneID="knb-Db-aCh">
@@ -127,7 +127,7 @@
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aZ4-WP-ooJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-762" y="138"/>
+            <point key="canvasLocation" x="-693" y="407"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="9Jv-D6-bvO">
@@ -145,13 +145,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Msb-WM-pNT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="188" y="587"/>
+            <point key="canvasLocation" x="189" y="1021"/>
         </scene>
     </scenes>
     <resources>
         <image name="ChevronRight" width="12" height="12"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="UhS-25-RRp"/>
+        <segue reference="eTs-bJ-jmR"/>
     </inferredMetricsTieBreakers>
 </document>
