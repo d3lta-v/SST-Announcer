@@ -69,6 +69,7 @@ class MainTableViewController: UITableViewController {
                 postViewController = navController.topViewController as! PostViewController
                 let selectedPost = self.feeder.feeds[tableView.indexPathForSelectedRow!.row]
                 postViewController.title = selectedPost.title
+                postViewController.feedObject = selectedPost
             }
         }
     }

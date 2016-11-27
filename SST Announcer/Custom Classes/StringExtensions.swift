@@ -364,4 +364,39 @@ extension String {
         return result
     }
 
+    static func getPixelSizeForDynamicType() -> String {
+        // Support for Dynamic Type for DTCoreText!!!
+        let preferredSizeCategory = UIApplication.shared.preferredContentSizeCategory
+        var size = "" // Font size
+        switch preferredSizeCategory {
+        case UIContentSizeCategory.extraSmall:
+            size = "13.5px"; break
+        case UIContentSizeCategory.small:
+            size = "14px"; break
+        case UIContentSizeCategory.medium:
+            size = "15.5px"; break
+        case UIContentSizeCategory.large:
+            size = "17px"; break
+        case UIContentSizeCategory.extraLarge:
+            size = "18.5px"; break
+        case UIContentSizeCategory.extraExtraLarge:
+            size = "20px"; break
+        case UIContentSizeCategory.extraExtraExtraLarge:
+            size = "21.5px"; break
+        case UIContentSizeCategory.accessibilityMedium:
+            size = "24px"; break
+        case UIContentSizeCategory.accessibilityLarge:
+            size = "27px"; break
+        case UIContentSizeCategory.accessibilityExtraLarge:
+            size = "30px"; break
+        case UIContentSizeCategory.accessibilityExtraExtraLarge:
+            size = "33px"; break
+        case UIContentSizeCategory.accessibilityExtraExtraExtraLarge:
+            size = "36px"; break
+        default:
+            size = "16.4px"
+        }
+        return size
+    }
+
 }

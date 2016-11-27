@@ -20,13 +20,22 @@
                     <view key="view" contentMode="scaleToFill" id="sZ2-Qt-ye5">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iNK-oy-igv" customClass="DTAttributedTextView">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </scrollView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="FNJ-yO-4HZ"/>
+                    <connections>
+                        <outlet property="textView" destination="iNK-oy-igv" id="qFd-9n-9OP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UUT-aD-XSG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1141" y="516"/>
+            <point key="canvasLocation" x="1140.625" y="515.625"/>
         </scene>
         <!--Announcer-->
         <scene sceneID="knb-Db-aCh">
