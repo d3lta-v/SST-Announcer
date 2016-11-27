@@ -15,6 +15,7 @@ protocol FeederDelegate: class {
 
 }
 
+/// A collection of all the possible errors that the entire Announcer app can propagate from class to class, optimised for maximum interoperability
 enum AnnouncerError: Error {
     /// A network error occured
     case networkError
@@ -33,7 +34,7 @@ class Feeder: NSObject {
 
     fileprivate var parser: XMLParser!
     internal var feeds: [FeedItem] = []
-    fileprivate var currentFeedItem = FeedItem(title: "", link: "", date: "", author: "", content: "")
+    fileprivate var currentFeedItem = FeedItem(title: "", link: "", date: "", author: "", rawHtml: "", strippedHtml: "")
     fileprivate var currentElement = ""
 
     fileprivate var fullDateFormatter: DateFormatter = {
@@ -102,7 +103,7 @@ extension Feeder: XMLParserDelegate {
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         self.currentElement = elementName
         if elementName == "entry" {
-            self.currentFeedItem = FeedItem(title: "", link: "", date: "", author: "", content: "")
+            self.currentFeedItem = FeedItem(title: "", link: "", date: "", author: "", rawHtml: "", strippedHtml: "")
         } else if elementName == "link" {
             if attributeDict["rel"] == "alternate" && attributeDict["href"] != "http://studentsblog.sst.edu.sg/" {
                 self.currentFeedItem.link = attributeDict["href"]!
@@ -112,6 +113,9 @@ extension Feeder: XMLParserDelegate {
 
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "entry" {
+            // Strip HTML tags away from the rawHtmlContent for better previews, as well as decoding HTML entities
+            self.currentFeedItem.strippedHtmlContent = self.currentFeedItem.rawHtmlContent.stringByDecodingHTMLEntities.strippedHTML.trunc(140)
+            // Append to feeds array
             self.feeds.append(currentFeedItem)
         }
     }
@@ -131,7 +135,7 @@ extension Feeder: XMLParserDelegate {
             // Name of author
             self.currentFeedItem.author += string
         } else if self.currentElement == "content" {
-            self.currentFeedItem.content += string
+            self.currentFeedItem.rawHtmlContent += string
         }
     }
 

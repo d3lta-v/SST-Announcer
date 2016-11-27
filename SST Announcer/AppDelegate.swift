@@ -8,6 +8,7 @@
 
 import UIKit
 import OneSignal
+import DTCoreText
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

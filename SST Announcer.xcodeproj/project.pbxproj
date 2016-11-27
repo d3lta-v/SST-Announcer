@@ -11,6 +11,7 @@
 		220C955A1DDFF4AB00805B0D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 220C95581DDFF4AB00805B0D /* Main.storyboard */; };
 		220C955C1DDFF4AB00805B0D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 220C955B1DDFF4AB00805B0D /* Assets.xcassets */; };
 		220C955F1DDFF4AB00805B0D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 220C955D1DDFF4AB00805B0D /* LaunchScreen.storyboard */; };
+		2232BB381DEA83C0001928D8 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2232BB371DEA83C0001928D8 /* StringExtensions.swift */; };
 		22F85D451DE4834C001B04B2 /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F85D441DE4834C001B04B2 /* MainTableViewController.swift */; };
 		22F85D471DE4850B001B04B2 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F85D461DE4850B001B04B2 /* PostViewController.swift */; };
 		22F85D4B1DE5413A001B04B2 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F85D4A1DE5413A001B04B2 /* PostTableViewCell.swift */; };
@@ -28,6 +29,7 @@
 		220C955E1DDFF4AB00805B0D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		220C95601DDFF4AB00805B0D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2232BB361DE87241001928D8 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		2232BB371DEA83C0001928D8 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		22F85D441DE4834C001B04B2 /* MainTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
 		22F85D461DE4850B001B04B2 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		22F85D481DE519DF001B04B2 /* SST Announcer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SST Announcer.entitlements"; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 			children = (
 				22F85D4D1DE5C248001B04B2 /* Feeder.swift */,
 				22F85D4F1DE5C3AF001B04B2 /* FeedItem.swift */,
+				2232BB371DEA83C0001928D8 /* StringExtensions.swift */,
 			);
 			path = "Custom Classes";
 			sourceTree = "<group>";
@@ -282,6 +285,7 @@
 				22F85D471DE4850B001B04B2 /* PostViewController.swift in Sources */,
 				22F85D451DE4834C001B04B2 /* MainTableViewController.swift in Sources */,
 				22F85D501DE5C3AF001B04B2 /* FeedItem.swift in Sources */,
+				2232BB381DEA83C0001928D8 /* StringExtensions.swift in Sources */,
 				220C95551DDFF4AB00805B0D /* AppDelegate.swift in Sources */,
 				22F85D4E1DE5C248001B04B2 /* Feeder.swift in Sources */,
 				22F85D4B1DE5413A001B04B2 /* PostTableViewCell.swift in Sources */,

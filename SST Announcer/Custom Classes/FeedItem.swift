@@ -16,14 +16,18 @@ public class FeedItem: NSObject, NSCoding {
     public var link: String
     public var date: String
     public var author: String
-    public var content: String
+    public var rawHtmlContent: String
+    public var strippedHtmlContent: String
 
-    public init(title: String, link: String, date: String, author: String, content: String) {
+    public init(title: String, link: String, date: String, author: String, rawHtml: String, strippedHtml: String) {
         self.title = title
         self.link = link
         self.date = date
         self.author = author
-        self.content = content
+        self.rawHtmlContent = rawHtml
+        self.strippedHtmlContent = strippedHtml
+
+        super.init()
     }
 
     // MARK: - NSCoding
@@ -33,7 +37,8 @@ public class FeedItem: NSObject, NSCoding {
         self.link = (aDecoder.decodeObject(forKey: "link") as? String)!
         self.date = (aDecoder.decodeObject(forKey: "date") as? String)!
         self.author = (aDecoder.decodeObject(forKey: "author") as? String)!
-        self.content = (aDecoder.decodeObject(forKey: "content") as? String)!
+        self.rawHtmlContent = (aDecoder.decodeObject(forKey: "rawHtmlContent") as? String)!
+        self.strippedHtmlContent = (aDecoder.decodeObject(forKey: "strippedHtmlContent") as? String)!
 
         super.init()
     }
@@ -43,7 +48,8 @@ public class FeedItem: NSObject, NSCoding {
         aCoder.encode(self.link, forKey: "link")
         aCoder.encode(self.date, forKey: "date")
         aCoder.encode(self.author, forKey: "author")
-        aCoder.encode(self.content, forKey: "content")
+        aCoder.encode(self.rawHtmlContent, forKey: "rawHtmlContent")
+        aCoder.encode(self.strippedHtmlContent, forKey: "strippedHtmlContent")
     }
 
 }

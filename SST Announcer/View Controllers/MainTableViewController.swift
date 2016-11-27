@@ -52,7 +52,7 @@ class MainTableViewController: UITableViewController {
         // Configure the cell...
         let currentFeedObject = self.feeder.feeds[indexPath.row]
         cell.titleLabel.text = currentFeedObject.title
-        cell.descriptionLabel.text = currentFeedObject.content
+        cell.descriptionLabel.text = currentFeedObject.strippedHtmlContent
 
         return cell
     }
