@@ -10,6 +10,7 @@ import UIKit
 import DTCoreText
 import WebKit
 import SnapKit
+import SafariServices
 
 class PostViewController: UIViewController {
 
@@ -24,6 +25,7 @@ class PostViewController: UIViewController {
             //self.textView.textDelegate = self
             self.textView.shouldDrawImages = true
             self.textView.contentInset = UIEdgeInsets(top: 16, left: 16, bottom: 32, right: 16)
+            self.textView.textDelegate = self
         }
     }
 
@@ -165,6 +167,96 @@ extension PostViewController: WKNavigationDelegate {
 //        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { //0.5 seconds
 //            self.navigationController?.cancelSGProgress()
 //        }
+    }
+
+}
+
+extension PostViewController: DTAttributedTextContentViewDelegate, DTLazyImageViewDelegate, DTWebVideoViewDelegate {
+
+    func attributedTextContentView(_ attributedTextContentView: DTAttributedTextContentView!, viewForLink url: URL!, identifier: String!, frame: CGRect) -> UIView! {
+        let linkButton = DTLinkButton(frame: frame)
+        linkButton.url = url
+        //TODO: Add action via selector
+        linkButton.addTarget(self, action: #selector(self.linkPushed(_:)), for: .touchUpInside)
+        return linkButton
+    }
+
+    func attributedTextContentView(_ attributedTextContentView: DTAttributedTextContentView!, viewFor attachment: DTTextAttachment!, frame: CGRect) -> UIView! {
+        if attachment.isKind(of: DTImageTextAttachment.self) {
+            let imageView = DTLazyImageView(frame: frame)
+            imageView.delegate = self
+            imageView.url = attachment.contentURL
+            if attachment.hyperLinkURL != nil {
+                imageView.isUserInteractionEnabled = true
+                let button = DTLinkButton(frame: imageView.bounds)
+                button.url = attachment.hyperLinkURL
+                button.minimumHitSize = CGSize(width: 25, height: 25)
+                button.guid = attachment.hyperLinkGUID
+                //TODO: Add action via selector
+                button.addTarget(self, action: #selector(self.linkPushed(_:)), for: .touchUpInside)
+                imageView.addSubview(button)
+            }
+            return imageView
+        }
+        return nil
+    }
+
+    func lazyImageView(_ lazyImageView: DTLazyImageView!, didChangeImageSize size: CGSize) {
+        let url = lazyImageView.url!
+        var imageSize = size
+        let screenSize = CGSize(width: self.view.bounds.size.width - 32, height: self.view.bounds.size.height)
+
+        if size.width > screenSize.width {
+            let ratio = screenSize.width/size.width
+            imageSize.width = size.width*ratio
+            imageSize.height = size.height*ratio
+        }
+
+        let pred = NSPredicate(format: "contentURL == %@", url as CVarArg)
+
+        var didUpdate = false
+
+        var predicateArray: [DTTextAttachment] = self.textView.attributedTextContentView.layoutFrame.textAttachments(with: pred) as! [DTTextAttachment]
+
+        for index in 0..<predicateArray.count {
+            if predicateArray[index].originalSize.equalTo(CGSize.zero) {
+                predicateArray[index].originalSize = imageSize
+                didUpdate = true
+            }
+        }
+
+        if didUpdate {
+            self.textView.relayoutText()
+        }
+    }
+
+    @objc private func linkPushed(_ button: DTLinkButton) {
+        guard let url = button.url else {
+            //TODO: Log something here back to developer, including the absoluteString of the URL
+            return
+        }
+        if UIApplication.shared.canOpenURL(url.absoluteURL) {
+            let urlString = url.absoluteString
+            if urlString.hasPrefix("http") {
+                if #available(iOS 9.0, *) {
+                    let safariViewControler = SFSafariViewController(url: url)
+                    self.present(safariViewControler, animated: true, completion: nil)
+                } else {
+                    // Fallback to redirecting the user to Safari
+                    UIApplication.shared.openURL(url)
+                }
+            } else if urlString.hasPrefix("mailto") || urlString.hasPrefix("tel") {
+                // This is to catch malicious URLs opening unintended apps
+                UIApplication.shared.openURL(url)
+            }
+        } else {
+            if url.host == nil && url.path.characters.count == 0 {
+                guard let fragment = url.fragment else {
+                    return
+                }
+                self.textView.scroll(toAnchorNamed: fragment, animated: true)
+            }
+        }
     }
 
 }
