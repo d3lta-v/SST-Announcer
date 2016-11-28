@@ -8,6 +8,8 @@
 
 import UIKit
 import DTCoreText
+import WebKit
+import SnapKit
 
 class PostViewController: UIViewController {
 
@@ -25,6 +27,8 @@ class PostViewController: UIViewController {
         }
     }
 
+    var webView: WKWebView = WKWebView(frame: CGRect.zero)
+
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
@@ -34,7 +38,7 @@ class PostViewController: UIViewController {
         navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
         navigationItem.leftItemsSupplementBackButton = true
 
-        // Automatically show popover if device is an iPad in Portrait
+        // Automatically show popover if device is an iPad in Portrait (size class is regular, regular)
         let horizontalIsRegular = UIScreen.main.traitCollection.horizontalSizeClass == .regular
         let verticalIsRegular = UIScreen.main.traitCollection.verticalSizeClass == .regular
         let isPortrait = UIInterfaceOrientationIsPortrait(UIApplication.shared.statusBarOrientation)
@@ -46,6 +50,18 @@ class PostViewController: UIViewController {
         if let feedItem = self.feedObject {
             self.loadFeed(feedItem)
         }
+
+        //self.webView.isHidden = true
+        self.webView.navigationDelegate = self
+        self.view.addSubview(self.webView)
+        self.webView.translatesAutoresizingMaskIntoConstraints = false
+        self.webView.snp.makeConstraints { make in
+            make.edges.equalTo(self.view.snp.edges)
+        }
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        self.webView.scrollView.contentInset = UIEdgeInsets(top: self.topLayoutGuide.length, left: 0, bottom: 0, right: 0)
     }
 
     override func didReceiveMemoryWarning() {
@@ -56,15 +72,26 @@ class PostViewController: UIViewController {
     // MARK: - Private convienience functions
 
     private func loadFeed(_ item: FeedItem) {
-        //TODO: Add functions for displaying web view
         if undisplayableTraitsExist(forItem: item) {
-            
+            self.webView.isHidden = false
+            self.textView.isHidden = true
+//            let errorFileName = Bundle.main.path(forResource: "MobileSafariError", ofType: "html")!
+//            var errorHtml = try! String(contentsOfFile: errorFileName)
+//            errorHtml = errorHtml.replacingOccurrences(of: "errMsg", with: "Web version is not implemented yet")
+//            self.webView.loadHTMLString(errorHtml, baseURL: nil)
+            guard let url = URL(string: item.link) else {
+                //TODO: Add error message here
+                return
+            }
+            let urlRequest = URLRequest(url: url)
+            self.webView.load(urlRequest)
         } else {
             self.displayFeedNormally(item)
         }
     }
 
     private func displayFeedNormally(_ item: FeedItem) {
+        self.webView.isHidden = true
         self.textView.isHidden = false
         let builderOptions = [
             DTDefaultFontFamily: UIFont.systemFont(ofSize: UIFont.systemFontSize).familyName,
@@ -104,5 +131,28 @@ class PostViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+
+}
+
+extension PostViewController: WKNavigationDelegate {
+
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        //self.navigationController?.cancelSGProgress()
+        //_ = self.navigationController?.popViewController(animated: true)
+        print(error.localizedDescription)
+    }
+    
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        //self.navigationController?.cancelSGProgress()
+        //_ = self.navigationController?.popViewController(animated: true)
+        print(error.localizedDescription)
+    }
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        // set progress to 0
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { //0.5 seconds
+//            self.navigationController?.cancelSGProgress()
+//        }
+    }
 
 }

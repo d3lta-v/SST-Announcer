@@ -8,4 +8,5 @@ target 'SST Announcer' do
 	# Pods for SST Announcer
 	pod 'OneSignal'
 	pod 'DTCoreText'
+	pod 'SnapKit'
 end
