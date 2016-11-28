@@ -15,7 +15,8 @@ protocol FeederDelegate: class {
 
 }
 
-/// A collection of all the possible errors that the entire Announcer app can propagate from class to class, optimised for maximum interoperability
+/// A collection of all the possible errors that the entire Announcer app can 
+/// propagate from class to class, optimised for maximum interoperability
 enum AnnouncerError: Error {
     /// A network error occured
     case networkError
@@ -113,9 +114,9 @@ extension Feeder: XMLParserDelegate {
 
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "entry" {
-            // Clean up "dirty" HTML by removing HTML comments and other undesirables caused by Blogger's editor
+            // Clean up "dirty" HTML by removing stuff caused by Blogger's editor
             self.currentFeedItem.rawHtmlContent = self.currentFeedItem.rawHtmlContent.cleanHTML
-            // Strip HTML tags away from the rawHtmlContent for better previews, as well as decoding HTML entities
+            // Strip HTML tags away for better previews, as well as decoding HTML entities
             self.currentFeedItem.strippedHtmlContent = self.currentFeedItem.rawHtmlContent.stringByDecodingHTMLEntities.strippedHTML.trunc(140)
             // Append to feeds array
             self.feeds.append(currentFeedItem)

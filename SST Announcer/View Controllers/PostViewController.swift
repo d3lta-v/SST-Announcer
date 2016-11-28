@@ -38,7 +38,7 @@ class PostViewController: UIViewController {
         navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
         navigationItem.leftItemsSupplementBackButton = true
 
-        // Automatically show popover if device is an iPad in Portrait (size class is regular, regular)
+        // Automatically show popover if device is an iPad in Portrait (size class is reg, reg)
         let horizontalIsRegular = UIScreen.main.traitCollection.horizontalSizeClass == .regular
         let verticalIsRegular = UIScreen.main.traitCollection.verticalSizeClass == .regular
         let isPortrait = UIInterfaceOrientationIsPortrait(UIApplication.shared.statusBarOrientation)
@@ -122,9 +122,13 @@ class PostViewController: UIViewController {
 
     fileprivate func displayError(_ errString: String) {
         let errorFileName = Bundle.main.path(forResource: "MobileSafariError", ofType: "html")!
-        var errorHtml = try! String(contentsOfFile: errorFileName)
-        errorHtml = errorHtml.replacingOccurrences(of: "errMsg", with: errString)
-        self.webView.loadHTMLString(errorHtml, baseURL: nil)
+        do {
+            var errorHtml = try String(contentsOfFile: errorFileName)
+            errorHtml = errorHtml.replacingOccurrences(of: "errMsg", with: errString)
+            self.webView.loadHTMLString(errorHtml, baseURL: nil)
+        } catch {
+            fatalError("Serious error has occured, app unable to locate MobileSafariError.html")
+        }
         self.webView.isHidden = false
         self.textView.isHidden = true
     }
@@ -132,7 +136,6 @@ class PostViewController: UIViewController {
     /*
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
@@ -149,14 +152,14 @@ extension PostViewController: WKNavigationDelegate {
         self.displayError("Unable to open webpage: \(error.localizedDescription)")
         print(error.localizedDescription)
     }
-    
+
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         //self.navigationController?.cancelSGProgress()
         //_ = self.navigationController?.popViewController(animated: true)
         self.displayError("Unable to open webpage: \(error.localizedDescription)")
         print(error.localizedDescription)
     }
-    
+
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         // set progress to 0
 //        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { //0.5 seconds

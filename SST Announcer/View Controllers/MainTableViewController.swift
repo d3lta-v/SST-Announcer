@@ -61,9 +61,10 @@ class MainTableViewController: UITableViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "presentPostFromMain" {
-            var postViewController: PostViewController!
             if let navController = segue.destination as? UINavigationController {
-                postViewController = navController.topViewController as! PostViewController
+                guard let postViewController = navController.topViewController as? PostViewController else {
+                    fatalError("Unable to unwrap navController topview as PostViewController")
+                }
                 if let selectedIndexPath = self.tableView.indexPathForSelectedRow {
                     let selectedPost = self.feeder.feeds[selectedIndexPath.row]
                     postViewController.title = selectedPost.title
