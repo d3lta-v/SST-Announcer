@@ -216,7 +216,10 @@ extension PostViewController: DTAttributedTextContentViewDelegate, DTLazyImageVi
 
         var didUpdate = false
 
-        var predicateArray: [DTTextAttachment] = self.textView.attributedTextContentView.layoutFrame.textAttachments(with: pred) as! [DTTextAttachment]
+        guard var predicateArray: [DTTextAttachment] = self.textView.attributedTextContentView.layoutFrame.textAttachments(with: pred) as? [DTTextAttachment] else {
+            //TODO: Log severe message here to server
+            return
+        }
 
         for index in 0..<predicateArray.count {
             if predicateArray[index].originalSize.equalTo(CGSize.zero) {

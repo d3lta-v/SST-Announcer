@@ -121,7 +121,8 @@ extension Feeder: XMLParserDelegate {
             // Clean up "dirty" HTML by removing stuff caused by Blogger's editor
             self.currentFeedItem.rawHtmlContent = self.currentFeedItem.rawHtmlContent.cleanHTML
             // Strip HTML tags away for better previews, as well as decoding HTML entities
-            self.currentFeedItem.strippedHtmlContent = self.currentFeedItem.rawHtmlContent.stringByDecodingHTMLEntities.strippedHTML.trunc(140)
+            let decodedHtml = self.currentFeedItem.rawHtmlContent.stringByDecodingHTMLEntities
+            self.currentFeedItem.strippedHtmlContent = decodedHtml.strippedHTML.trunc(140)
             // Append to feeds array
             self.feeds.append(currentFeedItem)
         }
