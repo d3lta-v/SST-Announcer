@@ -38,7 +38,11 @@ class Feeder: NSObject {
     fileprivate var currentFeedItem = FeedItem(title: "", link: "", date: "", author: "", rawHtml: "", strippedHtml: "")
     fileprivate var currentElement = ""
 
-    fileprivate var fullDateFormatter: DateFormatter = {
+    /** 
+     Date formatter specific to Blogger RSS 2.0 datestamps
+     NOTE: This is NOT ISO8601!
+     */
+    fileprivate var rssDateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
@@ -129,7 +133,7 @@ extension Feeder: XMLParserDelegate {
         } else if self.currentElement == "link" {
             self.currentFeedItem.link += string
         } else if self.currentElement == "published" {
-            if let date = self.fullDateFormatter.date(from: string) {
+            if let date = self.rssDateFormatter.date(from: string) {
                 self.currentFeedItem.date += self.longDateFormatter.string(from: date)
             } else {
                 print("Unable to parse date! RSS format may have changed!")
