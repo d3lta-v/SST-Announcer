@@ -61,7 +61,9 @@ class PostViewController: UIViewController {
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        self.webView.scrollView.contentInset = UIEdgeInsets(top: self.topLayoutGuide.length, left: 0, bottom: 0, right: 0)
+        let inset = UIEdgeInsets(top: self.topLayoutGuide.length, left: 0, bottom: 0, right: 0)
+        self.webView.scrollView.contentInset = inset
+        self.webView.scrollView.scrollIndicatorInsets = inset
     }
 
     override func didReceiveMemoryWarning() {
@@ -75,12 +77,8 @@ class PostViewController: UIViewController {
         if undisplayableTraitsExist(forItem: item) {
             self.webView.isHidden = false
             self.textView.isHidden = true
-//            let errorFileName = Bundle.main.path(forResource: "MobileSafariError", ofType: "html")!
-//            var errorHtml = try! String(contentsOfFile: errorFileName)
-//            errorHtml = errorHtml.replacingOccurrences(of: "errMsg", with: "Web version is not implemented yet")
-//            self.webView.loadHTMLString(errorHtml, baseURL: nil)
             guard let url = URL(string: item.link) else {
-                //TODO: Add error message here
+                self.displayError("Unable to open invalid URL: \(item.link)")
                 return
             }
             let urlRequest = URLRequest(url: url)
@@ -122,6 +120,15 @@ class PostViewController: UIViewController {
         return false
     }
 
+    fileprivate func displayError(_ errString: String) {
+        let errorFileName = Bundle.main.path(forResource: "MobileSafariError", ofType: "html")!
+        var errorHtml = try! String(contentsOfFile: errorFileName)
+        errorHtml = errorHtml.replacingOccurrences(of: "errMsg", with: errString)
+        self.webView.loadHTMLString(errorHtml, baseURL: nil)
+        self.webView.isHidden = false
+        self.textView.isHidden = true
+    }
+
     /*
     // MARK: - Navigation
 
@@ -139,12 +146,14 @@ extension PostViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         //self.navigationController?.cancelSGProgress()
         //_ = self.navigationController?.popViewController(animated: true)
+        self.displayError("Unable to open webpage: \(error.localizedDescription)")
         print(error.localizedDescription)
     }
     
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         //self.navigationController?.cancelSGProgress()
         //_ = self.navigationController?.popViewController(animated: true)
+        self.displayError("Unable to open webpage: \(error.localizedDescription)")
         print(error.localizedDescription)
     }
     
