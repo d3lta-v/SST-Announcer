@@ -126,6 +126,11 @@ class MainTableViewController: UITableViewController {
                         let selectedPost = self.feeder.feeds[selectedIndexPath.row]
                         postViewController.feedObject = selectedPost
                     }
+                    let viewIsCR = self.traitCollection.horizontalSizeClass == .compact && self.traitCollection.verticalSizeClass == .regular
+                    let viewIsCC = self.traitCollection.horizontalSizeClass == .compact && self.traitCollection.verticalSizeClass == .compact
+                    if viewIsCR || viewIsCC {
+                        postViewController.originalNavigationController = self.navigationController
+                    }
                 } else {
                     // The application initiated the segue from a push notification
                     //TODO: Implement push-based segue
@@ -210,6 +215,11 @@ extension MainTableViewController: UIViewControllerPreviewingDelegate {
             detailVc.feedObject = self.filteredFeeds[indexPath.row]
         } else {
             detailVc.feedObject = self.feeder.feeds[indexPath.row]
+        }
+        let viewIsCR = self.traitCollection.horizontalSizeClass == .compact && self.traitCollection.verticalSizeClass == .regular
+        let viewIsCC = self.traitCollection.horizontalSizeClass == .compact && self.traitCollection.verticalSizeClass == .compact
+        if viewIsCR || viewIsCC {
+            detailVc.originalNavigationController = self.navigationController
         }
         previewingContext.sourceRect = cell.frame
         return detailVcNavController

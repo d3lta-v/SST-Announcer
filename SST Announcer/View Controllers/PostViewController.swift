@@ -11,6 +11,7 @@ import DTCoreText
 import WebKit
 import SnapKit
 import SafariServices
+import SGNavigationProgress
 
 class PostViewController: UIViewController {
 
@@ -36,6 +37,8 @@ class PostViewController: UIViewController {
 
     var webView: WKWebView = WKWebView(frame: CGRect.zero)
 
+    var originalNavigationController: UINavigationController?
+
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
@@ -58,13 +61,26 @@ class PostViewController: UIViewController {
             self.loadFeed(feedItem)
         }
 
-        //self.webView.isHidden = true
+        // Initialise web view
         self.webView.navigationDelegate = self
         self.view.addSubview(self.webView)
         self.webView.translatesAutoresizingMaskIntoConstraints = false
         self.webView.snp.makeConstraints { make in
             make.edges.equalTo(self.view.snp.edges)
         }
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // Add KVO for progress to webview
+        self.webView.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController!.cancelSGProgress()
+        // Remove observer
+        self.webView.removeObserver(self, forKeyPath: "estimatedProgress")
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -76,6 +92,25 @@ class PostViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+
+    // MARK: - KVO
+
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "estimatedProgress" {
+            print(self.webView.estimatedProgress)
+            if self.webView.estimatedProgress != 1 {
+                DispatchQueue.main.async {
+                    (self.originalNavigationController ?? self.navigationController!).setSGProgressPercentage(Float(self.webView.estimatedProgress * 100))
+                }
+            } else {
+                DispatchQueue.main.async {
+                    (self.originalNavigationController ?? self.navigationController!).finishSGProgress()
+                }
+            }
+        } else {
+            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+        }
     }
 
     // MARK: - Private convienience functions
@@ -151,30 +186,32 @@ class PostViewController: UIViewController {
 
 }
 
+// MARK: - WKNavigationDelegate
+
 extension PostViewController: WKNavigationDelegate {
 
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        //self.navigationController?.cancelSGProgress()
-        //_ = self.navigationController?.popViewController(animated: true)
+        (self.originalNavigationController ?? self.navigationController!).cancelSGProgress()
         self.displayError("Unable to open webpage: \(error.localizedDescription)")
         print(error.localizedDescription)
     }
 
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
-        //self.navigationController?.cancelSGProgress()
-        //_ = self.navigationController?.popViewController(animated: true)
+        (self.originalNavigationController ?? self.navigationController!).cancelSGProgress()
         self.displayError("Unable to open webpage: \(error.localizedDescription)")
         print(error.localizedDescription)
     }
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         // set progress to 0
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { //0.5 seconds
-//            self.navigationController?.cancelSGProgress()
-//        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { //0.5 seconds
+            (self.originalNavigationController ?? self.navigationController!).cancelSGProgress()
+        }
     }
 
 }
+
+// MARK: - DTAttributedContentView-related delegates
 
 extension PostViewController: DTAttributedTextContentViewDelegate, DTLazyImageViewDelegate, DTWebVideoViewDelegate {
 
