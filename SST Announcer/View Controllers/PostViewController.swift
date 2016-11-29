@@ -16,7 +16,12 @@ class PostViewController: UIViewController {
 
     // MARK: - Variables
 
-    internal var feedObject: FeedItem?
+    internal var feedObject: FeedItem? {
+        didSet {
+            // Automatically set title
+            self.title = feedObject?.title
+        }
+    }
 
     // MARK: - IBOutlets
 

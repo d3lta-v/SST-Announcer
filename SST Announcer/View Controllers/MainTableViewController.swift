@@ -31,7 +31,7 @@ class MainTableViewController: UITableViewController {
     fileprivate var progressCancelled = false
 
     /// Computed property to check if the search controller is active
-    private var searchControllerActive: Bool {
+    fileprivate var searchControllerActive: Bool {
         return self.searchController.isActive && self.searchController.searchBar.text!.characters.count > 0
     }
 
@@ -53,6 +53,15 @@ class MainTableViewController: UITableViewController {
         feeder.delegate = self
         feeder.requestFeedsAsynchronous()
         self.navigationController!.setSGProgressPercentage(5) //for UX reasons
+
+        // Add peek and pop
+        if #available(iOS 9.0, *) {
+            if self.traitCollection.forceTouchCapability == .available {
+                self.registerForPreviewing(with: self, sourceView: view)
+            }
+        } else {
+            // Fallback on earlier versions
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -109,11 +118,9 @@ class MainTableViewController: UITableViewController {
                 if let selectedIndexPath = self.tableView.indexPathForSelectedRow {
                     if self.searchControllerActive {
                         let selectedPost = self.filteredFeeds[selectedIndexPath.row]
-                        postViewController.title = selectedPost.title
                         postViewController.feedObject = selectedPost
                     } else {
                         let selectedPost = self.feeder.feeds[selectedIndexPath.row]
-                        postViewController.title = selectedPost.title
                         postViewController.feedObject = selectedPost
                     }
                 } else {
@@ -182,6 +189,31 @@ extension MainTableViewController: UISearchControllerDelegate, UISearchResultsUp
             return feed.title.lowercased().contains(searchText.lowercased())
         }
         self.tableView.reloadData()
+    }
+
+}
+
+// MARK: - UIViewcontrollerPreviewingDelegate
+
+@available(iOS 9.0, *) //only available on iOS 9 and above
+extension MainTableViewController: UIViewControllerPreviewingDelegate {
+
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let indexPath = self.tableView.indexPathForRow(at: location) else { return nil }
+        guard let cell = self.tableView.cellForRow(at: indexPath) else { return nil }
+        guard let detailVcNavController = self.storyboard!.instantiateViewController(withIdentifier: "PostNavigationController") as? UINavigationController else { return nil }
+        guard let detailVc = detailVcNavController.topViewController as? PostViewController else { return nil }
+        if self.searchControllerActive {
+            detailVc.feedObject = self.filteredFeeds[indexPath.row]
+        } else {
+            detailVc.feedObject = self.feeder.feeds[indexPath.row]
+        }
+        previewingContext.sourceRect = cell.frame
+        return detailVcNavController
+    }
+
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        self.show(viewControllerToCommit, sender: self)
     }
 
 }
