@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -54,7 +55,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Ct-mL-5at">
-                                            <rect key="frame" x="28" y="8" width="264" height="23"/>
+                                            <rect key="frame" x="28" y="8" width="210" height="23"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -76,22 +77,35 @@
                                                 <constraint firstAttribute="height" constant="12" id="Rtf-4Q-otV"/>
                                             </constraints>
                                         </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mWs-8B-TtE">
+                                            <rect key="frame" x="246" y="8" width="37.5" height="23"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="37.5" id="AZ5-aB-hK5"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                            <color key="textColor" red="0.51784205436706543" green="0.58159953355789185" blue="0.58617168664932251" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="vNd-La-WxG" secondAttribute="trailing" constant="16" id="1gO-4F-bYy"/>
+                                        <constraint firstItem="mWs-8B-TtE" firstAttribute="leading" secondItem="1Ct-mL-5at" secondAttribute="trailing" constant="8" id="BUi-2S-zgW"/>
+                                        <constraint firstItem="mWs-8B-TtE" firstAttribute="top" secondItem="goN-Ga-m6D" secondAttribute="topMargin" id="DBO-ec-gU9"/>
                                         <constraint firstAttribute="bottom" secondItem="xqh-cg-KPF" secondAttribute="bottom" constant="8" id="Dpu-uJ-bzq"/>
-                                        <constraint firstAttribute="trailing" secondItem="1Ct-mL-5at" secondAttribute="trailing" constant="28" id="IU9-83-Qsa"/>
-                                        <constraint firstItem="vNd-La-WxG" firstAttribute="leading" secondItem="1Ct-mL-5at" secondAttribute="trailing" id="Qza-pL-PrA"/>
                                         <constraint firstItem="1Ct-mL-5at" firstAttribute="top" secondItem="goN-Ga-m6D" secondAttribute="top" constant="8" id="TkK-3e-A49"/>
                                         <constraint firstAttribute="trailing" secondItem="xqh-cg-KPF" secondAttribute="trailing" constant="28" id="bIb-HM-ZFf"/>
                                         <constraint firstItem="1Ct-mL-5at" firstAttribute="leading" secondItem="goN-Ga-m6D" secondAttribute="leading" constant="28" id="cHq-za-FXU"/>
                                         <constraint firstItem="vNd-La-WxG" firstAttribute="centerY" secondItem="1Ct-mL-5at" secondAttribute="centerY" id="hZA-nM-p44"/>
                                         <constraint firstItem="xqh-cg-KPF" firstAttribute="leading" secondItem="goN-Ga-m6D" secondAttribute="leading" constant="28" id="kTj-dL-mf2"/>
+                                        <constraint firstItem="vNd-La-WxG" firstAttribute="leading" secondItem="mWs-8B-TtE" secondAttribute="trailing" constant="8" id="u0a-wl-2wy"/>
                                         <constraint firstItem="xqh-cg-KPF" firstAttribute="top" secondItem="1Ct-mL-5at" secondAttribute="bottom" id="xlU-hr-FW8"/>
+                                        <constraint firstItem="xqh-cg-KPF" firstAttribute="top" secondItem="mWs-8B-TtE" secondAttribute="bottom" id="ywy-iO-sNz"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="chevronImageView" destination="vNd-La-WxG" id="6Fp-sT-6li"/>
+                                    <outlet property="dateLabel" destination="mWs-8B-TtE" id="XBV-w4-24C"/>
+                                    <outlet property="dateWidthConstraint" destination="AZ5-aB-hK5" id="w8d-7J-wz3"/>
                                     <outlet property="descriptionLabel" destination="xqh-cg-KPF" id="NFd-Y1-Ple"/>
                                     <outlet property="titleLabel" destination="1Ct-mL-5at" id="2At-SV-41n"/>
                                     <segue destination="Iqn-Zk-s5G" kind="showDetail" identifier="presentPostFromMain" id="UhS-25-RRp"/>
@@ -161,6 +175,6 @@
         <image name="ChevronRight" width="12" height="12"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="eTs-bJ-jmR"/>
+        <segue reference="UhS-25-RRp"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -97,12 +97,15 @@ class MainTableViewController: UITableViewController {
         if self.searchControllerActive {
             let currentFeedObject = self.filteredFeeds[indexPath.row]
             cell.titleLabel.text = currentFeedObject.title
+            cell.dateLabel.text = currentFeedObject.date.decodeToTimeAgo()
             cell.descriptionLabel.text = currentFeedObject.strippedHtmlContent
         } else {
             let currentFeedObject = self.feeder.feeds[indexPath.row]
             cell.titleLabel.text = currentFeedObject.title
+            cell.dateLabel.text = currentFeedObject.date.decodeToTimeAgo()
             cell.descriptionLabel.text = currentFeedObject.strippedHtmlContent
         }
+        cell.dateWidthConstraint.constant = cell.dateLabel.intrinsicContentSize.width
 
         return cell
     }

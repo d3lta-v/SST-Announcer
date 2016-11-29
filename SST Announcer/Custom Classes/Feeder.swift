@@ -35,7 +35,7 @@ class Feeder: NSObject {
 
     fileprivate var parser: XMLParser!
     internal var feeds: [FeedItem] = []
-    fileprivate var currentFeedItem = FeedItem(title: "", link: "", date: "", author: "", rawHtml: "", strippedHtml: "")
+    fileprivate var currentFeedItem = FeedItem(title: "", link: "", date: Date(), author: "", rawHtml: "", strippedHtml: "")
     fileprivate var currentElement = ""
 
     /** 
@@ -108,7 +108,7 @@ extension Feeder: XMLParserDelegate {
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         self.currentElement = elementName
         if elementName == "entry" {
-            self.currentFeedItem = FeedItem(title: "", link: "", date: "", author: "", rawHtml: "", strippedHtml: "")
+            self.currentFeedItem = FeedItem(title: "", link: "", date: Date(), author: "", rawHtml: "", strippedHtml: "")
         } else if elementName == "link" {
             if attributeDict["rel"] == "alternate" && attributeDict["href"] != "http://studentsblog.sst.edu.sg/" {
                 self.currentFeedItem.link = attributeDict["href"]!
@@ -135,7 +135,8 @@ extension Feeder: XMLParserDelegate {
             self.currentFeedItem.link += string
         } else if self.currentElement == "published" {
             if let date = self.rssDateFormatter.date(from: string) {
-                self.currentFeedItem.date += self.longDateFormatter.string(from: date)
+                self.currentFeedItem.date = date
+                //self.currentFeedItem.date += self.longDateFormatter.string(from: date)
             } else {
                 print("Unable to parse date! RSS format may have changed!")
             }

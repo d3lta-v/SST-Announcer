@@ -11,8 +11,11 @@ import UIKit
 class PostTableViewCell: UITableViewCell {
 
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var chevronImageView: UIImageView!
+
+    @IBOutlet weak var dateWidthConstraint: NSLayoutConstraint!
 
     override func awakeFromNib() {
         super.awakeFromNib()

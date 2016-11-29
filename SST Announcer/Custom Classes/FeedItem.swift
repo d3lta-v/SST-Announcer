@@ -14,12 +14,12 @@ public class FeedItem: NSObject, NSCoding {
 
     public var title: String
     public var link: String
-    public var date: String
+    public var date: Date
     public var author: String
     public var rawHtmlContent: String
     public var strippedHtmlContent: String
 
-    public init(title: String, link: String, date: String, author: String, rawHtml: String, strippedHtml: String) {
+    public init(title: String, link: String, date: Date, author: String, rawHtml: String, strippedHtml: String) {
         self.title = title
         self.link = link
         self.date = date
@@ -35,7 +35,7 @@ public class FeedItem: NSObject, NSCoding {
     required public init?(coder aDecoder: NSCoder) {
         self.title = (aDecoder.decodeObject(forKey: "title") as? String)!
         self.link = (aDecoder.decodeObject(forKey: "link") as? String)!
-        self.date = (aDecoder.decodeObject(forKey: "date") as? String)!
+        self.date = (aDecoder.decodeObject(forKey: "date") as? Date)!
         self.author = (aDecoder.decodeObject(forKey: "author") as? String)!
         self.rawHtmlContent = (aDecoder.decodeObject(forKey: "rawHtmlContent") as? String)!
         self.strippedHtmlContent = (aDecoder.decodeObject(forKey: "strippedHtmlContent") as? String)!

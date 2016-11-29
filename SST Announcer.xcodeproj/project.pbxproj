@@ -14,6 +14,7 @@
 		2232BB381DEA83C0001928D8 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2232BB371DEA83C0001928D8 /* StringExtensions.swift */; };
 		2232BB3B1DEAF6C6001928D8 /* MobileSafariError.html in Resources */ = {isa = PBXBuildFile; fileRef = 2232BB3A1DEAF6C6001928D8 /* MobileSafariError.html */; };
 		2281E1101DED1477001854E5 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2281E10F1DED1477001854E5 /* Settings.bundle */; };
+		2281E1121DED2E53001854E5 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2281E1111DED2E53001854E5 /* DateExtensions.swift */; };
 		22F85D451DE4834C001B04B2 /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F85D441DE4834C001B04B2 /* MainTableViewController.swift */; };
 		22F85D471DE4850B001B04B2 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F85D461DE4850B001B04B2 /* PostViewController.swift */; };
 		22F85D4B1DE5413A001B04B2 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F85D4A1DE5413A001B04B2 /* PostTableViewCell.swift */; };
@@ -34,6 +35,7 @@
 		2232BB371DEA83C0001928D8 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		2232BB3A1DEAF6C6001928D8 /* MobileSafariError.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = MobileSafariError.html; sourceTree = "<group>"; };
 		2281E10F1DED1477001854E5 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		2281E1111DED2E53001854E5 /* DateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		22F85D441DE4834C001B04B2 /* MainTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
 		22F85D461DE4850B001B04B2 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		22F85D481DE519DF001B04B2 /* SST Announcer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SST Announcer.entitlements"; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				22F85D4D1DE5C248001B04B2 /* Feeder.swift */,
 				22F85D4F1DE5C3AF001B04B2 /* FeedItem.swift */,
 				2232BB371DEA83C0001928D8 /* StringExtensions.swift */,
+				2281E1111DED2E53001854E5 /* DateExtensions.swift */,
 			);
 			path = "Custom Classes";
 			sourceTree = "<group>";
@@ -303,6 +306,7 @@
 				22F85D501DE5C3AF001B04B2 /* FeedItem.swift in Sources */,
 				2232BB381DEA83C0001928D8 /* StringExtensions.swift in Sources */,
 				220C95551DDFF4AB00805B0D /* AppDelegate.swift in Sources */,
+				2281E1121DED2E53001854E5 /* DateExtensions.swift in Sources */,
 				22F85D4E1DE5C248001B04B2 /* Feeder.swift in Sources */,
 				22F85D4B1DE5413A001B04B2 /* PostTableViewCell.swift in Sources */,
 			);
