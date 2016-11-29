@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SGNavigationProgress
 
 class MainTableViewController: UITableViewController {
 
@@ -26,6 +27,9 @@ class MainTableViewController: UITableViewController {
         return searchCtrl
     }()
 
+    /// Progress tracking for UI only, loading will not actually be cancelled
+    fileprivate var progressCancelled = false
+
     /// Computed property to check if the search controller is active
     private var searchControllerActive: Bool {
         return self.searchController.isActive && self.searchController.searchBar.text!.characters.count > 0
@@ -36,18 +40,25 @@ class MainTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        splitViewController!.delegate = self
-        splitViewController!.preferredDisplayMode = .automatic
-
-        // Start loading feeds asynchronously
-        feeder.delegate = self
-        feeder.requestFeedsAsynchronous()
+        self.splitViewController!.delegate = self
+        self.splitViewController!.preferredDisplayMode = .automatic
 
         // Set navigation bar to the search bar and set delegates
         self.navigationItem.titleView = self.searchController.searchBar
         self.searchController.delegate = self
         self.searchController.searchResultsUpdater = self
         self.searchController.searchBar.delegate = self
+
+        // Start loading feeds asynchronously
+        feeder.delegate = self
+        feeder.requestFeedsAsynchronous()
+        self.navigationController!.setSGProgressPercentage(5) //for UX reasons
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.progressCancelled = true
+        self.navigationController!.cancelSGProgress()
     }
 
     override func didReceiveMemoryWarning() {
@@ -129,8 +140,13 @@ extension MainTableViewController: UISplitViewControllerDelegate {
 
 extension MainTableViewController: FeederDelegate {
 
-    func feedLoadedPercent(_ percent: Double) {
-        print("Feed loaded percent: \(percent*100)")
+    func feedLoadedPercent(_ percent: Float) {
+        if !progressCancelled {
+            let percentageInHundred = percent * 100
+            DispatchQueue.main.async {
+                self.navigationController!.setSGProgressPercentage(percentageInHundred)
+            }
+        }
     }
 
     func feedFinishedParsing(withFeedArray feedArray: [FeedItem]?, error: Error?) {

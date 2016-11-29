@@ -11,7 +11,7 @@ import UIKit
 protocol FeederDelegate: class {
 
     func feedFinishedParsing(withFeedArray feedArray: [FeedItem]?, error: Error?)
-    func feedLoadedPercent(_ percent: Double)
+    func feedLoadedPercent(_ percent: Float)
 
 }
 
@@ -82,7 +82,7 @@ extension Feeder: URLSessionDataDelegate {
 
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
         self.buffer.append(data)
-        let percentDownloaded = Double(buffer.count) / Double(expectedContentLength)
+        let percentDownloaded = Float(buffer.count) / Float(expectedContentLength)
         self.delegate?.feedLoadedPercent(percentDownloaded)
     }
 

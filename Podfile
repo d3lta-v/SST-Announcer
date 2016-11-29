@@ -9,4 +9,5 @@ target 'SST Announcer' do
 	pod 'OneSignal'
 	pod 'DTCoreText'
 	pod 'SnapKit'
+	pod 'SGNavigationProgress'
 end
