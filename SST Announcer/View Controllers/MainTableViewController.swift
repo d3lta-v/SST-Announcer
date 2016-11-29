@@ -16,6 +16,21 @@ class MainTableViewController: UITableViewController {
 
     fileprivate var feeder = Feeder()
 
+    fileprivate var filteredFeeds: [FeedItem] = []
+
+    fileprivate var searchController: UISearchController = {
+        let searchCtrl = UISearchController(searchResultsController: nil)
+        searchCtrl.hidesNavigationBarDuringPresentation = false
+        searchCtrl.dimsBackgroundDuringPresentation = false
+        searchCtrl.searchBar.barStyle = .default
+        return searchCtrl
+    }()
+
+    /// Computed property to check if the search controller is active
+    private var searchControllerActive: Bool {
+        return self.searchController.isActive && self.searchController.searchBar.text!.characters.count > 0
+    }
+
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
@@ -27,6 +42,12 @@ class MainTableViewController: UITableViewController {
         // Start loading feeds asynchronously
         feeder.delegate = self
         feeder.requestFeedsAsynchronous()
+
+        // Set navigation bar to the search bar and set delegates
+        self.navigationItem.titleView = self.searchController.searchBar
+        self.searchController.delegate = self
+        self.searchController.searchResultsUpdater = self
+        self.searchController.searchBar.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -41,6 +62,9 @@ class MainTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if self.searchControllerActive {
+            return self.filteredFeeds.count
+        }
         return self.feeder.feeds.count
     }
 
@@ -50,9 +74,15 @@ class MainTableViewController: UITableViewController {
         }
 
         // Configure the cell...
-        let currentFeedObject = self.feeder.feeds[indexPath.row]
-        cell.titleLabel.text = currentFeedObject.title
-        cell.descriptionLabel.text = currentFeedObject.strippedHtmlContent
+        if self.searchControllerActive {
+            let currentFeedObject = self.filteredFeeds[indexPath.row]
+            cell.titleLabel.text = currentFeedObject.title
+            cell.descriptionLabel.text = currentFeedObject.strippedHtmlContent
+        } else {
+            let currentFeedObject = self.feeder.feeds[indexPath.row]
+            cell.titleLabel.text = currentFeedObject.title
+            cell.descriptionLabel.text = currentFeedObject.strippedHtmlContent
+        }
 
         return cell
     }
@@ -66,9 +96,15 @@ class MainTableViewController: UITableViewController {
                     fatalError("Unable to unwrap navController topview as PostViewController")
                 }
                 if let selectedIndexPath = self.tableView.indexPathForSelectedRow {
-                    let selectedPost = self.feeder.feeds[selectedIndexPath.row]
-                    postViewController.title = selectedPost.title
-                    postViewController.feedObject = selectedPost
+                    if self.searchControllerActive {
+                        let selectedPost = self.filteredFeeds[selectedIndexPath.row]
+                        postViewController.title = selectedPost.title
+                        postViewController.feedObject = selectedPost
+                    } else {
+                        let selectedPost = self.feeder.feeds[selectedIndexPath.row]
+                        postViewController.title = selectedPost.title
+                        postViewController.feedObject = selectedPost
+                    }
                 } else {
                     // The application initiated the segue from a push notification
                     //TODO: Implement push-based segue
@@ -112,6 +148,24 @@ extension MainTableViewController: FeederDelegate {
                 self.tableView.reloadData()
             }
         }
+    }
+
+}
+
+// MARK: - UISearch-related delegates
+
+extension MainTableViewController: UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate {
+
+    func updateSearchResults(for searchController: UISearchController) {
+        self.filter(forSearchText: searchController.searchBar.text!)
+    }
+
+    private func filter(forSearchText searchText: String) {
+        self.filteredFeeds = self.feeder.feeds.filter { feed in
+            return feed.title.lowercased().contains(searchText.lowercased())
+        }
+
+        self.tableView.reloadData()
     }
 
 }
