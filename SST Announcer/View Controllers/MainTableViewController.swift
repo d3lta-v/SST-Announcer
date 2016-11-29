@@ -150,6 +150,7 @@ extension MainTableViewController: FeederDelegate {
     }
 
     func feedFinishedParsing(withFeedArray feedArray: [FeedItem]?, error: Error?) {
+        self.progressCancelled = false
         if let error = error {
             // Parse error here
             switch error {
@@ -180,7 +181,6 @@ extension MainTableViewController: UISearchControllerDelegate, UISearchResultsUp
         self.filteredFeeds = self.feeder.feeds.filter { feed in
             return feed.title.lowercased().contains(searchText.lowercased())
         }
-
         self.tableView.reloadData()
     }
 

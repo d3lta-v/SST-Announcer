@@ -204,7 +204,8 @@ extension PostViewController: DTAttributedTextContentViewDelegate, DTLazyImageVi
     func lazyImageView(_ lazyImageView: DTLazyImageView!, didChangeImageSize size: CGSize) {
         let url = lazyImageView.url!
         var imageSize = size
-        let screenSize = CGSize(width: self.view.bounds.size.width - 32, height: self.view.bounds.size.height)
+        var screenSize = self.view.bounds.size
+        screenSize.width -= 32
 
         if size.width > screenSize.width {
             let ratio = screenSize.width/size.width
