@@ -86,17 +86,27 @@
                                             <color key="textColor" red="0.51784205436706543" green="0.58159953355789185" blue="0.58617168664932251" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Indicator" translatesAutoresizingMaskIntoConstraints="NO" id="HSo-7P-R2H">
+                                            <rect key="frame" x="8" y="13" width="12" height="12"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="12" id="P9w-DG-Cxh"/>
+                                                <constraint firstAttribute="height" constant="12" id="SAM-ee-GBX"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="vNd-La-WxG" secondAttribute="trailing" constant="16" id="1gO-4F-bYy"/>
                                         <constraint firstItem="mWs-8B-TtE" firstAttribute="leading" secondItem="1Ct-mL-5at" secondAttribute="trailing" constant="8" id="BUi-2S-zgW"/>
                                         <constraint firstItem="mWs-8B-TtE" firstAttribute="top" secondItem="goN-Ga-m6D" secondAttribute="topMargin" id="DBO-ec-gU9"/>
                                         <constraint firstAttribute="bottom" secondItem="xqh-cg-KPF" secondAttribute="bottom" constant="8" id="Dpu-uJ-bzq"/>
+                                        <constraint firstItem="1Ct-mL-5at" firstAttribute="centerY" secondItem="HSo-7P-R2H" secondAttribute="centerY" id="Nsl-Ye-0e7"/>
                                         <constraint firstItem="1Ct-mL-5at" firstAttribute="top" secondItem="goN-Ga-m6D" secondAttribute="top" constant="8" id="TkK-3e-A49"/>
+                                        <constraint firstItem="1Ct-mL-5at" firstAttribute="leading" secondItem="HSo-7P-R2H" secondAttribute="trailing" constant="8" id="Uol-Ju-zeO"/>
                                         <constraint firstAttribute="trailing" secondItem="xqh-cg-KPF" secondAttribute="trailing" constant="28" id="bIb-HM-ZFf"/>
                                         <constraint firstItem="1Ct-mL-5at" firstAttribute="leading" secondItem="goN-Ga-m6D" secondAttribute="leading" constant="28" id="cHq-za-FXU"/>
                                         <constraint firstItem="vNd-La-WxG" firstAttribute="centerY" secondItem="1Ct-mL-5at" secondAttribute="centerY" id="hZA-nM-p44"/>
                                         <constraint firstItem="xqh-cg-KPF" firstAttribute="leading" secondItem="goN-Ga-m6D" secondAttribute="leading" constant="28" id="kTj-dL-mf2"/>
+                                        <constraint firstItem="HSo-7P-R2H" firstAttribute="leading" secondItem="goN-Ga-m6D" secondAttribute="leadingMargin" id="qf3-Vz-2z7"/>
                                         <constraint firstItem="vNd-La-WxG" firstAttribute="leading" secondItem="mWs-8B-TtE" secondAttribute="trailing" constant="8" id="u0a-wl-2wy"/>
                                         <constraint firstItem="xqh-cg-KPF" firstAttribute="top" secondItem="1Ct-mL-5at" secondAttribute="bottom" id="xlU-hr-FW8"/>
                                         <constraint firstItem="xqh-cg-KPF" firstAttribute="top" secondItem="mWs-8B-TtE" secondAttribute="bottom" id="ywy-iO-sNz"/>
@@ -173,6 +183,7 @@
     </scenes>
     <resources>
         <image name="ChevronRight" width="12" height="12"/>
+        <image name="Indicator" width="12" height="12"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="UhS-25-RRp"/>
