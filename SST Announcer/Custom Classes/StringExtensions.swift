@@ -305,7 +305,7 @@ extension String {
         html = html.replacingOccurrences(of: "<div><br /></div>", with: "<br>", options: .regularExpression, range: nil)
         html = html.replacingOccurrences(of: "<b[r][^>]*/>", with: "<br \\>", options: .regularExpression, range: nil)
         html = html.replacingOccurrences(of: "<!--(.*?)-->", with: "", options: .regularExpression, range: nil)
-        html = html.replacingOccurrences(of: " color: white;", with: "")
+        //html = html.replacingOccurrences(of: " color: white;", with: "")
         return html
     }
 
