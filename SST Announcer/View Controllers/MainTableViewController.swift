@@ -18,7 +18,7 @@ class MainTableViewController: UITableViewController {
     fileprivate var feeder = Feeder()
     fileprivate var filteredFeeds: [FeedItem] = []
     /// A `FeedItem` object that is pushed from push notifications
-    private var pushedFeedItem: FeedItem?
+    fileprivate var pushedFeedItem: FeedItem?
 
     fileprivate var searchController: UISearchController = {
         let searchCtrl = UISearchController(searchResultsController: nil)
@@ -95,17 +95,20 @@ class MainTableViewController: UITableViewController {
         }
 
         // Configure the cell...
+        var currentFeedObject: FeedItem!
         if self.searchControllerActive {
-            let currentFeedObject = self.filteredFeeds[indexPath.row]
-            cell.titleLabel.text = currentFeedObject.title
-            cell.dateLabel.text = currentFeedObject.date.decodeToTimeAgo()
-            cell.descriptionLabel.text = currentFeedObject.strippedHtmlContent
+            currentFeedObject = self.filteredFeeds[indexPath.row]
         } else {
-            let currentFeedObject = self.feeder.feeds[indexPath.row]
-            cell.titleLabel.text = currentFeedObject.title
-            cell.dateLabel.text = currentFeedObject.date.decodeToTimeAgo()
-            cell.descriptionLabel.text = currentFeedObject.strippedHtmlContent
+            currentFeedObject = self.feeder.feeds[indexPath.row]
         }
+
+        if currentFeedObject.title.characters.count < 1 {
+            cell.titleLabel.text = "<No Title>"
+        } else {
+            cell.titleLabel.text = currentFeedObject.title
+        }
+        cell.dateLabel.text = currentFeedObject.date.decodeToTimeAgo()
+        cell.descriptionLabel.text = currentFeedObject.strippedHtmlContent
         cell.dateWidthConstraint.constant = cell.dateLabel.intrinsicContentSize.width
 
         return cell
@@ -132,14 +135,6 @@ class MainTableViewController: UITableViewController {
                     if viewIsCR || viewIsCC {
                         postViewController.originalNavigationController = self.navigationController
                     }
-                } else {
-                    // The application initiated the segue from a push notification
-                    //TODO: Implement push-based segue
-                    guard let feedItem = self.pushedFeedItem else {
-                        //TODO: Send telemetry data for the problem
-                        return
-                    }
-                    postViewController.feedObject = feedItem
                 }
             }
         }
@@ -184,6 +179,16 @@ extension MainTableViewController: FeederDelegate {
             // No error occured
             DispatchQueue.main.async {
                 self.tableView.reloadData()
+                // Display push notification, if there is a push notification
+                if let feedItem = self.pushedFeedItem {
+                    // Cycle through all events to find and select that item
+                    for (index, element) in self.feeder.feeds.enumerated() {
+                        if element.title == feedItem.title {
+                            let indexPath = IndexPath(row: index, section: 0)
+                            self.tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
+                        }
+                    }
+                }
             }
         }
     }

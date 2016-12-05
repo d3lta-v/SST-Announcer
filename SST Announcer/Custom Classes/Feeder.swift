@@ -136,7 +136,6 @@ extension Feeder: XMLParserDelegate {
         } else if self.currentElement == "published" {
             if let date = self.rssDateFormatter.date(from: string) {
                 self.currentFeedItem.date = date
-                //self.currentFeedItem.date += self.longDateFormatter.string(from: date)
             } else {
                 print("Unable to parse date! RSS format may have changed!")
             }
