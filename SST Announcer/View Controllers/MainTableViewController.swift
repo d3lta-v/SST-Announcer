@@ -16,8 +16,9 @@ class MainTableViewController: UITableViewController {
     fileprivate var collapseDetailViewController = true //When selected, this should turn false
 
     fileprivate var feeder = Feeder()
-
     fileprivate var filteredFeeds: [FeedItem] = []
+    /// A `FeedItem` object that is pushed from push notifications
+    private var pushedFeedItem: FeedItem?
 
     fileprivate var searchController: UISearchController = {
         let searchCtrl = UISearchController(searchResultsController: nil)
@@ -134,6 +135,11 @@ class MainTableViewController: UITableViewController {
                 } else {
                     // The application initiated the segue from a push notification
                     //TODO: Implement push-based segue
+                    guard let feedItem = self.pushedFeedItem else {
+                        //TODO: Send telemetry data for the problem
+                        return
+                    }
+                    postViewController.feedObject = feedItem
                 }
             }
         }
