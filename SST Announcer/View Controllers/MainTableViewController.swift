@@ -53,7 +53,6 @@ class MainTableViewController: UITableViewController {
     // Start loading feeds asynchronously
     feeder.delegate = self
     feeder.requestFeedsAsynchronous()
-    self.navigationController!.setSGProgressPercentage(5) //for UX reasons
 
     // Add peek and pop
     if #available(iOS 9.0, *) {

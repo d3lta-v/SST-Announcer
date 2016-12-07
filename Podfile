@@ -10,4 +10,5 @@ target 'SST Announcer' do
 	pod 'DTCoreText'
 	pod 'SnapKit'
 	pod 'SGNavigationProgress'
+	pod 'TUSafariActivity', '~> 1.0'
 end

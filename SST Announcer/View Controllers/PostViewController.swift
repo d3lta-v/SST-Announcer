@@ -12,6 +12,7 @@ import WebKit
 import SnapKit
 import SafariServices
 import SGNavigationProgress
+import TUSafariActivity
 
 class PostViewController: UIViewController {
 
@@ -186,7 +187,7 @@ class PostViewController: UIViewController {
     guard let url = URL(string: feedObject.link) else {
       return
     }
-    let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+    let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: [TUSafariActivity()])
     activityVC.popoverPresentationController?.barButtonItem = self.shareBarButtonItem
     self.navigationController!.present(activityVC, animated: true, completion: nil)
   }
