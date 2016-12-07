@@ -35,6 +35,8 @@ class PostViewController: UIViewController {
     }
   }
 
+  @IBOutlet weak var shareBarButtonItem: UIBarButtonItem!
+
   var webView: WKWebView = WKWebView(frame: CGRect.zero)
 
   var originalNavigationController: UINavigationController?
@@ -173,6 +175,20 @@ class PostViewController: UIViewController {
     }
     self.webView.isHidden = false
     self.textView.isHidden = true
+  }
+
+  // MARK: - IBActions
+
+  @IBAction func shareTapped(_ sender: Any) {
+    guard let feedObject = self.feedObject else {
+      return
+    }
+    guard let url = URL(string: feedObject.link) else {
+      return
+    }
+    let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+    activityVC.popoverPresentationController?.barButtonItem = self.shareBarButtonItem
+    self.navigationController!.present(activityVC, animated: true, completion: nil)
   }
 
   /*

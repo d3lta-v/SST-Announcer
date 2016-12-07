@@ -29,8 +29,15 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="FNJ-yO-4HZ"/>
+                    <navigationItem key="navigationItem" id="FNJ-yO-4HZ">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="j3l-Ew-G7h">
+                            <connections>
+                                <action selector="shareTapped:" destination="6gV-26-WNZ" id="UHY-29-1hI"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="shareBarButtonItem" destination="j3l-Ew-G7h" id="4YF-YI-KDu"/>
                         <outlet property="textView" destination="iNK-oy-igv" id="qFd-9n-9OP"/>
                     </connections>
                 </viewController>
