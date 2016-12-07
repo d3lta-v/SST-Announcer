@@ -79,7 +79,9 @@
 				1D60D0F4250119858BA60CD2 /* Pods */,
 				D60347DEF079D5740334AB92 /* Frameworks */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		220C95521DDFF4AB00805B0D /* Products */ = {
 			isa = PBXGroup;
@@ -183,7 +185,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0810;
 				LastUpgradeCheck = 0810;
-				ORGANIZATIONNAME = "Pan Ziyue";
+				ORGANIZATIONNAME = FourierIndustries;
 				TargetAttributes = {
 					220C95501DDFF4AB00805B0D = {
 						CreatedOnToolsVersion = 8.1;

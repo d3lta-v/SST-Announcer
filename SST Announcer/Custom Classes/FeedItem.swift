@@ -10,46 +10,50 @@ import Foundation
 
 public class FeedItem: NSObject, NSCoding {
 
-    // MARK: - Variables
+  // MARK: - Variables
 
-    public var title: String
-    public var link: String
-    public var date: Date
-    public var author: String
-    public var rawHtmlContent: String
-    public var strippedHtmlContent: String
+  public var title: String
+  public var link: String
+  public var date: Date
+  public var author: String
+  public var rawHtmlContent: String
+  public var strippedHtmlContent: String
+  public var read: Bool
 
-    public init(title: String, link: String, date: Date, author: String, rawHtml: String, strippedHtml: String) {
-        self.title = title
-        self.link = link
-        self.date = date
-        self.author = author
-        self.rawHtmlContent = rawHtml
-        self.strippedHtmlContent = strippedHtml
+  public init(title: String, link: String, date: Date, author: String, rawHtml: String, strippedHtml: String, read: Bool) {
+    self.title = title
+    self.link = link
+    self.date = date
+    self.author = author
+    self.rawHtmlContent = rawHtml
+    self.strippedHtmlContent = strippedHtml
+    self.read = read
 
-        super.init()
-    }
+    super.init()
+  }
 
-    // MARK: - NSCoding
+  // MARK: - NSCoding
 
-    required public init?(coder aDecoder: NSCoder) {
-        self.title = (aDecoder.decodeObject(forKey: "title") as? String)!
-        self.link = (aDecoder.decodeObject(forKey: "link") as? String)!
-        self.date = (aDecoder.decodeObject(forKey: "date") as? Date)!
-        self.author = (aDecoder.decodeObject(forKey: "author") as? String)!
-        self.rawHtmlContent = (aDecoder.decodeObject(forKey: "rawHtmlContent") as? String)!
-        self.strippedHtmlContent = (aDecoder.decodeObject(forKey: "strippedHtmlContent") as? String)!
+  required public init?(coder aDecoder: NSCoder) {
+    self.title = (aDecoder.decodeObject(forKey: "title") as? String)!
+    self.link = (aDecoder.decodeObject(forKey: "link") as? String)!
+    self.date = (aDecoder.decodeObject(forKey: "date") as? Date)!
+    self.author = (aDecoder.decodeObject(forKey: "author") as? String)!
+    self.rawHtmlContent = (aDecoder.decodeObject(forKey: "rawHtmlContent") as? String)!
+    self.strippedHtmlContent = (aDecoder.decodeObject(forKey: "strippedHtmlContent") as? String)!
+    self.read = (aDecoder.decodeObject(forKey: "read") as? Bool)!
 
-        super.init()
-    }
+    super.init()
+  }
 
-    public func encode(with aCoder: NSCoder) {
-        aCoder.encode(self.title, forKey: "title")
-        aCoder.encode(self.link, forKey: "link")
-        aCoder.encode(self.date, forKey: "date")
-        aCoder.encode(self.author, forKey: "author")
-        aCoder.encode(self.rawHtmlContent, forKey: "rawHtmlContent")
-        aCoder.encode(self.strippedHtmlContent, forKey: "strippedHtmlContent")
-    }
+  public func encode(with aCoder: NSCoder) {
+    aCoder.encode(self.title, forKey: "title")
+    aCoder.encode(self.link, forKey: "link")
+    aCoder.encode(self.date, forKey: "date")
+    aCoder.encode(self.author, forKey: "author")
+    aCoder.encode(self.rawHtmlContent, forKey: "rawHtmlContent")
+    aCoder.encode(self.strippedHtmlContent, forKey: "strippedHtmlContent")
+    aCoder.encode(self.read, forKey: "read")
+  }
 
 }
