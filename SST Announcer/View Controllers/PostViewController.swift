@@ -3,7 +3,7 @@
 //  SST Announcer
 //
 //  Created by Pan Ziyue on 22/11/16.
-//  Copyright © 2016 Pan Ziyue. All rights reserved.
+//  Copyright © 2016 FourierIndustries. All rights reserved.
 //
 
 import UIKit
@@ -18,7 +18,7 @@ class PostViewController: UIViewController {
 
   // MARK: - Variables
 
-  internal var feedObject: FeedItem? {
+  var feedObject: FeedItem? {
     didSet {
       // Automatically set title
       self.title = feedObject?.title

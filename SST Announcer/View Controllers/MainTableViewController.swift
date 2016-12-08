@@ -3,7 +3,7 @@
 //  SST Announcer
 //
 //  Created by Pan Ziyue on 22/11/16.
-//  Copyright © 2016 Pan Ziyue. All rights reserved.
+//  Copyright © 2016 FourierIndustries. All rights reserved.
 //
 
 import UIKit
@@ -134,8 +134,8 @@ class MainTableViewController: UITableViewController {
               self.tableView.reloadRows(at: [selectedIndexPath], with: .none)
             }
           }
-          let viewIsCR = traitCollection.horizontalSizeClass == .compact && traitCollection.verticalSizeClass == .regular
-          let viewIsCC = traitCollection.horizontalSizeClass == .compact && traitCollection.verticalSizeClass == .compact
+          let viewIsCR = splitViewController!.traitCollection.isCR
+          let viewIsCC = splitViewController!.traitCollection.isCC
           if viewIsCR || viewIsCC {
             postViewController.originalNavigationController = navigationController
           }

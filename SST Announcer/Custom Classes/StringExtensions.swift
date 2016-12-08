@@ -3,7 +3,7 @@
 //  SST Announcer
 //
 //  Created by Pan Ziyue on 27/11/16.
-//  Copyright © 2016 Pan Ziyue. All rights reserved.
+//  Copyright © 2016 FourierIndustries. All rights reserved.
 //
 
 import UIKit
