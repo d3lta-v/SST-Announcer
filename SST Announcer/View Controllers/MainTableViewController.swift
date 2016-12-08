@@ -33,7 +33,7 @@ class MainTableViewController: UITableViewController {
 
   /// Computed property to check if the search controller is active
   fileprivate var searchControllerActive: Bool {
-    return self.searchController.isActive && self.searchController.searchBar.text!.characters.count > 0
+    return searchController.isActive && searchController.searchBar.text!.characters.count > 0
   }
 
   // MARK: - Lifecycle
@@ -41,14 +41,14 @@ class MainTableViewController: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    self.splitViewController!.delegate = self
-    self.splitViewController!.preferredDisplayMode = .automatic
+    splitViewController!.delegate = self
+    splitViewController!.preferredDisplayMode = .automatic
 
     // Set navigation bar to the search bar and set delegates
-    self.navigationItem.titleView = self.searchController.searchBar
-    self.searchController.delegate = self
-    self.searchController.searchResultsUpdater = self
-    self.searchController.searchBar.delegate = self
+    navigationItem.titleView = searchController.searchBar
+    searchController.delegate = self
+    searchController.searchResultsUpdater = self
+    searchController.searchBar.delegate = self
 
     // Start loading feeds asynchronously
     feeder.delegate = self
@@ -56,8 +56,8 @@ class MainTableViewController: UITableViewController {
 
     // Add peek and pop
     if #available(iOS 9.0, *) {
-      if self.traitCollection.forceTouchCapability == .available {
-        self.registerForPreviewing(with: self, sourceView: view)
+      if traitCollection.forceTouchCapability == .available {
+        registerForPreviewing(with: self, sourceView: view)
       }
     } else {
       // Fallback on earlier versions
@@ -66,8 +66,8 @@ class MainTableViewController: UITableViewController {
 
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
-    self.progressCancelled = true
-    self.navigationController!.cancelSGProgress()
+    progressCancelled = true
+    navigationController!.cancelSGProgress()
   }
 
   override func didReceiveMemoryWarning() {
@@ -82,10 +82,10 @@ class MainTableViewController: UITableViewController {
   }
 
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    if self.searchControllerActive {
-      return self.filteredFeeds.count
+    if searchControllerActive {
+      return filteredFeeds.count
     }
-    return self.feeder.feeds.count
+    return feeder.feeds.count
   }
 
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -95,10 +95,10 @@ class MainTableViewController: UITableViewController {
 
     // Configure the cell...
     var currentFeedObject: FeedItem!
-    if self.searchControllerActive {
-      currentFeedObject = self.filteredFeeds[indexPath.row]
+    if searchControllerActive {
+      currentFeedObject = filteredFeeds[indexPath.row]
     } else {
-      currentFeedObject = self.feeder.feeds[indexPath.row]
+      currentFeedObject = feeder.feeds[indexPath.row]
     }
 
     if currentFeedObject.title.characters.count < 1 {
@@ -122,22 +122,22 @@ class MainTableViewController: UITableViewController {
         guard let postViewController = navController.topViewController as? PostViewController else {
           fatalError("Unable to unwrap navController topview as PostViewController")
         }
-        if let selectedIndexPath = self.tableView.indexPathForSelectedRow {
-          if self.searchControllerActive {
-            let selectedPost = self.filteredFeeds[selectedIndexPath.row]
+        if let selectedIndexPath = tableView.indexPathForSelectedRow {
+          if searchControllerActive {
+            let selectedPost = filteredFeeds[selectedIndexPath.row]
             postViewController.feedObject = selectedPost
           } else {
-            let selectedPost = self.feeder.feeds[selectedIndexPath.row]
+            let selectedPost = feeder.feeds[selectedIndexPath.row]
             postViewController.feedObject = selectedPost
             selectedPost.read = true
             DispatchQueue.main.async {
               self.tableView.reloadRows(at: [selectedIndexPath], with: .none)
             }
           }
-          let viewIsCR = self.traitCollection.horizontalSizeClass == .compact && self.traitCollection.verticalSizeClass == .regular
-          let viewIsCC = self.traitCollection.horizontalSizeClass == .compact && self.traitCollection.verticalSizeClass == .compact
+          let viewIsCR = traitCollection.horizontalSizeClass == .compact && traitCollection.verticalSizeClass == .regular
+          let viewIsCC = traitCollection.horizontalSizeClass == .compact && traitCollection.verticalSizeClass == .compact
           if viewIsCR || viewIsCC {
-            postViewController.originalNavigationController = self.navigationController
+            postViewController.originalNavigationController = navigationController
           }
         }
       }
@@ -170,7 +170,7 @@ extension MainTableViewController: FeederDelegate {
   }
 
   func feedFinishedParsing(withFeedArray feedArray: [FeedItem]?, error: Error?) {
-    self.progressCancelled = false
+    progressCancelled = false
     if let error = error {
       // Parse error here
       switch error {
@@ -204,14 +204,14 @@ extension MainTableViewController: FeederDelegate {
 extension MainTableViewController: UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate {
 
   func updateSearchResults(for searchController: UISearchController) {
-    self.filter(forSearchText: searchController.searchBar.text!)
+    filter(forSearchText: searchController.searchBar.text!)
   }
 
   private func filter(forSearchText searchText: String) {
-    self.filteredFeeds = self.feeder.feeds.filter { feed in
+    filteredFeeds = feeder.feeds.filter { feed in
       return feed.title.lowercased().contains(searchText.lowercased())
     }
-    self.tableView.reloadData()
+    tableView.reloadData()
   }
 
 }
@@ -222,26 +222,26 @@ extension MainTableViewController: UISearchControllerDelegate, UISearchResultsUp
 extension MainTableViewController: UIViewControllerPreviewingDelegate {
 
   func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-    guard let indexPath = self.tableView.indexPathForRow(at: location) else { return nil }
-    guard let cell = self.tableView.cellForRow(at: indexPath) else { return nil }
-    guard let detailVcNavController = self.storyboard!.instantiateViewController(withIdentifier: "PostNavigationController") as? UINavigationController else { return nil }
+    guard let indexPath = tableView.indexPathForRow(at: location) else { return nil }
+    guard let cell = tableView.cellForRow(at: indexPath) else { return nil }
+    guard let detailVcNavController = storyboard!.instantiateViewController(withIdentifier: "PostNavigationController") as? UINavigationController else { return nil }
     guard let detailVc = detailVcNavController.topViewController as? PostViewController else { return nil }
-    if self.searchControllerActive {
-      detailVc.feedObject = self.filteredFeeds[indexPath.row]
+    if searchControllerActive {
+      detailVc.feedObject = filteredFeeds[indexPath.row]
     } else {
-      detailVc.feedObject = self.feeder.feeds[indexPath.row]
+      detailVc.feedObject = feeder.feeds[indexPath.row]
     }
-    let viewIsCR = self.traitCollection.horizontalSizeClass == .compact && self.traitCollection.verticalSizeClass == .regular
-    let viewIsCC = self.traitCollection.horizontalSizeClass == .compact && self.traitCollection.verticalSizeClass == .compact
+    let viewIsCR = traitCollection.horizontalSizeClass == .compact && traitCollection.verticalSizeClass == .regular
+    let viewIsCC = traitCollection.horizontalSizeClass == .compact && traitCollection.verticalSizeClass == .compact
     if viewIsCR || viewIsCC {
-      detailVc.originalNavigationController = self.navigationController
+      detailVc.originalNavigationController = navigationController
     }
     previewingContext.sourceRect = cell.frame
     return detailVcNavController
   }
 
   func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-    self.show(viewControllerToCommit, sender: self)
+    show(viewControllerToCommit, sender: self)
   }
 
 }

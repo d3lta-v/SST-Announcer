@@ -21,7 +21,7 @@ class PostTableViewCell: UITableViewCell {
   override func awakeFromNib() {
     super.awakeFromNib()
     // Initialization code
-    self.chevronImageView.tintColorDidChange() //required to fix bug with tintColor
+    chevronImageView.tintColorDidChange() //required to fix bug with tintColor
   }
 
   override func setSelected(_ selected: Bool, animated: Bool) {
