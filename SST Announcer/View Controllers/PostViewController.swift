@@ -52,10 +52,8 @@ class PostViewController: UIViewController {
     navigationItem.leftItemsSupplementBackButton = true
 
     // Automatically show popover if device is an iPad in Portrait (size class is reg, reg)
-    let horizontalIsRegular = UIScreen.main.traitCollection.horizontalSizeClass == .regular
-    let verticalIsRegular = UIScreen.main.traitCollection.verticalSizeClass == .regular
     let isPortrait = UIInterfaceOrientationIsPortrait(UIApplication.shared.statusBarOrientation)
-    if horizontalIsRegular && verticalIsRegular && isPortrait {
+    if splitViewController!.traitCollection.isRR && isPortrait {
       let btn = splitViewController!.displayModeButtonItem
       btn.target!.performSelector(inBackground: btn.action!, with: btn)
     }

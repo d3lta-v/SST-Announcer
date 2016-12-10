@@ -20,4 +20,9 @@ extension UITraitCollection {
     return self.horizontalSizeClass == .compact && self.verticalSizeClass == .compact
   }
 
+  /// A computed property for checking if the current trait collection is Regular, Regular
+  var isRR: Bool {
+    return self.horizontalSizeClass == .regular && self.verticalSizeClass == .regular
+  }
+
 }

@@ -231,8 +231,8 @@ extension MainTableViewController: UIViewControllerPreviewingDelegate {
     } else {
       detailVc.feedObject = feeder.feeds[indexPath.row]
     }
-    let viewIsCR = traitCollection.horizontalSizeClass == .compact && traitCollection.verticalSizeClass == .regular
-    let viewIsCC = traitCollection.horizontalSizeClass == .compact && traitCollection.verticalSizeClass == .compact
+    let viewIsCR = splitViewController!.traitCollection.isCR
+    let viewIsCC = splitViewController!.traitCollection.isCC
     if viewIsCR || viewIsCC {
       detailVc.originalNavigationController = navigationController
     }
