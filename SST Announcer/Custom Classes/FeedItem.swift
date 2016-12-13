@@ -41,7 +41,7 @@ public class FeedItem: NSObject, NSCoding {
     author = (aDecoder.decodeObject(forKey: "author") as? String)!
     rawHtmlContent = (aDecoder.decodeObject(forKey: "rawHtmlContent") as? String)!
     strippedHtmlContent = (aDecoder.decodeObject(forKey: "strippedHtmlContent") as? String)!
-    read = (aDecoder.decodeObject(forKey: "read") as? Bool)!
+    read = aDecoder.decodeBool(forKey: "read")
 
     super.init()
   }

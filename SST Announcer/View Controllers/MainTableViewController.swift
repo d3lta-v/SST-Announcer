@@ -52,6 +52,7 @@ class MainTableViewController: UITableViewController {
 
     // Start loading feeds asynchronously
     feeder.delegate = self
+    feeder.getCachedFeeds()
     feeder.requestFeedsAsynchronous()
 
     // Add peek and pop
@@ -133,6 +134,8 @@ class MainTableViewController: UITableViewController {
             DispatchQueue.main.async {
               self.tableView.reloadRows(at: [selectedIndexPath], with: .none)
             }
+            // Refresh cache as the user has read a post
+            feeder.setCachedFeeds()
           }
           let viewIsCR = splitViewController!.traitCollection.isCR
           let viewIsCC = splitViewController!.traitCollection.isCC
@@ -169,6 +172,12 @@ extension MainTableViewController: FeederDelegate {
     }
   }
 
+  func feedLoadedFromCache() {
+    DispatchQueue.main.async {
+      self.tableView.reloadData()
+    }
+  }
+
   func feedFinishedParsing(withFeedArray feedArray: [FeedItem]?, error: Error?) {
     progressCancelled = false
     if let error = error {
@@ -180,8 +189,8 @@ extension MainTableViewController: FeederDelegate {
         print("Error occured")
       }
     } else {
-      // No error occured
       DispatchQueue.main.async {
+        // Reload table view
         self.tableView.reloadData()
         // Display push notification, if there is a push notification
         if let feedItem = self.pushedFeedItem {

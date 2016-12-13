@@ -11,6 +11,7 @@ import UIKit
 protocol FeederDelegate: class {
 
   func feedFinishedParsing(withFeedArray feedArray: [FeedItem]?, error: Error?)
+  func feedLoadedFromCache()
   func feedLoadedPercent(_ percent: Float)
 
 }
@@ -32,6 +33,8 @@ class Feeder: NSObject {
 
   fileprivate var expectedContentLength: Int64 = 0
   fileprivate var buffer: Data = Data()
+
+  private let defaults = UserDefaults.standard
 
   fileprivate var parser: XMLParser!
   internal var feeds: [FeedItem] = []
@@ -60,13 +63,36 @@ class Feeder: NSObject {
   internal func requestFeedsAsynchronous() {
     let request = URLRequest(url: URL(string: "https://node1.sstinc.org/api/cache/blogrss.csv")!)
 
-    feeds.removeAll()
-
     let config = URLSessionConfiguration.default
     let session = URLSession(configuration: config, delegate: self, delegateQueue: nil)
     let dataTask = session.dataTask(with: request)
     dataTask.resume()
     session.finishTasksAndInvalidate()
+  }
+
+  /**
+   Stores a copy of the cached feeds to NSUserDefaults, serializes it and stores it as an NSData object.
+   - parameter feeds: An array of `FeedItem` s.
+   */
+  internal func setCachedFeeds() {
+    NSKeyedArchiver.setClassName("FeedItem", for: FeedItem.self)
+    let cachedData = NSKeyedArchiver.archivedData(withRootObject: feeds)
+    defaults.set(cachedData, forKey: "feedCache")
+  }
+
+  /**
+   Retreives a copy of the cached feeds from NSUserDefaults, deserializes it and returns it to a FeedItem object
+   */
+  internal func getCachedFeeds() {
+    guard let feedsObject = defaults.object(forKey: "feedCache") as? Data else {
+      return
+    }
+    NSKeyedUnarchiver.setClass(FeedItem.self, forClassName: "FeedItem")
+    guard let cachedFeeds = NSKeyedUnarchiver.unarchiveObject(with: feedsObject) as? [FeedItem] else {
+      return
+    }
+    feeds = cachedFeeds
+    delegate?.feedLoadedFromCache()
   }
 
 }
@@ -124,7 +150,15 @@ extension Feeder: XMLParserDelegate {
       let decodedHtml = currentFeedItem.rawHtmlContent.stringByDecodingHTMLEntities
       currentFeedItem.strippedHtmlContent = decodedHtml.strippedHTML.trunc(280)
       // Append to feeds array
-      feeds.append(currentFeedItem)
+      var sameElement = false
+      for feed in feeds {
+        if currentFeedItem.link == feed.link {
+          sameElement = true
+        }
+      }
+      if !sameElement {
+        feeds.insert(currentFeedItem, at: 0)
+      }
     }
   }
 
@@ -148,6 +182,16 @@ extension Feeder: XMLParserDelegate {
   }
 
   func parserDidEndDocument(_ parser: XMLParser) {
+    // Sort feeds
+    feeds.sort { lhs, rhs in
+      return lhs.date > rhs.date
+    }
+    // Truncate feeds if there are more than 30 feeds to prevent "overcaching"
+    if feeds.count > 30 {
+      feeds.removeLast(feeds.count - 30)
+    }
+    // Set cached feeds
+    setCachedFeeds()
     delegate?.feedFinishedParsing(withFeedArray: feeds, error: nil)
   }
 
