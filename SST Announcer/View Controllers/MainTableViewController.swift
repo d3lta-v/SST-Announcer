@@ -217,7 +217,7 @@ extension MainTableViewController: UISearchControllerDelegate, UISearchResultsUp
     filteredFeeds = feeder.feeds.filter { feed in
       return feed.title.lowercased().contains(searchText.lowercased())
     }
-    //tableView.reloadData()
+    tableView.reloadData()
   }
 
 }
