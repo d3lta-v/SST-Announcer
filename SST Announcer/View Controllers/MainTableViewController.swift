@@ -173,9 +173,6 @@ extension MainTableViewController: FeederDelegate {
   }
 
   func feedLoadedFromCache() {
-    DispatchQueue.main.async {
-      self.tableView.reloadData()
-    }
   }
 
   func feedFinishedParsing(withFeedArray feedArray: [FeedItem]?, error: Error?) {
@@ -191,7 +188,7 @@ extension MainTableViewController: FeederDelegate {
     } else {
       DispatchQueue.main.async {
         // Reload table view
-        self.tableView.reloadData()
+        //self.tableView.reloadData()
         // Display push notification, if there is a push notification
         if let feedItem = self.pushedFeedItem {
           // Cycle through all events to find and select that item
@@ -220,7 +217,7 @@ extension MainTableViewController: UISearchControllerDelegate, UISearchResultsUp
     filteredFeeds = feeder.feeds.filter { feed in
       return feed.title.lowercased().contains(searchText.lowercased())
     }
-    tableView.reloadData()
+    //tableView.reloadData()
   }
 
 }
