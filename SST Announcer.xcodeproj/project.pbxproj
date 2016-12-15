@@ -187,7 +187,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0810;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = FourierIndustries;
 				TargetAttributes = {
 					220C95501DDFF4AB00805B0D = {
