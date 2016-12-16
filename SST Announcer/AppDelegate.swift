@@ -23,10 +23,47 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return
       }
       let payload = result.notification.payload
-      let fullMessage = payload?.title
-      print("Push received with title: \(fullMessage)")
+      guard let fullMessage = payload?.title else {
+        //TODO: Relay telemetry as this may be a severe failure
+        return
+      }
+      // Check if this is a "New Post: " type of message
+      if fullMessage.substring(to: fullMessage.index(fullMessage.startIndex, offsetBy: 10)) == "New Message: " {
+        guard let splitViewController = self.window?.rootViewController as? UISplitViewController else {
+          //TODO: Relay telemetry as this may be a severe failure
+          print("Severe error occured, unable to assign split view controller")
+          return
+        }
+        guard let primaryViewController = splitViewController.viewControllers.first as? MainTableViewController else {
+          //TODO: Relay telemetry as this may be a severe failure
+          print("Severe error occured, unable to assign primary view controller")
+          return
+        }
+        guard let additionalData = payload?.additionalData as? [String: String] else {
+          //TODO: Relay telemetry as this may be a severe failure
+          print("Severe error occured, unable to unwrap addtional data dictionary from payload")
+          return
+        }
+        guard let link = additionalData["link"] else {
+          //TODO: Relay telemetry as this may be a severe failure
+          print("Severe error occured, unable to unwrap link from addtionalData array")
+          return
+        }
+        let actualTitle = fullMessage.substring(from: fullMessage.index(fullMessage.startIndex, offsetBy: 10))
+        primaryViewController.pushedFeedItem = FeedItem(title: actualTitle, link: link, date: Date(), author: "", rawHtml: "", strippedHtml: "", read: false)
+      } else {
+        //TODO: Handle other types of payloads
+      }
     }
     return true
+  }
+
+  func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+    var token = ""
+    for i in 0 ..< deviceToken.count {
+      token += String(format: "%02.2hhx", [deviceToken[i]])
+    }
+    print("Device token retrieved: \(token)")
   }
 
   func applicationWillResignActive(_ application: UIApplication) {

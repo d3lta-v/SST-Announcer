@@ -18,7 +18,7 @@ class MainTableViewController: UITableViewController {
   fileprivate var feeder = Feeder()
   fileprivate var filteredFeeds: [FeedItem] = []
   /// A `FeedItem` object that is pushed from push notifications
-  fileprivate var pushedFeedItem: FeedItem?
+  internal var pushedFeedItem: FeedItem?
 
   fileprivate var searchController: UISearchController = {
     let searchCtrl = UISearchController(searchResultsController: nil)
@@ -63,6 +63,9 @@ class MainTableViewController: UITableViewController {
     } else {
       // Fallback on earlier versions
     }
+
+    // Check for push notification, if present, open push
+    // TODO
   }
 
   override func viewWillDisappear(_ animated: Bool) {
@@ -137,6 +140,7 @@ class MainTableViewController: UITableViewController {
             // Refresh cache as the user has read a post
             feeder.setCachedFeeds()
           }
+          // Conditionally pass the current navigation controller to the secondary view
           let viewIsCR = splitViewController!.traitCollection.isCR
           let viewIsCC = splitViewController!.traitCollection.isCC
           if viewIsCR || viewIsCC {
@@ -187,15 +191,14 @@ extension MainTableViewController: FeederDelegate {
       }
     } else {
       DispatchQueue.main.async {
-        // Reload table view
-        //self.tableView.reloadData()
         // Display push notification, if there is a push notification
         if let feedItem = self.pushedFeedItem {
-          // Cycle through all events to find and select that item
+          // Cycle through all feeds to find and select that post
           for (index, element) in self.feeder.feeds.enumerated() {
-            if element.title == feedItem.title {
+            if element.link == feedItem.link {
               let indexPath = IndexPath(row: index, section: 0)
               self.tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
+              self.performSegue(withIdentifier: "presentPostFromMain", sender: self)
             }
           }
         }
