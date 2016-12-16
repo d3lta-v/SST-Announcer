@@ -14,6 +14,13 @@
 		220D99571DF96EB900F41265 /* UITraitCollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220D99561DF96EB900F41265 /* UITraitCollectionExtensions.swift */; };
 		2232BB381DEA83C0001928D8 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2232BB371DEA83C0001928D8 /* StringExtensions.swift */; };
 		2232BB3B1DEAF6C6001928D8 /* MobileSafariError.html in Resources */ = {isa = PBXBuildFile; fileRef = 2232BB3A1DEAF6C6001928D8 /* MobileSafariError.html */; };
+		226A68DC1E03B08D00D7A243 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 226A68DA1E03B08D00D7A243 /* Interface.storyboard */; };
+		226A68DE1E03B08D00D7A243 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 226A68DD1E03B08D00D7A243 /* Assets.xcassets */; };
+		226A68E51E03B08E00D7A243 /* Announcer Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 226A68E41E03B08E00D7A243 /* Announcer Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		226A68EC1E03B08E00D7A243 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A68EB1E03B08E00D7A243 /* InterfaceController.swift */; };
+		226A68EE1E03B08E00D7A243 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A68ED1E03B08E00D7A243 /* ExtensionDelegate.swift */; };
+		226A68F21E03B08E00D7A243 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 226A68F11E03B08E00D7A243 /* Assets.xcassets */; };
+		226A68F61E03B08E00D7A243 /* Announcer.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 226A68D81E03B08D00D7A243 /* Announcer.app */; };
 		2281E1101DED1477001854E5 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2281E10F1DED1477001854E5 /* Settings.bundle */; };
 		2281E1121DED2E53001854E5 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2281E1111DED2E53001854E5 /* DateExtensions.swift */; };
 		22F85D451DE4834C001B04B2 /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F85D441DE4834C001B04B2 /* MainTableViewController.swift */; };
@@ -24,6 +31,48 @@
 		22F85D531DE67E00001B04B2 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 22F85D521DE67E00001B04B2 /* .swiftlint.yml */; };
 		507BCC44D7C0432A848C2443 /* Pods_SST_Announcer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9D610D166B71AE5A85913D1 /* Pods_SST_Announcer.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		226A68E61E03B08E00D7A243 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 220C95491DDFF4AB00805B0D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 226A68E31E03B08E00D7A243;
+			remoteInfo = "Announcer Extension";
+		};
+		226A68F41E03B08E00D7A243 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 220C95491DDFF4AB00805B0D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 226A68D71E03B08D00D7A243;
+			remoteInfo = Announcer;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		226A68FA1E03B08E00D7A243 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				226A68E51E03B08E00D7A243 /* Announcer Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		226A68FE1E03B08E00D7A243 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				226A68F61E03B08E00D7A243 /* Announcer.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		220C95511DDFF4AB00805B0D /* SST Announcer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SST Announcer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -36,6 +85,16 @@
 		2232BB361DE87241001928D8 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2232BB371DEA83C0001928D8 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		2232BB3A1DEAF6C6001928D8 /* MobileSafariError.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = MobileSafariError.html; sourceTree = "<group>"; };
+		226A68D81E03B08D00D7A243 /* Announcer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Announcer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		226A68DB1E03B08D00D7A243 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		226A68DD1E03B08D00D7A243 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		226A68DF1E03B08D00D7A243 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		226A68E41E03B08E00D7A243 /* Announcer Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Announcer Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		226A68EA1E03B08E00D7A243 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		226A68EB1E03B08E00D7A243 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		226A68ED1E03B08E00D7A243 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		226A68F11E03B08E00D7A243 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		226A68F31E03B08E00D7A243 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2281E10F1DED1477001854E5 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		2281E1111DED2E53001854E5 /* DateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		22F85D441DE4834C001B04B2 /* MainTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
@@ -59,6 +118,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		226A68E11E03B08E00D7A243 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -77,6 +143,8 @@
 				22F85D521DE67E00001B04B2 /* .swiftlint.yml */,
 				2232BB361DE87241001928D8 /* README.md */,
 				220C95531DDFF4AB00805B0D /* SST Announcer */,
+				226A68D91E03B08D00D7A243 /* Announcer (Watch) */,
+				226A68E81E03B08E00D7A243 /* Announcer Extension */,
 				220C95521DDFF4AB00805B0D /* Products */,
 				1D60D0F4250119858BA60CD2 /* Pods */,
 				D60347DEF079D5740334AB92 /* Frameworks */,
@@ -89,6 +157,8 @@
 			isa = PBXGroup;
 			children = (
 				220C95511DDFF4AB00805B0D /* SST Announcer.app */,
+				226A68D81E03B08D00D7A243 /* Announcer.app */,
+				226A68E41E03B08E00D7A243 /* Announcer Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -117,6 +187,36 @@
 				2232BB3A1DEAF6C6001928D8 /* MobileSafariError.html */,
 			);
 			path = Assets;
+			sourceTree = "<group>";
+		};
+		226A68D91E03B08D00D7A243 /* Announcer (Watch) */ = {
+			isa = PBXGroup;
+			children = (
+				226A68DA1E03B08D00D7A243 /* Interface.storyboard */,
+				226A68DD1E03B08D00D7A243 /* Assets.xcassets */,
+				226A68DF1E03B08D00D7A243 /* Info.plist */,
+			);
+			path = "Announcer (Watch)";
+			sourceTree = "<group>";
+		};
+		226A68E81E03B08E00D7A243 /* Announcer Extension */ = {
+			isa = PBXGroup;
+			children = (
+				226A68EB1E03B08E00D7A243 /* InterfaceController.swift */,
+				226A68ED1E03B08E00D7A243 /* ExtensionDelegate.swift */,
+				226A68F11E03B08E00D7A243 /* Assets.xcassets */,
+				226A68F31E03B08E00D7A243 /* Info.plist */,
+				226A68E91E03B08E00D7A243 /* Supporting Files */,
+			);
+			path = "Announcer Extension";
+			sourceTree = "<group>";
+		};
+		226A68E91E03B08E00D7A243 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				226A68EA1E03B08E00D7A243 /* PushNotificationPayload.apns */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		22F85D431DE4833F001B04B2 /* View Controllers */ = {
@@ -170,15 +270,51 @@
 				2D5B8F0EFAB6BA58393895F9 /* [CP] Embed Pods Frameworks */,
 				9A558FB79D4442D7D9F8DE4F /* [CP] Copy Pods Resources */,
 				22F85D511DE67DE1001B04B2 /* Run Linter */,
+				226A68FE1E03B08E00D7A243 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				226A68F51E03B08E00D7A243 /* PBXTargetDependency */,
 			);
 			name = "SST Announcer";
 			productName = "SST Announcer";
 			productReference = 220C95511DDFF4AB00805B0D /* SST Announcer.app */;
 			productType = "com.apple.product-type.application";
+		};
+		226A68D71E03B08D00D7A243 /* Announcer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 226A68FB1E03B08E00D7A243 /* Build configuration list for PBXNativeTarget "Announcer" */;
+			buildPhases = (
+				226A68D61E03B08D00D7A243 /* Resources */,
+				226A68FA1E03B08E00D7A243 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				226A68E71E03B08E00D7A243 /* PBXTargetDependency */,
+			);
+			name = Announcer;
+			productName = Announcer;
+			productReference = 226A68D81E03B08D00D7A243 /* Announcer.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		226A68E31E03B08E00D7A243 /* Announcer Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 226A68F71E03B08E00D7A243 /* Build configuration list for PBXNativeTarget "Announcer Extension" */;
+			buildPhases = (
+				226A68E01E03B08E00D7A243 /* Sources */,
+				226A68E11E03B08E00D7A243 /* Frameworks */,
+				226A68E21E03B08E00D7A243 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Announcer Extension";
+			productName = "Announcer Extension";
+			productReference = 226A68E41E03B08E00D7A243 /* Announcer Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -186,7 +322,7 @@
 		220C95491DDFF4AB00805B0D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0810;
+				LastSwiftUpdateCheck = 0820;
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = FourierIndustries;
 				TargetAttributes = {
@@ -202,6 +338,16 @@
 								enabled = 1;
 							};
 						};
+					};
+					226A68D71E03B08D00D7A243 = {
+						CreatedOnToolsVersion = 8.2;
+						DevelopmentTeam = 7K6ZTDFM48;
+						ProvisioningStyle = Automatic;
+					};
+					226A68E31E03B08E00D7A243 = {
+						CreatedOnToolsVersion = 8.2;
+						DevelopmentTeam = 7K6ZTDFM48;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -219,6 +365,8 @@
 			projectRoot = "";
 			targets = (
 				220C95501DDFF4AB00805B0D /* SST Announcer */,
+				226A68D71E03B08D00D7A243 /* Announcer */,
+				226A68E31E03B08E00D7A243 /* Announcer Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -234,6 +382,23 @@
 				220C955C1DDFF4AB00805B0D /* Assets.xcassets in Resources */,
 				2281E1101DED1477001854E5 /* Settings.bundle in Resources */,
 				220C955A1DDFF4AB00805B0D /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		226A68D61E03B08D00D7A243 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				226A68DE1E03B08D00D7A243 /* Assets.xcassets in Resources */,
+				226A68DC1E03B08D00D7A243 /* Interface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		226A68E21E03B08E00D7A243 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				226A68F21E03B08E00D7A243 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,7 +483,29 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		226A68E01E03B08E00D7A243 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				226A68EE1E03B08E00D7A243 /* ExtensionDelegate.swift in Sources */,
+				226A68EC1E03B08E00D7A243 /* InterfaceController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		226A68E71E03B08E00D7A243 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 226A68E31E03B08E00D7A243 /* Announcer Extension */;
+			targetProxy = 226A68E61E03B08E00D7A243 /* PBXContainerItemProxy */;
+		};
+		226A68F51E03B08E00D7A243 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 226A68D71E03B08D00D7A243 /* Announcer */;
+			targetProxy = 226A68F41E03B08E00D7A243 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		220C95581DDFF4AB00805B0D /* Main.storyboard */ = {
@@ -335,6 +522,14 @@
 				220C955E1DDFF4AB00805B0D /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		226A68DA1E03B08D00D7A243 /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				226A68DB1E03B08D00D7A243 /* Base */,
+			);
+			name = Interface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -469,6 +664,76 @@
 			};
 			name = Release;
 		};
+		226A68F81E03B08E00D7A243 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				DEVELOPMENT_TEAM = 7K6ZTDFM48;
+				INFOPLIST_FILE = "Announcer Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = sg.edu.sst.panziyue.Announcer.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.1;
+			};
+			name = Debug;
+		};
+		226A68F91E03B08E00D7A243 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				DEVELOPMENT_TEAM = 7K6ZTDFM48;
+				INFOPLIST_FILE = "Announcer Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = sg.edu.sst.panziyue.Announcer.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.1;
+			};
+			name = Release;
+		};
+		226A68FC1E03B08E00D7A243 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 7K6ZTDFM48;
+				IBSC_MODULE = Announcer_Extension;
+				INFOPLIST_FILE = "Announcer (Watch)/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = sg.edu.sst.panziyue.Announcer.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.1;
+			};
+			name = Debug;
+		};
+		226A68FD1E03B08E00D7A243 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 7K6ZTDFM48;
+				IBSC_MODULE = Announcer_Extension;
+				INFOPLIST_FILE = "Announcer (Watch)/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = sg.edu.sst.panziyue.Announcer.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.1;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -486,6 +751,24 @@
 			buildConfigurations = (
 				220C95641DDFF4AB00805B0D /* Debug */,
 				220C95651DDFF4AB00805B0D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		226A68F71E03B08E00D7A243 /* Build configuration list for PBXNativeTarget "Announcer Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				226A68F81E03B08E00D7A243 /* Debug */,
+				226A68F91E03B08E00D7A243 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		226A68FB1E03B08E00D7A243 /* Build configuration list for PBXNativeTarget "Announcer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				226A68FC1E03B08E00D7A243 /* Debug */,
+				226A68FD1E03B08E00D7A243 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

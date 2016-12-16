@@ -4,6 +4,16 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Announcer (Notification).xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>9</integer>
+		</dict>
+		<key>Announcer.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>8</integer>
+		</dict>
 		<key>SST Announcer.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -13,6 +23,11 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>220C95501DDFF4AB00805B0D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>226A68D71E03B08D00D7A243</key>
 		<dict>
 			<key>primary</key>
 			<true/>
