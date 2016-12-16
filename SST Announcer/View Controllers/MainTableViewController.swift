@@ -191,6 +191,7 @@ extension MainTableViewController: FeederDelegate {
       }
     } else {
       DispatchQueue.main.async {
+        self.tableView.reloadData()
         // Display push notification, if there is a push notification
         if let feedItem = self.pushedFeedItem {
           // Cycle through all feeds to find and select that post

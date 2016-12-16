@@ -55,7 +55,9 @@ class PostViewController: UIViewController {
     let isPortrait = UIInterfaceOrientationIsPortrait(UIApplication.shared.statusBarOrientation)
     if splitViewController!.traitCollection.isRR && isPortrait {
       let btn = splitViewController!.displayModeButtonItem
-      btn.target!.performSelector(inBackground: btn.action!, with: btn)
+      DispatchQueue.main.async {
+        btn.target!.performSelector(inBackground: btn.action!, with: btn)
+      }
     }
 
     if let feedItem = feedObject {
