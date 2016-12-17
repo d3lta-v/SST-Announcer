@@ -28,6 +28,8 @@
 		228DA5011E050F5B00E5DB13 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2232BB371DEA83C0001928D8 /* StringExtensions.swift */; };
 		228DA5031E050FC900E5DB13 /* StringExtensions+DTCoreText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228DA5021E050FC900E5DB13 /* StringExtensions+DTCoreText.swift */; };
 		228DA5091E05277F00E5DB13 /* PostInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228DA5081E05277F00E5DB13 /* PostInterfaceController.swift */; };
+		228DA50B1E056C5900E5DB13 /* PostRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228DA50A1E056C5900E5DB13 /* PostRowController.swift */; };
+		228DA50C1E056DD800E5DB13 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2281E1111DED2E53001854E5 /* DateExtensions.swift */; };
 		22F85D451DE4834C001B04B2 /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F85D441DE4834C001B04B2 /* MainTableViewController.swift */; };
 		22F85D471DE4850B001B04B2 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F85D461DE4850B001B04B2 /* PostViewController.swift */; };
 		22F85D4B1DE5413A001B04B2 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F85D4A1DE5413A001B04B2 /* PostTableViewCell.swift */; };
@@ -104,6 +106,7 @@
 		2281E1111DED2E53001854E5 /* DateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		228DA5021E050FC900E5DB13 /* StringExtensions+DTCoreText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StringExtensions+DTCoreText.swift"; sourceTree = "<group>"; };
 		228DA5081E05277F00E5DB13 /* PostInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostInterfaceController.swift; sourceTree = "<group>"; };
+		228DA50A1E056C5900E5DB13 /* PostRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostRowController.swift; sourceTree = "<group>"; };
 		22F85D441DE4834C001B04B2 /* MainTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
 		22F85D461DE4850B001B04B2 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		22F85D481DE519DF001B04B2 /* SST Announcer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SST Announcer.entitlements"; sourceTree = "<group>"; };
@@ -209,6 +212,7 @@
 		226A68E81E03B08E00D7A243 /* Announcer Extension */ = {
 			isa = PBXGroup;
 			children = (
+				228DA50A1E056C5900E5DB13 /* PostRowController.swift */,
 				226A68EB1E03B08E00D7A243 /* MainTableController.swift */,
 				228DA5081E05277F00E5DB13 /* PostInterfaceController.swift */,
 				226A68ED1E03B08E00D7A243 /* ExtensionDelegate.swift */,
@@ -501,6 +505,8 @@
 				226A68EE1E03B08E00D7A243 /* ExtensionDelegate.swift in Sources */,
 				228DA5011E050F5B00E5DB13 /* StringExtensions.swift in Sources */,
 				228DA5091E05277F00E5DB13 /* PostInterfaceController.swift in Sources */,
+				228DA50B1E056C5900E5DB13 /* PostRowController.swift in Sources */,
+				228DA50C1E056DD800E5DB13 /* DateExtensions.swift in Sources */,
 				226A68EC1E03B08E00D7A243 /* MainTableController.swift in Sources */,
 				228DA4FE1E050F0300E5DB13 /* Feeder.swift in Sources */,
 			);
