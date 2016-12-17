@@ -1,5 +1,5 @@
 //
-//  InterfaceController.swift
+//  MainTableController.swift
 //  Announcer Extension
 //
 //  Created by Pan Ziyue on 16/12/16.
@@ -10,7 +10,7 @@ import WatchKit
 import Foundation
 
 
-class InterfaceController: WKInterfaceController {
+class MainTableController: WKInterfaceController {
 
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)

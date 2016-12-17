@@ -17,7 +17,7 @@
 		226A68DC1E03B08D00D7A243 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 226A68DA1E03B08D00D7A243 /* Interface.storyboard */; };
 		226A68DE1E03B08D00D7A243 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 226A68DD1E03B08D00D7A243 /* Assets.xcassets */; };
 		226A68E51E03B08E00D7A243 /* Announcer Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 226A68E41E03B08E00D7A243 /* Announcer Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		226A68EC1E03B08E00D7A243 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A68EB1E03B08E00D7A243 /* InterfaceController.swift */; };
+		226A68EC1E03B08E00D7A243 /* MainTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A68EB1E03B08E00D7A243 /* MainTableController.swift */; };
 		226A68EE1E03B08E00D7A243 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A68ED1E03B08E00D7A243 /* ExtensionDelegate.swift */; };
 		226A68F21E03B08E00D7A243 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 226A68F11E03B08E00D7A243 /* Assets.xcassets */; };
 		226A68F61E03B08E00D7A243 /* Announcer.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 226A68D81E03B08D00D7A243 /* Announcer.app */; };
@@ -27,6 +27,7 @@
 		228DA4FF1E050F1500E5DB13 /* FeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F85D4F1DE5C3AF001B04B2 /* FeedItem.swift */; };
 		228DA5011E050F5B00E5DB13 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2232BB371DEA83C0001928D8 /* StringExtensions.swift */; };
 		228DA5031E050FC900E5DB13 /* StringExtensions+DTCoreText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228DA5021E050FC900E5DB13 /* StringExtensions+DTCoreText.swift */; };
+		228DA5091E05277F00E5DB13 /* PostInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228DA5081E05277F00E5DB13 /* PostInterfaceController.swift */; };
 		22F85D451DE4834C001B04B2 /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F85D441DE4834C001B04B2 /* MainTableViewController.swift */; };
 		22F85D471DE4850B001B04B2 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F85D461DE4850B001B04B2 /* PostViewController.swift */; };
 		22F85D4B1DE5413A001B04B2 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F85D4A1DE5413A001B04B2 /* PostTableViewCell.swift */; };
@@ -95,13 +96,14 @@
 		226A68DF1E03B08D00D7A243 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		226A68E41E03B08E00D7A243 /* Announcer Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Announcer Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		226A68EA1E03B08E00D7A243 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
-		226A68EB1E03B08E00D7A243 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		226A68EB1E03B08E00D7A243 /* MainTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableController.swift; sourceTree = "<group>"; };
 		226A68ED1E03B08E00D7A243 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
 		226A68F11E03B08E00D7A243 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		226A68F31E03B08E00D7A243 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2281E10F1DED1477001854E5 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		2281E1111DED2E53001854E5 /* DateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		228DA5021E050FC900E5DB13 /* StringExtensions+DTCoreText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StringExtensions+DTCoreText.swift"; sourceTree = "<group>"; };
+		228DA5081E05277F00E5DB13 /* PostInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostInterfaceController.swift; sourceTree = "<group>"; };
 		22F85D441DE4834C001B04B2 /* MainTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
 		22F85D461DE4850B001B04B2 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		22F85D481DE519DF001B04B2 /* SST Announcer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SST Announcer.entitlements"; sourceTree = "<group>"; };
@@ -207,7 +209,8 @@
 		226A68E81E03B08E00D7A243 /* Announcer Extension */ = {
 			isa = PBXGroup;
 			children = (
-				226A68EB1E03B08E00D7A243 /* InterfaceController.swift */,
+				226A68EB1E03B08E00D7A243 /* MainTableController.swift */,
+				228DA5081E05277F00E5DB13 /* PostInterfaceController.swift */,
 				226A68ED1E03B08E00D7A243 /* ExtensionDelegate.swift */,
 				226A68F11E03B08E00D7A243 /* Assets.xcassets */,
 				226A68F31E03B08E00D7A243 /* Info.plist */,
@@ -497,7 +500,8 @@
 				228DA4FF1E050F1500E5DB13 /* FeedItem.swift in Sources */,
 				226A68EE1E03B08E00D7A243 /* ExtensionDelegate.swift in Sources */,
 				228DA5011E050F5B00E5DB13 /* StringExtensions.swift in Sources */,
-				226A68EC1E03B08E00D7A243 /* InterfaceController.swift in Sources */,
+				228DA5091E05277F00E5DB13 /* PostInterfaceController.swift in Sources */,
+				226A68EC1E03B08E00D7A243 /* MainTableController.swift in Sources */,
 				228DA4FE1E050F0300E5DB13 /* Feeder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
