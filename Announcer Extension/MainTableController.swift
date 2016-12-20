@@ -35,8 +35,6 @@ class MainTableController: WKInterfaceController {
 
   override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
     let context = feeder.feeds[rowIndex]
-    print(context.rawHtmlContent)
-    //presentController(withName: "Post", context: context)
     pushController(withName: "Post", context: context)
   }
 

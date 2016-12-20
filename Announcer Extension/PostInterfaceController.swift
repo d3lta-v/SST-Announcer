@@ -15,7 +15,15 @@ class PostInterfaceController: WKInterfaceController {
   @IBOutlet weak var titleLabel: WKInterfaceLabel!
   @IBOutlet weak var authorLabel: WKInterfaceLabel!
   @IBOutlet weak var dateLabel: WKInterfaceLabel!
+  @IBOutlet weak var timeLabel: WKInterfaceLabel!
   @IBOutlet weak var contentLabel: WKInterfaceLabel!
+
+  let dateFormatter: DateFormatter = {
+    let df = DateFormatter()
+    df.locale = Locale(identifier: "en_US_POSIX")
+    df.dateFormat = "h:mm a"
+    return df
+  }()
 
   override func awake(withContext context: Any?) {
     super.awake(withContext: context)
@@ -25,8 +33,8 @@ class PostInterfaceController: WKInterfaceController {
       titleLabel.setText(feed.title)
       authorLabel.setText(feed.author)
       dateLabel.setText(feed.date.decodeToTimeAgo())
+      timeLabel.setText(dateFormatter.string(from: feed.date))
       contentLabel.setAttributedText(feed.rawHtmlContent.attributedStringFromHTML)
-      //contentLabel.setText(feed.rawHtmlContent.attributedStringFromHTML?.string)
     }
   }
 

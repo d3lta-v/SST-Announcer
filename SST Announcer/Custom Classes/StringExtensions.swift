@@ -304,7 +304,9 @@ extension String {
    text contains elements that cannot be displayed
    */
   var attributedStringFromHTML: NSAttributedString? {
-    let mainString = self.cleanerHTML.strippedHTML.stringByDecodingHTMLEntities
+    var mainString = self.cleanerHTML.stringByDecodingHTMLEntities.strippedHTML
+    mainString = mainString.replacingOccurrences(of: "\n\n", with: "\n")
+    mainString = mainString.truncate(512, wordSeparator: " ", trailing: "... (The rest of the text is truncated)")
     let mutableAttributedString = NSMutableAttributedString()
     let mainAttributedString = NSAttributedString(string: mainString, attributes: [NSForegroundColorAttributeName: UIColor.white])
     if self.hasUndisplayableTraitsForWatch {
@@ -360,14 +362,28 @@ extension String {
     return html
   }
 
-  /// Truncated version a string to a certain length with trailing padding
-  /// - parameter length: The length to truncate the `String` to
-  /// - parameter trailing: The trailing characters to use after truncation
-  /// - returns: A truncated `String` with a specific trailing length and trailing string
-  func trunc(_ length: Int, trailing: String? = "...") -> String {
+  /**
+   Truncated version of a string with trailing padding and automatically separated by word
+   - parameter length: The length to truncate
+   - parameter wordSeparator: The delimiter. By default, it is a ` ` character
+   - parameter trailing: The string to be appended to the truncated string
+   - returns: The truncated string with the above parameters
+   */
+  func truncate(_ length: Int, wordSeparator: String = " ", trailing: String = "...") -> String {
     if self.characters.count > length {
-      let index = self.index(self.startIndex, offsetBy: length)
-      return self.substring(to: index) + (trailing ?? "")
+      let words = self.components(separatedBy: wordSeparator)
+      var cumulativeCharacters = 0
+      var wordsToInclude:[String] = []
+      for word in words {
+        cumulativeCharacters += word.lengthOfBytes(using: .utf8) + 1
+        if cumulativeCharacters < length {
+          wordsToInclude.append(word)
+        } else {
+          return wordsToInclude.joined(separator: wordSeparator) + trailing
+        }
+      }
+      return self.substring(to: self.index(self.startIndex, offsetBy: length)) + trailing
+      //return self.substringToIndex(self.startIndex.advancedBy(length)) + trailing //old version
     } else {
       return self
     }
