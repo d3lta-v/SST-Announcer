@@ -145,19 +145,32 @@ extension Feeder: XMLParserDelegate {
   func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
     if elementName == "entry" {
       // Clean up "dirty" HTML by removing stuff caused by Blogger's editor
+      print(currentFeedItem.rawHtmlContent)
       currentFeedItem.rawHtmlContent = currentFeedItem.rawHtmlContent.cleanHTML
-      // Strip HTML tags away for better previews, as well as decoding HTML entities
+      // Strip HTML tags away for better previews on table views, as well as decoding HTML entities
       let decodedHtml = currentFeedItem.rawHtmlContent.stringByDecodingHTMLEntities
       currentFeedItem.strippedHtmlContent = decodedHtml.strippedHTML.trunc(280)
       // Append to feeds array
       var sameElement = false
-      for feed in feeds {
+      var elementChanged = false
+      var indexChanged = -1
+      for (index, feed) in feeds.enumerated() {
         if currentFeedItem.link == feed.link {
           sameElement = true
+        }
+        if currentFeedItem.date == feed.date && currentFeedItem.rawHtmlContent != feed.rawHtmlContent {
+          // An article with the same publication date has its content altered
+          if !elementChanged {
+            indexChanged = index
+            elementChanged = true
+          }
         }
       }
       if !sameElement {
         feeds.insert(currentFeedItem, at: 0)
+      } else if elementChanged {
+        // If it is the same element and the element was changed at index
+        feeds[indexChanged] = currentFeedItem
       }
     }
   }

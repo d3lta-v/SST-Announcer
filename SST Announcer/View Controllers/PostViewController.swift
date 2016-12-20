@@ -119,7 +119,7 @@ class PostViewController: UIViewController {
   // MARK: - Private convienience functions
 
   private func loadFeed(_ item: FeedItem) {
-    if undisplayableTraitsExist(forItem: item) {
+    if item.rawHtmlContent.hasUndisplayableTraits {
       webView.isHidden = false
       textView.isHidden = true
       guard let url = URL(string: item.link) else {
@@ -152,17 +152,6 @@ class PostViewController: UIViewController {
       return
     }
     textView.attributedString = stringBuilder.generatedAttributedString()
-  }
-
-  private func undisplayableTraitsExist(forItem item: FeedItem) -> Bool {
-    let content = item.rawHtmlContent
-    if content.range(of: "<iframe") != nil {
-      return true
-    }
-    if content.range(of: "<table") != nil {
-      return true
-    }
-    return false
   }
 
   fileprivate func displayError(_ errString: String) {

@@ -12,3 +12,4 @@ target 'SST Announcer' do
 	pod 'SGNavigationProgress'
 	pod 'TUSafariActivity', '~> 1.0'
 end
+
