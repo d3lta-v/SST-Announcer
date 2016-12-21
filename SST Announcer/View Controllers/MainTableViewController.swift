@@ -13,13 +13,23 @@ class MainTableViewController: UITableViewController {
 
   // MARK: - Variables
 
-  fileprivate var collapseDetailViewController = true //When selected, this should turn false
+  // MARK: UI Assistants
+  /// Tracks the state of whether or not to collapse the detail view controller
+  fileprivate var collapseDetailViewController = true
+  /// Progress tracking for UI only, loading will not actually be cancelled
+  fileprivate var progressCancelled = false
+  /// Computed property to check if the search controller is active
+  fileprivate var searchControllerActive: Bool {
+    return searchController.isActive && searchController.searchBar.text!.characters.count > 0
+  }
 
+  // MARK: Feeder related variables
   fileprivate var feeder = Feeder()
   fileprivate var filteredFeeds: [FeedItem] = []
   /// A `FeedItem` object that is pushed from push notifications
   internal var pushedFeedItem: FeedItem?
 
+  // MARK: UI
   fileprivate var searchController: UISearchController = {
     let searchCtrl = UISearchController(searchResultsController: nil)
     searchCtrl.hidesNavigationBarDuringPresentation = false
@@ -27,14 +37,6 @@ class MainTableViewController: UITableViewController {
     searchCtrl.searchBar.barStyle = .default
     return searchCtrl
   }()
-
-  /// Progress tracking for UI only, loading will not actually be cancelled
-  fileprivate var progressCancelled = false
-
-  /// Computed property to check if the search controller is active
-  fileprivate var searchControllerActive: Bool {
-    return searchController.isActive && searchController.searchBar.text!.characters.count > 0
-  }
 
   // MARK: - Lifecycle
 
@@ -49,6 +51,10 @@ class MainTableViewController: UITableViewController {
     searchController.delegate = self
     searchController.searchResultsUpdater = self
     searchController.searchBar.delegate = self
+
+    // Add refresh control
+    refreshControl = UIRefreshControl()
+    refreshControl?.addTarget(self, action: #selector(refreshTriggered(sender:)), for: .valueChanged)
 
     // Start loading feeds asynchronously
     feeder.delegate = self
@@ -77,6 +83,12 @@ class MainTableViewController: UITableViewController {
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
+  }
+
+  // MARK: - Objective-C selectors
+
+  @objc private func refreshTriggered(sender: Any) {
+    feeder.requestFeedsAsynchronous()
   }
 
   // MARK: - Table view data source
@@ -181,13 +193,22 @@ extension MainTableViewController: FeederDelegate {
 
   func feedFinishedParsing(withFeedArray feedArray: [FeedItem]?, error: Error?) {
     progressCancelled = false
+    DispatchQueue.main.async {
+      if self.refreshControl!.isRefreshing {
+        self.refreshControl!.endRefreshing()
+      }
+    }
     if let error = error {
       // Parse error here
       switch error {
       case AnnouncerError.networkError:
         print("Network error occured")
+      case AnnouncerError.parseError:
+        print("Parse error occured")
+      case AnnouncerError.unwrapError:
+        print("Unwrap error occured")
       default:
-        print("Error occured")
+        print("Unknown error occured")
       }
     } else {
       DispatchQueue.main.async {

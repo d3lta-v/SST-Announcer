@@ -43,7 +43,7 @@ class Feeder: NSObject {
 
   /**
    Date formatter specific to Blogger RSS 2.0 datestamps
-   NOTE: This is NOT ISO8601!
+   NOTE: This is similar to, but NOT ISO8601!
    */
   fileprivate var rssDateFormatter: DateFormatter = {
     let dateFormatter = DateFormatter()
@@ -60,7 +60,9 @@ class Feeder: NSObject {
 
   internal var delegate: FeederDelegate?
 
+  /// Requests for feeds asynchronously and caches them
   internal func requestFeedsAsynchronous() {
+    buffer = Data() //clear buffer, this is very important for refreshing logic to work
     let request = URLRequest(url: URL(string: "https://node1.sstinc.org/api/cache/blogrss.csv")!)
 
     let config = URLSessionConfiguration.default
@@ -80,9 +82,7 @@ class Feeder: NSObject {
     defaults.set(cachedData, forKey: "feedCache")
   }
 
-  /**
-   Retreives a copy of the cached feeds from NSUserDefaults, deserializes it and returns it to a FeedItem object
-   */
+  /// Retreives a copy of the cached feeds from NSUserDefaults, deserializes it and returns it to a FeedItem object
   internal func getCachedFeeds() {
     guard let feedsObject = defaults.object(forKey: "feedCache") as? Data else {
       return
