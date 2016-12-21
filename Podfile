@@ -6,6 +6,8 @@ target 'SST Announcer' do
 	use_frameworks!
 
 	# Pods for SST Announcer
+	pod 'Fabric'
+	pod 'Crashlytics'
 	pod 'OneSignal'
 	pod 'DTCoreText'
 	pod 'SnapKit'
