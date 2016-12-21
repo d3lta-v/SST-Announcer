@@ -306,7 +306,7 @@ extension String {
   var attributedStringFromHTML: NSAttributedString? {
     var mainString = self.cleanerHTML.stringByDecodingHTMLEntities.strippedHTML
     mainString = mainString.replacingOccurrences(of: "\n\n", with: "\n")
-    mainString = mainString.truncate(512, wordSeparator: " ", trailing: "... (The rest of the text is truncated. You can Handoff the article to your iPhone)")
+    mainString = mainString.truncate(1024, wordSeparator: " ", trailing: "... (The rest of the text is truncated. You can Handoff the article to your iPhone)")
     let mutableAttributedString = NSMutableAttributedString()
     let mainAttributedString = NSAttributedString(string: mainString, attributes: [NSForegroundColorAttributeName: UIColor.white])
     if self.hasUndisplayableTraitsForWatch {
