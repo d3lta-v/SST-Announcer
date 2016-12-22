@@ -13,5 +13,5 @@ target 'SST Announcer' do
 	pod 'SnapKit'
 	pod 'SGNavigationProgress'
 	pod 'TUSafariActivity', '~> 1.0'
+    pod 'JGProgressHUD'
 end
-

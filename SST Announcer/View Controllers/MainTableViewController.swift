@@ -8,6 +8,7 @@
 
 import UIKit
 import SGNavigationProgress
+import JGProgressHUD
 
 class MainTableViewController: UITableViewController {
 
@@ -36,6 +37,12 @@ class MainTableViewController: UITableViewController {
     searchCtrl.dimsBackgroundDuringPresentation = false
     searchCtrl.searchBar.barStyle = .default
     return searchCtrl
+  }()
+  let pushHud: JGProgressHUD = {
+    let hud = JGProgressHUD(style: .dark)!
+    hud.interactionType = .blockTouchesOnHUDView
+    hud.textLabel.text = "Opening Push Notification..."
+    return hud
   }()
 
   // MARK: - Lifecycle
@@ -66,12 +73,12 @@ class MainTableViewController: UITableViewController {
       if traitCollection.forceTouchCapability == .available {
         registerForPreviewing(with: self, sourceView: view)
       }
-    } else {
-      // Fallback on earlier versions
     }
 
     // Check for push notification, if present, open push
-    // TODO
+    if pushedFeedItem != nil {
+      pushHud.show(in: self.splitViewController!.view)
+    }
   }
 
   override func viewWillDisappear(_ animated: Bool) {
@@ -197,6 +204,9 @@ extension MainTableViewController: FeederDelegate {
       if self.refreshControl!.isRefreshing {
         self.refreshControl!.endRefreshing()
       }
+      if self.pushedFeedItem != nil {
+        self.pushHud.dismiss()
+      }
     }
     if let error = error {
       // Parse error here
@@ -216,12 +226,23 @@ extension MainTableViewController: FeederDelegate {
         // Display push notification, if there is a push notification
         if let feedItem = self.pushedFeedItem {
           // Cycle through all feeds to find and select that post
+          var successfullyOpenedPush = false
           for (index, element) in self.feeder.feeds.enumerated() {
             if element.link == feedItem.link {
+              successfullyOpenedPush = true
               let indexPath = IndexPath(row: index, section: 0)
               self.tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
               self.performSegue(withIdentifier: "presentPostFromMain", sender: self)
             }
+          }
+          if !successfullyOpenedPush {
+            // Show error
+            let errorHud = JGProgressHUD(style: .dark)!
+            errorHud.indicatorView = JGProgressHUDErrorIndicatorView()
+            errorHud.textLabel.text = "Unable to open push"
+            errorHud.interactionType = .blockTouchesOnHUDView
+            errorHud.show(in: self.splitViewController!.view)
+            errorHud.dismiss(afterDelay: 2)
           }
         }
       }
