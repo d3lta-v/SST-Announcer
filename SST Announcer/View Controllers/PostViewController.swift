@@ -84,6 +84,8 @@ class PostViewController: UIViewController {
     navigationController!.cancelSGProgress()
     // Remove observer
     webView.removeObserver(self, forKeyPath: "estimatedProgress")
+    // Remove animation
+    (self.originalNavigationController ?? self.navigationController!).cancelSGProgress()
   }
 
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
