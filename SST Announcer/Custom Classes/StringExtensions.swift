@@ -305,8 +305,8 @@ extension String {
    */
   var attributedStringFromHTML: NSAttributedString? {
     var mainString = self.cleanerHTML.stringByDecodingHTMLEntities.strippedHTML
-    mainString = mainString.replacingOccurrences(of: "\n\n", with: "\n")
-    mainString = mainString.truncate(1024, wordSeparator: " ", trailing: "... (The rest of the text is truncated. You can Handoff the article to your iPhone)")
+    mainString = mainString.truncate(1024, wordSeparator: " ", trailing: "... (The rest of the post is truncated. You can read the article on your iPhone)")
+    mainString = mainString.replacingOccurrences(of: "\n\n\n", with: "\n\n")
     let mutableAttributedString = NSMutableAttributedString()
     let mainAttributedString = NSAttributedString(string: mainString, attributes: [NSForegroundColorAttributeName: UIColor.white])
     if self.hasUndisplayableTraitsForWatch {
@@ -338,7 +338,8 @@ extension String {
     for rule in rules {
       html = html.replacingOccurrences(of: rule, with: "", options: .regularExpression, range: nil)
     }
-    html = html.replacingOccurrences(of: "<div><br /></div>", with: "<br />", options: .regularExpression, range: nil)
+    html = html.replacingOccurrences(of: "<br [\\s\\S]*?/>", with: "<br />", options: .regularExpression, range: nil)
+    html = html.replacingOccurrences(of: "<div><br /></div>", with: "<br />")
     //html = html.replacingOccurrences(of: " color: white;", with: "")
     return html
   }
