@@ -38,6 +38,10 @@ class MainTableController: WKInterfaceController {
     pushController(withName: "Post", context: context)
   }
 
+  @IBAction func refreshTapped() {
+    feeder.requestFeedsAsynchronous()
+  }
+
 }
 
 extension MainTableController: FeederDelegate {
