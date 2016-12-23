@@ -123,15 +123,17 @@ class PostViewController: UIViewController {
 
   private func loadFeed(_ item: FeedItem) {
     if item.rawHtmlContent.hasUndisplayableTraits {
-      // Show HUD
+      // Show HUD for better UX
       let hud = JGProgressHUD(style: .dark)!
       hud.interactionType = .blockTouchesOnHUDView
       hud.textLabel.text = "Loading web version..."
       hud.detailTextLabel.text = "This post cannot be optimised"
       hud.show(in: self.splitViewController!.view)
       hud.dismiss(afterDelay: 3)
+      // Adjust UI element hiding
       webView.isHidden = false
       textView.isHidden = true
+      // Load request
       guard let url = URL(string: item.link) else {
         displayError("Unable to open invalid URL: \(item.link)")
         return

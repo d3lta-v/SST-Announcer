@@ -73,7 +73,7 @@ class Feeder: NSObject {
   }
 
   /**
-   Stores a copy of the cached feeds to NSUserDefaults, serializes it and stores it as an NSData object.
+   Stores a copy of the cached feeds to NSUserDefaults, serializes it and stores it as Data.
    - parameter feeds: An array of `FeedItem` s.
    */
   internal func setCachedFeeds() {
@@ -82,7 +82,8 @@ class Feeder: NSObject {
     defaults.set(cachedData, forKey: "feedCache")
   }
 
-  /// Retreives a copy of the cached feeds from NSUserDefaults, deserializes it and returns it to a FeedItem object
+  /// Retreives a copy of the cached feeds from NSUserDefaults, 
+  /// deserializes it and returns it to a FeedItem object
   internal func getCachedFeeds() {
     guard let feedsObject = defaults.object(forKey: "feedCache") as? Data else {
       return

@@ -310,7 +310,8 @@ extension String {
     let mutableAttributedString = NSMutableAttributedString()
     let mainAttributedString = NSAttributedString(string: mainString, attributes: [NSForegroundColorAttributeName: UIColor.white])
     if self.hasUndisplayableTraitsForWatch {
-      mutableAttributedString.append(NSAttributedString(string: "This post contains elements Apple Watch can't display. You can read a text version below\n\n", attributes: [NSForegroundColorAttributeName: #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)]))
+      let warningString = "This post contains elements Apple Watch can't display. You can read a text version below\n\n"
+      mutableAttributedString.append(NSAttributedString(string: warningString, attributes: [NSForegroundColorAttributeName: #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)]))
     }
     mutableAttributedString.append(mainAttributedString)
     return mutableAttributedString
@@ -330,7 +331,6 @@ extension String {
    */
   var cleanHTML: String {
     var html = self
-    //html = html.replacingOccurrences(of: " style=\"[\\s\\S]*?\"", with: "", options: .regularExpression, range: nil)
     let rules = [" height=\"[\\s\\S]*?\"",
                  " width=\"[\\s\\S]*?\"",
                  " border=\"[\\s\\S]*?\"",
@@ -374,7 +374,7 @@ extension String {
     if self.characters.count > length {
       let words = self.components(separatedBy: wordSeparator)
       var cumulativeCharacters = 0
-      var wordsToInclude:[String] = []
+      var wordsToInclude: [String] = []
       for word in words {
         cumulativeCharacters += word.lengthOfBytes(using: .utf8) + 1
         if cumulativeCharacters < length {

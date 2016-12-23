@@ -9,7 +9,6 @@
 import WatchKit
 import Foundation
 
-
 class PostInterfaceController: WKInterfaceController {
 
   @IBOutlet weak var titleLabel: WKInterfaceLabel!
