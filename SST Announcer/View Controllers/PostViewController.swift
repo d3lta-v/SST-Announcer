@@ -13,6 +13,7 @@ import SnapKit
 import SafariServices
 import SGNavigationProgress
 import TUSafariActivity
+import JGProgressHUD
 
 class PostViewController: UIViewController {
 
@@ -76,14 +77,14 @@ class PostViewController: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     // Add KVO for progress to webview
-    webView.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
+    webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
   }
 
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     navigationController!.cancelSGProgress()
     // Remove observer
-    webView.removeObserver(self, forKeyPath: "estimatedProgress")
+    webView.removeObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress))
     // Remove animation
     (self.originalNavigationController ?? self.navigationController!).cancelSGProgress()
   }
@@ -102,7 +103,7 @@ class PostViewController: UIViewController {
   // MARK: - KVO
 
   override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-    if keyPath == "estimatedProgress" {
+    if keyPath == #keyPath(WKWebView.estimatedProgress) {
       print(webView.estimatedProgress)
       if webView.estimatedProgress != 1 {
         DispatchQueue.main.async {
@@ -122,6 +123,13 @@ class PostViewController: UIViewController {
 
   private func loadFeed(_ item: FeedItem) {
     if item.rawHtmlContent.hasUndisplayableTraits {
+      // Show HUD
+      let hud = JGProgressHUD(style: .dark)!
+      hud.interactionType = .blockTouchesOnHUDView
+      hud.textLabel.text = "Loading web version..."
+      hud.detailTextLabel.text = "This post cannot be optimised"
+      hud.show(in: self.splitViewController!.view)
+      hud.dismiss(afterDelay: 3)
       webView.isHidden = false
       textView.isHidden = true
       guard let url = URL(string: item.link) else {
