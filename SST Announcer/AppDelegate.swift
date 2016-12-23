@@ -25,12 +25,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return
       }
       let payload = result.notification.payload
-      guard let fullMessage = payload?.title else {
+      print("DEBUG: \nTitle:\(payload!.title)\nBody:\(payload!.body)\n")
+      guard let title = payload?.title else {
         //TODO: Relay telemetry as this may be a severe failure
+        print("Unable to unwrap payload's title!")
         return
       }
-      // Check if this is a "New Post: " type of message
-      if fullMessage.substring(to: fullMessage.index(fullMessage.startIndex, offsetBy: 10)) == "New Message: " {
+      guard let fullMessage = payload?.body else {
+        //TODO: Relay telemetry as this may be a severe failure
+        print("Unable to unwrap fullMessage!")
+        return
+      }
+      // Check if this is a "New Post!" type of message
+      if title == "New Post!" {
         guard let splitViewController = self.window?.rootViewController as? UISplitViewController else {
           //TODO: Relay telemetry as this may be a severe failure
           print("Severe error occured, unable to assign split view controller")
@@ -51,10 +58,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           print("Severe error occured, unable to unwrap link from addtionalData array")
           return
         }
-        let actualTitle = fullMessage.substring(from: fullMessage.index(fullMessage.startIndex, offsetBy: 10))
-        primaryViewController.pushedFeedItem = FeedItem(title: actualTitle, link: link, date: Date(), author: "", rawHtml: "", strippedHtml: "", read: false)
+        primaryViewController.pushedFeedItem = FeedItem(title: fullMessage, link: link, date: Date(), author: "", rawHtml: "", strippedHtml: "", read: false)
       } else {
-        //TODO: Handle other types of payloads
+        // Handle other types of push notifications here
       }
     }
     return true

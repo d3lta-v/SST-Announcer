@@ -63,6 +63,8 @@ class PostViewController: UIViewController {
 
     if let feedItem = feedObject {
       loadFeed(feedItem)
+    } else {
+      //TODO: Send the error over, because this should never happen
     }
 
     // Initialise web view
