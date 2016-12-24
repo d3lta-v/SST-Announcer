@@ -304,7 +304,7 @@ extension String {
    text contains elements that cannot be displayed
    */
   var attributedStringFromHTML: NSAttributedString? {
-    var mainString = self.cleanerHTML.stringByDecodingHTMLEntities.strippedHTML
+    var mainString = self.cleanerHTML().stringByDecodingHTMLEntities.strippedHTML
     mainString = mainString.truncate(1024, wordSeparator: " ", trailing: "... (The rest of the post is truncated. You can read the article on your iPhone)")
     mainString = mainString.replacingOccurrences(of: "\n\n\n", with: "\n\n")
     let mutableAttributedString = NSMutableAttributedString()
@@ -348,18 +348,25 @@ extension String {
    A higher level function designed to clean HTML more thoroughly into plaintext
 
    This method is designed specifically for displaying plain text on Apple Watch
+   - parameter nlCharacter: The character to replace for newlines or linebreaks in HTML
+   - returns: The sanitised string
    */
-  var cleanerHTML: String {
+  func cleanerHTML(withNewlineCharacter nlCharacter: String = "\n", compactNewlines: Bool = false) -> String {
     var html = self
     // Part 1: Replace with appropriate characters
-    html = html.replacingOccurrences(of: "<div><br /></div>", with: "\n")
-    html = html.replacingOccurrences(of: "<br />", with: "\n")
-    html = html.replacingOccurrences(of: "</div>", with: "\n")
+    html = html.replacingOccurrences(of: "<div><br /></div>", with: nlCharacter)
+    html = html.replacingOccurrences(of: "<br />", with: nlCharacter)
+    html = html.replacingOccurrences(of: "</div>", with: nlCharacter)
     for i in 1..<7 {
-      html = html.replacingOccurrences(of: "</h\(i)>", with: "\n")
+      html = html.replacingOccurrences(of: "</h\(i)>", with: nlCharacter)
     }
     // Part 2: Weed out elements that cannot be displayed at all like iframes
     html = html.replacingOccurrences(of: "<iframe[\\s\\S]*?/iframe>", with: "", options: .regularExpression, range: nil)
+    // Part 3: Compact the newline characters
+    if compactNewlines {
+      html = html.replacingOccurrences(of: "\(nlCharacter)\(nlCharacter)\(nlCharacter)", with: nlCharacter)
+      html = html.replacingOccurrences(of: "\(nlCharacter)\(nlCharacter)", with: nlCharacter)
+    }
     return html
   }
 

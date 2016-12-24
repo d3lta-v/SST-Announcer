@@ -149,7 +149,7 @@ extension Feeder: XMLParserDelegate {
       currentFeedItem.rawHtmlContent = currentFeedItem.rawHtmlContent.cleanHTML
       // Strip HTML tags away for better previews on table views, as well as decoding HTML entities
       let decodedHtml = currentFeedItem.rawHtmlContent.stringByDecodingHTMLEntities
-      currentFeedItem.strippedHtmlContent = decodedHtml.strippedHTML.truncate(280)
+      currentFeedItem.strippedHtmlContent = decodedHtml.cleanerHTML(withNewlineCharacter: " ", compactNewlines: true).strippedHTML.truncate(280)
       // Append to feeds array
       var sameElement = false
       var elementChanged = false
