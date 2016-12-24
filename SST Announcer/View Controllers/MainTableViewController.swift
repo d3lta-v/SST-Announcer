@@ -208,18 +208,25 @@ extension MainTableViewController: FeederDelegate {
         self.pushHud.dismiss()
       }
     }
-    if let error = error {
-      // Parse error here
+    if let error = error as? AnnouncerError {
+      // Display error here
+      let errorHud = JGProgressHUD(style: .dark)!
+      errorHud.indicatorView = JGProgressHUDErrorIndicatorView()
+      errorHud.interactionType = .blockTouchesOnHUDView
       switch error {
-      case AnnouncerError.networkError:
-        print("Network error occured")
-      case AnnouncerError.parseError:
-        print("Parse error occured")
-      case AnnouncerError.unwrapError:
-        print("Unwrap error occured")
+      case .networkError (let description):
+        errorHud.textLabel.text = "Network error occured"
+        errorHud.detailTextLabel.text = description
+      case .parseError:
+        errorHud.textLabel.text = "Parsing error occured"
+      case .unwrapError:
+        errorHud.textLabel.text = "Internal error occured"
       default:
-        print("Unknown error occured")
+        errorHud.textLabel.text = "Unknown error occured"
+        //TODO: Relay telemetry because this case should never be hit
       }
+      errorHud.show(in: self.splitViewController!.view)
+      errorHud.dismiss(afterDelay: 2)
     } else {
       DispatchQueue.main.async {
         self.tableView.reloadData()

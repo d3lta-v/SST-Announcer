@@ -20,7 +20,7 @@ protocol FeederDelegate: class {
 /// propagate from class to class, optimised for maximum interoperability
 enum AnnouncerError: Error {
   /// A network error occured
-  case networkError
+  case networkError(description: String)
   /// The program was unable to unwrap data from nil to a non-nil value
   case unwrapError
   /// The parser was unable to validate the XML
@@ -116,7 +116,7 @@ extension Feeder: URLSessionDataDelegate {
   func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
     if let error = error {
       print(error.localizedDescription)
-      delegate?.feedFinishedParsing(withFeedArray: nil, error: AnnouncerError.networkError)
+      delegate?.feedFinishedParsing(withFeedArray: nil, error: AnnouncerError.networkError(description: error.localizedDescription))
     } else {
       // Completed loading with no network errors, start the parser
       parser = XMLParser(data: buffer)
