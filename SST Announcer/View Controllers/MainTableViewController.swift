@@ -55,9 +55,9 @@ class MainTableViewController: UITableViewController {
 
     // Set navigation bar to the search bar and set delegates
     navigationItem.titleView = searchController.searchBar
-    searchController.delegate = self
+    //searchController.delegate = self
     searchController.searchResultsUpdater = self
-    searchController.searchBar.delegate = self
+    //searchController.searchBar.delegate = self
 
     // Add refresh control
     refreshControl = UIRefreshControl()
@@ -260,7 +260,7 @@ extension MainTableViewController: FeederDelegate {
 
 // MARK: - UISearch-related delegates
 
-extension MainTableViewController: UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate {
+extension MainTableViewController: UISearchResultsUpdating {
 
   func updateSearchResults(for searchController: UISearchController) {
     filter(forSearchText: searchController.searchBar.text!)

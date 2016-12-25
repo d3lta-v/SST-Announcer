@@ -58,7 +58,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           print("Severe error occured, unable to unwrap link from addtionalData array")
           return
         }
-        primaryViewController.pushedFeedItem = FeedItem(title: fullMessage, link: link, date: Date(), author: "", rawHtml: "", strippedHtml: "", read: false)
+        let payloadFeedItem = FeedItem()
+        payloadFeedItem.title = fullMessage
+        payloadFeedItem.link = link
+        primaryViewController.pushedFeedItem = payloadFeedItem
       } else {
         // Handle other types of push notifications here
       }

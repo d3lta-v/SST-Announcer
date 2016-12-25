@@ -53,11 +53,13 @@ class PostViewController: UIViewController {
     navigationItem.leftItemsSupplementBackButton = true
 
     // Automatically show popover if device is an iPad in Portrait (size class is reg, reg)
-    let isPortrait = UIInterfaceOrientationIsPortrait(UIApplication.shared.statusBarOrientation)
-    if splitViewController!.traitCollection.isRR && isPortrait {
-      let btn = splitViewController!.displayModeButtonItem
-      DispatchQueue.main.async {
-        btn.target!.performSelector(inBackground: btn.action!, with: btn)
+    if let splitViewController = splitViewController {
+      let isPortrait = UIInterfaceOrientationIsPortrait(UIApplication.shared.statusBarOrientation)
+      if splitViewController.traitCollection.isRR && isPortrait {
+        let btn = splitViewController.displayModeButtonItem
+        DispatchQueue.main.async {
+          btn.target!.performSelector(inBackground: btn.action!, with: btn)
+        }
       }
     }
 
@@ -130,7 +132,7 @@ class PostViewController: UIViewController {
       hud.interactionType = .blockTouchesOnHUDView
       hud.textLabel.text = "Loading web version..."
       hud.detailTextLabel.text = "This post cannot be optimised"
-      hud.show(in: self.splitViewController!.view)
+      hud.show(in: self.splitViewController?.view ?? self.navigationController!.view)
       hud.dismiss(afterDelay: 3)
       // Adjust UI element hiding
       webView.isHidden = false
@@ -279,7 +281,8 @@ extension PostViewController: DTAttributedTextContentViewDelegate, DTLazyImageVi
 
     var didUpdate = false
 
-    guard var predicateArray: [DTTextAttachment] = textView.attributedTextContentView.layoutFrame.textAttachments(with: pred) as? [DTTextAttachment] else {
+    guard let layoutFrame = textView.attributedTextContentView.layoutFrame,
+          var predicateArray = layoutFrame.textAttachments(with: pred) as? [DTTextAttachment] else {
       //TODO: Log severe message here to server
       return
     }

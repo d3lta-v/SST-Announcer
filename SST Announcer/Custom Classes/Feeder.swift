@@ -27,6 +27,8 @@ enum AnnouncerError: Error {
   case validationError
   /// The parser was unable to parse the XML
   case parseError
+  /// An unknown error occured. This error should never occur in the program
+  case unknownError(description: String)
 }
 
 class Feeder: NSObject {
@@ -38,7 +40,7 @@ class Feeder: NSObject {
 
   fileprivate var parser: XMLParser!
   internal var feeds: [FeedItem] = []
-  fileprivate var currentFeedItem = FeedItem(title: "", link: "", date: Date(), author: "", rawHtml: "", strippedHtml: "", read: false)
+  fileprivate var currentFeedItem = FeedItem()
   fileprivate var currentElement = ""
 
   /**
@@ -135,9 +137,10 @@ extension Feeder: XMLParserDelegate {
   func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
     currentElement = elementName
     if elementName == "entry" {
-      currentFeedItem = FeedItem(title: "", link: "", date: Date(), author: "", rawHtml: "", strippedHtml: "", read: false)
+      currentFeedItem = FeedItem()
     } else if elementName == "link" {
-      if attributeDict["rel"] == "alternate" && attributeDict["href"] != "http://studentsblog.sst.edu.sg/" {
+      let studentsBlogUrl = "http://studentsblog.sst.edu.sg/"
+      if attributeDict["rel"] == "alternate" && attributeDict["href"] != studentsBlogUrl {
         currentFeedItem.link = attributeDict["href"]!
       }
     }

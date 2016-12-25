@@ -20,7 +20,7 @@ public class FeedItem: NSObject, NSCoding {
   public var strippedHtmlContent: String
   public var read: Bool
 
-  public init(title: String, link: String, date: Date, author: String, rawHtml: String, strippedHtml: String, read: Bool) {
+  init(title: String, link: String, date: Date, author: String, rawHtml: String, strippedHtml: String, read: Bool) {
     self.title = title
     self.link = link
     self.date = date
@@ -30,6 +30,17 @@ public class FeedItem: NSObject, NSCoding {
     self.read = read
 
     super.init()
+  }
+
+  /// Initializes a fresh FeedItem object with minimal detail, meant to be an empty object
+  convenience override init() {
+    self.init(title: "",
+              link: "",
+              date: Date(),
+              author: "",
+              rawHtml: "",
+              strippedHtml: "",
+              read: false)
   }
 
   // MARK: - NSCoding
