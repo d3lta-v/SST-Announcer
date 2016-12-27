@@ -298,9 +298,10 @@ extension String {
     return false
   }
 
-  /// An `NSAttributedString` generated from a HTML `String`, intended for use as a decoding function
-  /// designed specifically for the ⌚️. This function includes a warning for Apple Watch if the
-  /// text contains elements that cannot be displayed
+  /// An `NSAttributedString` generated from a HTML `String`, intended for use as a 
+  /// decoding function designed specifically for the ⌚️.
+  /// This function includes a warning for Apple Watch if the text contains elements
+  /// that cannot be displayed
   var attributedStringFromHTML: NSAttributedString? {
     var mainString = self.cleanerHTML().stringByDecodingHTMLEntities.strippedHTML
     mainString = mainString.truncate(1024, wordSeparator: " ", trailing: "... (The rest of the post is truncated. You can read the article on your iPhone)")

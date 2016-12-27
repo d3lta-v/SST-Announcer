@@ -14,7 +14,8 @@ extension AnnouncerError {
 
   /// Log the current error to Crashlytics/Fabric
   func relayTelemetry() {
-    Answers.logCustomEvent(withName: errorTypeString, customAttributes: ["description": localizedDescription])
+    let attributes = ["description": localizedDescription]
+    Answers.logCustomEvent(withName: errorTypeString, customAttributes: attributes)
   }
 
 }
