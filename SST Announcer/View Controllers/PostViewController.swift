@@ -63,11 +63,12 @@ class PostViewController: UIViewController {
       }
     }
 
-    if let feedItem = feedObject {
-      loadFeed(feedItem)
-    } else {
-      //TODO: Send the error over, because this should never happen
+    guard let feedItem = feedObject else {
+      // Relay severe issue
+      AnnouncerError(type: .unwrapError, errorDescription: "Unable to unwrap feed object!").relayTelemetry()
+      return
     }
+    loadFeed(feedItem)
 
     // Initialise web view
     webView.navigationDelegate = self
@@ -160,11 +161,25 @@ class PostViewController: UIViewController {
       DTDefaultLinkDecoration: "",
       ]
     guard let htmlData = item.rawHtmlContent.data(using: .utf8) else {
-      //TODO: Show error
+      let errorDescription = "Unable to convert html to data with utf8. Item link: \(item.link)"
+      AnnouncerError(type: .unwrapError, errorDescription: errorDescription).relayTelemetry()
+      let hud = JGProgressHUD(style: .dark)!
+      hud.textLabel.text = "An internal error occured"
+      hud.detailTextLabel.text = "Please contact our developers to submit a bug report"
+      hud.indicatorView = JGProgressHUDErrorIndicatorView()
+      hud.show(in: self.splitViewController?.view ?? self.navigationController?.view)
+      hud.dismiss(afterDelay: 3)
       return
     }
     guard let stringBuilder = DTHTMLAttributedStringBuilder(html: htmlData, options: builderOptions, documentAttributes: nil) else {
-      //TODO: Show error
+      let errorDescription = "Unable to initialize string builder! Item link: \(item.link)"
+      AnnouncerError(type: .unwrapError, errorDescription: errorDescription).relayTelemetry()
+      let hud = JGProgressHUD(style: .dark)!
+      hud.textLabel.text = "An internal error occured"
+      hud.detailTextLabel.text = "Please contact our developers to submit a bug report"
+      hud.indicatorView = JGProgressHUDErrorIndicatorView()
+      hud.show(in: self.splitViewController?.view ?? self.navigationController?.view)
+      hud.dismiss(afterDelay: 3)
       return
     }
     textView.attributedString = stringBuilder.generatedAttributedString()
@@ -240,7 +255,6 @@ extension PostViewController: DTAttributedTextContentViewDelegate, DTLazyImageVi
   func attributedTextContentView(_ attributedTextContentView: DTAttributedTextContentView!, viewForLink url: URL!, identifier: String!, frame: CGRect) -> UIView! {
     let linkButton = DTLinkButton(frame: frame)
     linkButton.url = url
-    //TODO: Add action via selector
     linkButton.addTarget(self, action: #selector(linkPushed(_:)), for: .touchUpInside)
     return linkButton
   }
@@ -256,7 +270,6 @@ extension PostViewController: DTAttributedTextContentViewDelegate, DTLazyImageVi
         button.url = attachment.hyperLinkURL
         button.minimumHitSize = CGSize(width: 25, height: 25)
         button.guid = attachment.hyperLinkGUID
-        //TODO: Add action via selector
         button.addTarget(self, action: #selector(linkPushed(_:)), for: .touchUpInside)
         imageView.addSubview(button)
       }
@@ -283,7 +296,8 @@ extension PostViewController: DTAttributedTextContentViewDelegate, DTLazyImageVi
 
     guard let layoutFrame = textView.attributedTextContentView.layoutFrame,
           var predicateArray = layoutFrame.textAttachments(with: pred) as? [DTTextAttachment] else {
-      //TODO: Log severe message here to server
+      let errorDescription = "Unable to predicate text attachment array"
+      AnnouncerError(type: .unwrapError, errorDescription: errorDescription).relayTelemetry()
       return
     }
 
@@ -301,7 +315,8 @@ extension PostViewController: DTAttributedTextContentViewDelegate, DTLazyImageVi
 
   @objc private func linkPushed(_ button: DTLinkButton) {
     guard let url = button.url else {
-      //TODO: Log something here back to developer, including the absoluteString of the URL
+      let errorDescription = "Unable to unwrap button url: \(button.url.absoluteString))"
+      AnnouncerError(type: .unwrapError, errorDescription: errorDescription).relayTelemetry()
       return
     }
     if UIApplication.shared.canOpenURL(url.absoluteURL) {

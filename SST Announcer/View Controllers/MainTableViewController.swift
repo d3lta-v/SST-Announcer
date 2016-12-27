@@ -213,17 +213,19 @@ extension MainTableViewController: FeederDelegate {
       let errorHud = JGProgressHUD(style: .dark)!
       errorHud.indicatorView = JGProgressHUDErrorIndicatorView()
       errorHud.interactionType = .blockTouchesOnHUDView
-      switch error {
-      case .networkError (let description):
+      switch error.errorType {
+      case .networkError:
         errorHud.textLabel.text = "Network error occured"
-        errorHud.detailTextLabel.text = description
+        errorHud.detailTextLabel.text = error.localizedDescription
       case .parseError:
         errorHud.textLabel.text = "Parsing error occured"
       case .unwrapError:
         errorHud.textLabel.text = "Internal error occured"
       default:
         errorHud.textLabel.text = "Unknown error occured"
-        //TODO: Relay telemetry because this case should never be hit
+        let errorMessage = "Feed failed parsing and switched to default case"
+        let error = AnnouncerError(type: .unknownError, errorDescription: errorMessage)
+        error.relayTelemetry()
       }
       errorHud.show(in: self.splitViewController!.view)
       errorHud.dismiss(afterDelay: 2)

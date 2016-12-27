@@ -16,21 +16,6 @@ protocol FeederDelegate: class {
 
 }
 
-/// A collection of all the possible errors that the entire Announcer app can
-/// propagate from class to class, optimised for maximum interoperability
-enum AnnouncerError: Error {
-  /// A network error occured
-  case networkError(description: String)
-  /// The program was unable to unwrap data from nil to a non-nil value
-  case unwrapError
-  /// The parser was unable to validate the XML
-  case validationError
-  /// The parser was unable to parse the XML
-  case parseError
-  /// An unknown error occured. This error should never occur in the program
-  case unknownError(description: String)
-}
-
 class Feeder: NSObject {
 
   fileprivate var expectedContentLength: Int64 = 0
@@ -117,8 +102,8 @@ extension Feeder: URLSessionDataDelegate {
 
   func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
     if let error = error {
-      print(error.localizedDescription)
-      delegate?.feedFinishedParsing(withFeedArray: nil, error: AnnouncerError.networkError(description: error.localizedDescription))
+      let error = AnnouncerError(type: .networkError, errorDescription: error.localizedDescription)
+      delegate?.feedFinishedParsing(withFeedArray: nil, error: error)
     } else {
       // Completed loading with no network errors, start the parser
       parser = XMLParser(data: buffer)
@@ -212,7 +197,8 @@ extension Feeder: XMLParserDelegate {
   }
 
   func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
-    delegate?.feedFinishedParsing(withFeedArray: nil, error: AnnouncerError.parseError)
+    let error = AnnouncerError(type: .parseError, errorDescription: parseError.localizedDescription)
+    delegate?.feedFinishedParsing(withFeedArray: nil, error: error)
   }
 
 }
