@@ -39,12 +39,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       }
       // Check if this is a "New Post!" type of message
       if title == "New Post!" {
-        guard let splitViewController = self.window?.rootViewController as? UISplitViewController else {
+        let rootViewController = self.window?.rootViewController
+        guard let splitViewController = rootViewController as? UISplitViewController else {
           //TODO: Relay telemetry as this may be a severe failure
           print("Severe error occured, unable to assign split view controller")
           return
         }
-        guard let primaryViewController = splitViewController.viewControllers.first as? MainTableViewController else {
+        let firstViewController = splitViewController.viewControllers.first
+        guard let primaryViewController = firstViewController as? MainTableViewController else {
           //TODO: Relay telemetry as this may be a severe failure
           print("Severe error occured, unable to assign primary view controller")
           return

@@ -8,6 +8,8 @@
 
 import UIKit
 
+// swiftlint:disable file_length
+
 // Mapping from XML/HTML character entity reference to character
 // From http://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references
 private let characterEntities: [String: Character] = [
@@ -420,9 +422,13 @@ extension String {
     //     decode("&foo;")    --> nil
     func decode(_ entity: String) -> Character? {
       if entity.hasPrefix("&#x") || entity.hasPrefix("&#X") {
-        return decodeNumeric(entity.substring(with: entity.index(entity.startIndex, offsetBy: 3) ..< entity.index(entity.endIndex, offsetBy: -1)), base: 16)
+        let first3Index = entity.index(entity.startIndex, offsetBy: 3)
+        let last1Index = entity.index(entity.endIndex, offsetBy: -1)
+        return decodeNumeric(entity.substring(with: first3Index ..< last1Index), base: 16)
       } else if entity.hasPrefix("&#") {
-        return decodeNumeric(entity.substring(with: entity.index(entity.startIndex, offsetBy: 2) ..< entity.index(entity.endIndex, offsetBy: -1)), base: 10)
+        let first2Index = entity.index(entity.startIndex, offsetBy: 2)
+        let last1Index = entity.index(entity.endIndex, offsetBy: -1)
+        return decodeNumeric(entity.substring(with: first2Index ..< last1Index), base: 10)
       } else {
         return characterEntities[entity]
       }

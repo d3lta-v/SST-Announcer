@@ -475,7 +475,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#if hash swiftlint 2>/dev/null; then\n#    swiftlint\n#fi";
+			shellScript = "if hash swiftlint 2>/dev/null; then\n    swiftlint\nfi";
 		};
 		2D5B8F0EFAB6BA58393895F9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

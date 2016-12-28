@@ -11,6 +11,7 @@ import DTCoreText
 
 extension String {
 
+  // swiftlint:disable:next cyclomatic_complexity
   static func getPixelSizeForDynamicType() -> String {
     // Support for Dynamic Type for DTCoreText!!!
     let preferredSizeCategory = UIApplication.shared.preferredContentSizeCategory

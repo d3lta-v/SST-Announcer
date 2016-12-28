@@ -107,11 +107,13 @@ class PostViewController: UIViewController {
 
   // MARK: - KVO
 
+  // swiftlint:disable:next line_length
   override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
     if keyPath == #keyPath(WKWebView.estimatedProgress) {
       print(webView.estimatedProgress)
       if webView.estimatedProgress != 1 {
         DispatchQueue.main.async {
+          // swiftlint:disable:next line_length
           (self.originalNavigationController ?? self.navigationController!).setSGProgressPercentage(Float(self.webView.estimatedProgress * 100))
         }
       } else {
@@ -171,6 +173,7 @@ class PostViewController: UIViewController {
       hud.dismiss(afterDelay: 3)
       return
     }
+    // swiftlint:disable:next line_length
     guard let stringBuilder = DTHTMLAttributedStringBuilder(html: htmlData, options: builderOptions, documentAttributes: nil) else {
       let errorDescription = "Unable to initialize string builder! Item link: \(item.link)"
       AnnouncerError(type: .unwrapError, errorDescription: errorDescription).relayTelemetry()
@@ -207,7 +210,9 @@ class PostViewController: UIViewController {
     guard let url = URL(string: feedObject.link) else {
       return
     }
-    let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: [TUSafariActivity()])
+    let activities = [TUSafariActivity()]
+    // swiftlint:disable:next line_length
+    let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: activities)
     activityVC.popoverPresentationController?.barButtonItem = shareBarButtonItem
     navigationController!.present(activityVC, animated: true, completion: nil)
   }
@@ -250,7 +255,7 @@ extension PostViewController: WKNavigationDelegate {
 
 // MARK: - DTAttributedContentView-related delegates
 
-extension PostViewController: DTAttributedTextContentViewDelegate, DTLazyImageViewDelegate, DTWebVideoViewDelegate {
+extension PostViewController: DTAttributedTextContentViewDelegate, DTLazyImageViewDelegate {
 
   func attributedTextContentView(_ attributedTextContentView: DTAttributedTextContentView!, viewForLink url: URL!, identifier: String!, frame: CGRect) -> UIView! {
     let linkButton = DTLinkButton(frame: frame)

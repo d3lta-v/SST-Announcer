@@ -20,7 +20,14 @@ public class FeedItem: NSObject, NSCoding {
   public var strippedHtmlContent: String
   public var read: Bool
 
-  init(title: String, link: String, date: Date, author: String, rawHtml: String, strippedHtml: String, read: Bool) {
+  // swiftlint:disable:next function_parameter_count
+  init(title: String,
+       link: String,
+       date: Date,
+       author: String,
+       rawHtml: String,
+       strippedHtml: String,
+       read: Bool) {
     self.title = title
     self.link = link
     self.date = date
