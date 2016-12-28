@@ -162,6 +162,7 @@ class MainTableViewController: UITableViewController {
   // MARK: - Navigation
 
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    self.splitViewController?.view.endEditing(false)
     if segue.identifier == "presentPostFromMain" {
       if let navController = segue.destination as? UINavigationController {
         guard let postViewController = navController.topViewController as? PostViewController else {
