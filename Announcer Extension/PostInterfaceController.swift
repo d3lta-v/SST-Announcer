@@ -11,11 +11,11 @@ import Foundation
 
 class PostInterfaceController: WKInterfaceController {
 
-  @IBOutlet weak var titleLabel: WKInterfaceLabel!
-  @IBOutlet weak var authorLabel: WKInterfaceLabel!
-  @IBOutlet weak var dateLabel: WKInterfaceLabel!
-  @IBOutlet weak var timeLabel: WKInterfaceLabel!
-  @IBOutlet weak var contentLabel: WKInterfaceLabel!
+  @IBOutlet var titleLabel: WKInterfaceLabel!
+  @IBOutlet var authorLabel: WKInterfaceLabel!
+  @IBOutlet var dateLabel: WKInterfaceLabel!
+  @IBOutlet var timeLabel: WKInterfaceLabel!
+  @IBOutlet var contentLabel: WKInterfaceLabel!
 
   let dateFormatter: DateFormatter = {
     let df = DateFormatter()
