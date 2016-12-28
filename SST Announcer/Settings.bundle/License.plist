@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Third Party API Licenses</string>
+			<key>FooterText</key>
+			<string>This app employs third party APIs and libraries (packaged pieces of code) to enhance your experience and it also makes our job a little easier. We&apos;ve included the respective licenses to respect their rights to including their license notices in our application.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>JGProgressHUD</string>
+			<key>File</key>
+			<string>JGProgressHUD</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>SnapKit</string>
+			<key>File</key>
+			<string>SnapKit</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>DTCoreText</string>
+			<key>File</key>
+			<string>DTCoreText</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>TUSafariActivity</string>
+			<key>File</key>
+			<string>TUSafariActivity</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>JGProgressHUD</string>
+			<key>File</key>
+			<string>JGProgressHUD</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>SGNavigationProgress</string>
+			<key>File</key>
+			<string>SGNavigationProgress</string>
+		</dict>
+	</array>
+</dict>
+</plist>

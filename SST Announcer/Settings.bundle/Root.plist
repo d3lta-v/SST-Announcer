@@ -16,9 +16,17 @@
 Graphics designer: Christopher Kok, Dalton Ng
 Beta tester: Liaw Xiao Tao
 
-Copyright (C) Developed by StatiX Industries &amp; Published by SST Inc. 2013-2016. All Rights Reserved
+Copyright (C) Developed by FourierIndustries (formerly StatiX Industries) &amp; Published by SST Inc. 2013-2016. All Rights Reserved
 
 Per aspera ad astra - Through adversity, to the stars</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Third Party API Licenses</string>
+			<key>File</key>
+			<string>License</string>
 		</dict>
 	</array>
 </dict>
