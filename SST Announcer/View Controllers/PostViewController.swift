@@ -133,8 +133,8 @@ class PostViewController: UIViewController {
       hud.interactionType = .blockTouchesOnHUDView
       hud.textLabel.text = "Loading web version..."
       hud.detailTextLabel.text = "This post cannot be optimised"
-      hud.show(in: self.splitViewController?.view ?? self.navigationController!.view)
-      hud.dismiss(afterDelay: 3)
+      hud.show(in: self.navigationController!.view)
+      hud.dismiss(afterDelay: 2)
       // Adjust UI element hiding
       webView.isHidden = false
       textView.isHidden = true
