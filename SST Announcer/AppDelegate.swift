@@ -22,19 +22,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let appId = "76349b34-5515-4dbe-91bd-3dff5ca1e780"
     OneSignal.initWithLaunchOptions(launchOptions, appId: appId) { result in
       guard let result = result else {
-        //TODO: Relay telemetry as this may be a severe failure
+        AnnouncerError(type: .unwrapError, errorDescription: "Unable to unwrap push result!").relayTelemetry()
         print("[SEVERE]: unable to unwrap result!")
         return
       }
       let payload = result.notification.payload
-      print("DEBUG: \nTitle:\(payload!.title)\nBody:\(payload!.body)\n")
+      print("[DEBUG]: \nTitle:\(payload!.title)\nBody:\(payload!.body)\n")
       guard let title = payload?.title else {
-        //TODO: Relay telemetry as this may be a severe failure
+        AnnouncerError(type: .unwrapError, errorDescription: "Unable to unwrap payload title!").relayTelemetry()
         print("[SEVERE]: Unable to unwrap payload's title!")
         return
       }
       guard let fullMessage = payload?.body else {
-        //TODO: Relay telemetry as this may be a severe failure
+        AnnouncerError(type: .unwrapError, errorDescription: "Unable to unwrap fullMessage!").relayTelemetry()
         print("[SEVERE]: Unable to unwrap fullMessage!")
         return
       }
