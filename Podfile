@@ -14,4 +14,5 @@ target 'SST Announcer' do
 	pod 'SGNavigationProgress'
 	pod 'TUSafariActivity', '~> 1.0'
     pod 'JGProgressHUD'
+	pod 'XCGLogger', '~> 4.0.0'
 end

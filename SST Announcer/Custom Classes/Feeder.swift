@@ -172,7 +172,7 @@ extension Feeder: XMLParserDelegate {
       if let date = rssDateFormatter.date(from: string) {
         currentFeedItem.date = date
       } else {
-        print("Unable to parse date! RSS format may have changed!")
+        AnnouncerError(type: .validationError, errorDescription: "Unable to parse date! RSS format has changed!")
       }
     } else if currentElement == "name" {
       // Name of author

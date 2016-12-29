@@ -16,26 +16,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
 
+  // swiftlint:disable line_length
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
     Fabric.with([Crashlytics.self, Answers.self])
     let appId = "76349b34-5515-4dbe-91bd-3dff5ca1e780"
     OneSignal.initWithLaunchOptions(launchOptions, appId: appId) { result in
+      Logger.shared.log.debug("[DEBUG]: Launching from push notification...")
       guard let result = result else {
         AnnouncerError(type: .unwrapError, errorDescription: "Unable to unwrap push result!").relayTelemetry()
-        print("[SEVERE]: unable to unwrap result!")
+        Logger.shared.log.debug("[SEVERE]: Unable to unwrap result!")
         return
       }
       let payload = result.notification.payload
-      print("[DEBUG]: \nTitle:\(payload!.title)\nBody:\(payload!.body)\n")
+      Logger.shared.log.debug("[DEBUG]: \nTitle:\(payload!.title)\nBody:\(payload!.body)\n")
       guard let title = payload?.title else {
         AnnouncerError(type: .unwrapError, errorDescription: "Unable to unwrap payload title!").relayTelemetry()
-        print("[SEVERE]: Unable to unwrap payload's title!")
+        Logger.shared.log.debug("[SEVERE]: Unable to unwrap payload's title!")
         return
       }
       guard let fullMessage = payload?.body else {
         AnnouncerError(type: .unwrapError, errorDescription: "Unable to unwrap fullMessage!").relayTelemetry()
-        print("[SEVERE]: Unable to unwrap fullMessage!")
+        Logger.shared.log.debug("[SEVERE]: Unable to unwrap fullMessage!")
         return
       }
       // Check if this is a "New Post!" type of message
@@ -43,23 +45,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let rootViewController = self.window?.rootViewController
         guard let splitViewController = rootViewController as? UISplitViewController else {
           //TODO: Relay telemetry as this may be a severe failure
-          print("[SEVERE]: Unable to assign split view controller")
+          Logger.shared.log.debug("[SEVERE]: Unable to assign split view controller")
           return
         }
         let firstViewController = splitViewController.viewControllers.first
         guard let primaryViewController = firstViewController as? MainTableViewController else {
           //TODO: Relay telemetry as this may be a severe failure
-          print("[SEVERE]: Unable to assign primary view controller")
+          Logger.shared.log.debug("[SEVERE]: Unable to assign primary view controller")
           return
         }
         guard let additionalData = payload?.additionalData as? [String: String] else {
           //TODO: Relay telemetry as this may be a severe failure
-          print("[SEVERE]: Unable to unwrap addtional data dictionary from payload")
+          Logger.shared.log.debug("[SEVERE]: Unable to unwrap addtional data dictionary from payload")
           return
         }
         guard let link = additionalData["link"] else {
           //TODO: Relay telemetry as this may be a severe failure
-          print("[SEVERE]: Unable to unwrap link from addtionalData array")
+          Logger.shared.log.debug("[SEVERE]: Unable to unwrap link from addtionalData array")
           return
         }
         let payloadFeedItem = FeedItem()
@@ -72,6 +74,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     return true
   }
+  // swiftlint:enable line_length
 
   func applicationWillResignActive(_ application: UIApplication) {
     // Sent when the application is about to move from active to inactive state.

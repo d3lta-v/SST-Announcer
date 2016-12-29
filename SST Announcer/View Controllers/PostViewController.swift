@@ -108,7 +108,6 @@ class PostViewController: UIViewController {
   // swiftlint:disable:next line_length
   override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
     if keyPath == #keyPath(WKWebView.estimatedProgress) {
-      print(webView.estimatedProgress)
       if webView.estimatedProgress != 1 {
         DispatchQueue.main.async {
           // swiftlint:disable:next line_length
@@ -233,13 +232,11 @@ extension PostViewController: WKNavigationDelegate {
   func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
     (originalNavigationController ?? navigationController!).cancelSGProgress()
     displayError("Unable to open webpage: \(error.localizedDescription)")
-    print(error.localizedDescription)
   }
 
   func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
     (originalNavigationController ?? navigationController!).cancelSGProgress()
     displayError("Unable to open webpage: \(error.localizedDescription)")
-    print(error.localizedDescription)
   }
 
   func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
