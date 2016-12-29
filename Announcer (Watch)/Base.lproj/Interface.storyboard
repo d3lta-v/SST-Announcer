@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+    <device id="watch38" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="watchOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11508"/>
+    </dependencies>
+    <scenes>
+        <!--Main Table Controller-->
+        <scene sceneID="aou-V4-d1y">
+            <objects>
+                <controller id="AgC-eL-Hgc" customClass="MainTableController" customModule="Announcer_Extension">
+                    <items>
+                        <imageView alignment="center" verticalAlignment="center" hidden="YES" image="wave_" id="z8s-JB-I2I"/>
+                        <label width="1" alignment="center" verticalAlignment="center" text="Loading..." textAlignment="center" numberOfLines="0" id="ugz-az-A8X">
+                            <color key="textColor" red="0.42655369639396667" green="0.47584608197212219" blue="0.48026475310325623" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="font" style="UICTFontTextStyleCaption2"/>
+                        </label>
+                        <table alignment="left" id="3Ev-85-Bye">
+                            <items>
+                                <tableRow identifier="postRow" id="0hi-hh-2kq" customClass="PostRowController" customModule="Announcer_Extension">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" id="mTx-nQ-Ibi">
+                                        <items>
+                                            <separator alignment="left" id="tIa-bZ-p9R"/>
+                                            <group width="1" alignment="left" layout="vertical" id="eK9-KM-Bo8">
+                                                <items>
+                                                    <label alignment="left" text="Title" numberOfLines="2" id="cGI-Zu-lGg">
+                                                        <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                                                    </label>
+                                                    <label alignment="left" text="Author" id="J3g-rZ-5ga">
+                                                        <color key="textColor" red="0.68888300657272339" green="0.71366006135940552" blue="0.73448425531387329" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                                    </label>
+                                                    <label alignment="left" text="Date" id="OWB-QC-DT6">
+                                                        <color key="textColor" red="0.68888300657272339" green="0.71366006135940552" blue="0.73448425531387329" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                                    </label>
+                                                </items>
+                                                <edgeInsets key="margins" left="0.0" right="0.0" top="4" bottom="4"/>
+                                            </group>
+                                        </items>
+                                    </group>
+                                    <connections>
+                                        <outlet property="authorLabel" destination="J3g-rZ-5ga" id="Nmk-QB-DOt"/>
+                                        <outlet property="dateLabel" destination="OWB-QC-DT6" id="CHv-EL-QVE"/>
+                                        <outlet property="titleLabel" destination="cGI-Zu-lGg" id="2jQ-Tk-oUb"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
+                    <menu key="menu" id="oS1-Sc-8sE">
+                        <items>
+                            <menuItem title="Refresh" icon="resume" id="9nK-rL-RiK">
+                                <connections>
+                                    <action selector="refreshTapped" destination="AgC-eL-Hgc" id="CV7-Rf-gv2"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                    <connections>
+                        <outlet property="animationImage" destination="z8s-JB-I2I" id="hwX-lm-Plv"/>
+                        <outlet property="feedSourceLabel" destination="ugz-az-A8X" id="9b6-rv-EZJ"/>
+                        <outlet property="table" destination="3Ev-85-Bye" id="qld-yc-bob"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="220" y="345"/>
+        </scene>
+        <!--Post-->
+        <scene sceneID="QRN-5B-SZW">
+            <objects>
+                <controller identifier="Post" id="WqH-co-XS9" customClass="PostInterfaceController" customModule="Announcer_Extension">
+                    <items>
+                        <label alignment="left" text="Title" numberOfLines="0" id="To5-tE-2EU">
+                            <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                        </label>
+                        <label alignment="left" text="Author" id="fiR-0u-rwX">
+                            <color key="textColor" red="0.68888300660000001" green="0.71366006140000005" blue="0.73448425530000006" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                        </label>
+                        <group width="1" height="16" alignment="left" id="5eh-eH-Pd8">
+                            <items>
+                                <label alignment="left" text="Date" id="Oh3-6r-5KM">
+                                    <color key="textColor" red="0.68888300657272339" green="0.71366006135940552" blue="0.73448425531387329" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                </label>
+                                <label alignment="right" text="Time" id="t97-Px-5xk">
+                                    <color key="textColor" red="0.68888300660000001" green="0.71366006140000005" blue="0.73448425530000006" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                </label>
+                            </items>
+                        </group>
+                        <separator alignment="left" id="6M0-Tl-xK2">
+                            <color key="color" red="0.42655369639396667" green="0.47584608197212219" blue="0.48026475310325623" alpha="1" colorSpace="calibratedRGB"/>
+                        </separator>
+                        <label alignment="left" text="Content" numberOfLines="0" id="KnS-E2-jEJ"/>
+                    </items>
+                    <connections>
+                        <outlet property="authorLabel" destination="fiR-0u-rwX" id="vxU-f9-Smz"/>
+                        <outlet property="contentLabel" destination="KnS-E2-jEJ" id="yUt-gu-QEv"/>
+                        <outlet property="dateLabel" destination="Oh3-6r-5KM" id="yaH-Rd-dSJ"/>
+                        <outlet property="timeLabel" destination="t97-Px-5xk" id="vVH-6u-8hP"/>
+                        <outlet property="titleLabel" destination="To5-tE-2EU" id="aRV-Za-djU"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="505" y="345"/>
+        </scene>
+        <!--Static Notification Interface Controller-->
+        <scene sceneID="AEw-b0-oYE">
+            <objects>
+                <notificationController id="YCC-NB-fut">
+                    <items>
+                        <label alignment="left" text="Alert Label" id="IdU-wH-bcW">
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        </label>
+                    </items>
+                    <notificationCategory key="notificationCategory" identifier="myCategory" id="JfB-70-Muf">
+                        <color key="sashColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </notificationCategory>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="notificationAlertLabel" destination="IdU-wH-bcW" id="zUv-R1-Ed9"/>
+                    </connections>
+                </notificationController>
+            </objects>
+            <point key="canvasLocation" x="220" y="643"/>
+        </scene>
+    </scenes>
+    <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+</document>
