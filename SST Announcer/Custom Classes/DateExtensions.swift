@@ -29,23 +29,40 @@ extension Date {
   public func decodeToTimeAgo() -> String {
     let dateToDecode = self
     let currentDate = Date()
-    let difference = currentDate.timeIntervalSince(dateToDecode)
-    if difference < 24*60*60 { // Between 1hr and 24 hours
+    let calendar = Calendar(identifier: .gregorian)
+    let components = calendar.dateComponents([.day], from: dateToDecode, to: currentDate)
+    let difference = components.day!
+
+    if difference < 1 {
       return "Today"
-    } else if difference >= 24*60*60 && difference < 24*60*60*14 { //Between 1day and 1fortnight
-      let days = Int(round(difference/60/60/24))
-      switch days {
+    } else if difference < 14 {
+      switch difference {
       case 1:
         return "Yesterday"
       default:
-        return "\(days) days"
+        return "\(difference) days"
       }
     } else {
-      // Return date of post
       let dateFormatter = DateFormatter.initWithSafeLocale()
       dateFormatter.dateFormat = "d.M.yy"
       return dateFormatter.string(from: dateToDecode)
     }
+//    if difference < 24*60*60 { // Between 1hr and 24 hours
+//      return "Today"
+//    } else if difference >= 24*60*60 && difference < 24*60*60*14 { //Between 1day and 1fortnight
+//      let days = Int(round(difference/60/60/24))
+//      switch days {
+//      case 1:
+//        return "Yesterday"
+//      default:
+//        return "\(days) days"
+//      }
+//    } else {
+//      // Return date of post
+//      let dateFormatter = DateFormatter.initWithSafeLocale()
+//      dateFormatter.dateFormat = "d.M.yy"
+//      return dateFormatter.string(from: dateToDecode)
+//    }
   }
 
 }

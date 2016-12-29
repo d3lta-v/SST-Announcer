@@ -48,14 +48,6 @@
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 			<key>Title</key>
-			<string>JGProgressHUD</string>
-			<key>File</key>
-			<string>JGProgressHUD</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
-			<key>Title</key>
 			<string>SGNavigationProgress</string>
 			<key>File</key>
 			<string>SGNavigationProgress</string>

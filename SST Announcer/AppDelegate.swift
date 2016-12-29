@@ -22,19 +22,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let appId = "76349b34-5515-4dbe-91bd-3dff5ca1e780"
     OneSignal.initWithLaunchOptions(launchOptions, appId: appId) { result in
       guard let result = result else {
-        // No notifications received
+        //TODO: Relay telemetry as this may be a severe failure
+        print("[SEVERE]: unable to unwrap result!")
         return
       }
       let payload = result.notification.payload
       print("DEBUG: \nTitle:\(payload!.title)\nBody:\(payload!.body)\n")
       guard let title = payload?.title else {
         //TODO: Relay telemetry as this may be a severe failure
-        print("Unable to unwrap payload's title!")
+        print("[SEVERE]: Unable to unwrap payload's title!")
         return
       }
       guard let fullMessage = payload?.body else {
         //TODO: Relay telemetry as this may be a severe failure
-        print("Unable to unwrap fullMessage!")
+        print("[SEVERE]: Unable to unwrap fullMessage!")
         return
       }
       // Check if this is a "New Post!" type of message
@@ -42,23 +43,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let rootViewController = self.window?.rootViewController
         guard let splitViewController = rootViewController as? UISplitViewController else {
           //TODO: Relay telemetry as this may be a severe failure
-          print("Severe error occured, unable to assign split view controller")
+          print("[SEVERE]: Unable to assign split view controller")
           return
         }
         let firstViewController = splitViewController.viewControllers.first
         guard let primaryViewController = firstViewController as? MainTableViewController else {
           //TODO: Relay telemetry as this may be a severe failure
-          print("Severe error occured, unable to assign primary view controller")
+          print("[SEVERE]: Unable to assign primary view controller")
           return
         }
         guard let additionalData = payload?.additionalData as? [String: String] else {
           //TODO: Relay telemetry as this may be a severe failure
-          print("Severe error occured, unable to unwrap addtional data dictionary from payload")
+          print("[SEVERE]: Unable to unwrap addtional data dictionary from payload")
           return
         }
         guard let link = additionalData["link"] else {
           //TODO: Relay telemetry as this may be a severe failure
-          print("Severe error occured, unable to unwrap link from addtionalData array")
+          print("[SEVERE]: Unable to unwrap link from addtionalData array")
           return
         }
         let payloadFeedItem = FeedItem()
