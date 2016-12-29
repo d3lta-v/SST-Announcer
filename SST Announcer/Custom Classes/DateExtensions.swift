@@ -27,9 +27,9 @@ extension Date {
   /// this method will decode the date to a yyyy/MM/dd format (ISO 8601)
   /// - returns: An optional `String` that represents how much time passed
   public func decodeToTimeAgo() -> String {
-    let dateToDecode = self
-    let currentDate = Date()
     let calendar = Calendar(identifier: .gregorian)
+    let dateToDecode = calendar.startOfDay(for: self)
+    let currentDate = calendar.startOfDay(for: Date())
     let components = calendar.dateComponents([.day], from: dateToDecode, to: currentDate)
     let difference = components.day!
 
