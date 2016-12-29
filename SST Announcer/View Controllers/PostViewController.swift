@@ -64,8 +64,6 @@ class PostViewController: UIViewController {
     }
 
     guard let feedItem = feedObject else {
-      // Relay severe issue
-      AnnouncerError(type: .unwrapError, errorDescription: "Unable to unwrap feed object!").relayTelemetry()
       return
     }
     loadFeed(feedItem)
