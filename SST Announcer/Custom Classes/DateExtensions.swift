@@ -47,22 +47,6 @@ extension Date {
       dateFormatter.dateFormat = "d.M.yy"
       return dateFormatter.string(from: dateToDecode)
     }
-//    if difference < 24*60*60 { // Between 1hr and 24 hours
-//      return "Today"
-//    } else if difference >= 24*60*60 && difference < 24*60*60*14 { //Between 1day and 1fortnight
-//      let days = Int(round(difference/60/60/24))
-//      switch days {
-//      case 1:
-//        return "Yesterday"
-//      default:
-//        return "\(days) days"
-//      }
-//    } else {
-//      // Return date of post
-//      let dateFormatter = DateFormatter.initWithSafeLocale()
-//      dateFormatter.dateFormat = "d.M.yy"
-//      return dateFormatter.string(from: dateToDecode)
-//    }
   }
 
 }
