@@ -47,4 +47,8 @@ struct AnnouncerError: LocalizedError {
     }
   }
 
+  func printError() {
+    print("\(self.errorTypeString): \(self.errorDescription)")
+  }
+
 }
