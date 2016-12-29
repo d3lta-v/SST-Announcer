@@ -73,14 +73,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     return true
   }
 
-  func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-    var token = ""
-    for i in 0 ..< deviceToken.count {
-      token += String(format: "%02.2hhx", [deviceToken[i]])
-    }
-    print("Device token retrieved: \(token)")
-  }
-
   func applicationWillResignActive(_ application: UIApplication) {
     // Sent when the application is about to move from active to inactive state.
     // This can occur for certain types of temporary interruptions (such as an incoming phone
