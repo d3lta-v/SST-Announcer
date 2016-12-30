@@ -25,6 +25,7 @@ class Logger {
     systemDestination.showDate = true
     l.add(destination: systemDestination)
     l.logAppDetails()
+    l.debug("Logger called, beginning Announcer debug session...")
     return l
   }()
 

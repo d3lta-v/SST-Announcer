@@ -234,6 +234,7 @@ extension PostViewController: WKNavigationDelegate {
     displayError("Unable to open webpage: \(error.localizedDescription)")
   }
 
+  // swiftlint:disable:next line_length
   func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
     (originalNavigationController ?? navigationController!).cancelSGProgress()
     displayError("Unable to open webpage: \(error.localizedDescription)")

@@ -16,6 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
 
+  var pushedFeedItem: FeedItem?
+
   // swiftlint:disable line_length
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
@@ -29,7 +31,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return
       }
       let payload = result.notification.payload
-      Logger.shared.log.debug("[DEBUG]: \nTitle:\(payload!.title)\nBody:\(payload!.body)\n")
       guard let title = payload?.title else {
         AnnouncerError(type: .unwrapError, errorDescription: "Unable to unwrap payload title!").relayTelemetry()
         Logger.shared.log.debug("[SEVERE]: Unable to unwrap payload's title!")
@@ -42,18 +43,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       }
       // Check if this is a "New Post!" type of message
       if title == "New Post!" {
-        let rootViewController = self.window?.rootViewController
-        guard let splitViewController = rootViewController as? UISplitViewController else {
-          //TODO: Relay telemetry as this may be a severe failure
-          Logger.shared.log.debug("[SEVERE]: Unable to assign split view controller")
-          return
-        }
-        let firstViewController = splitViewController.viewControllers.first
-        guard let primaryViewController = firstViewController as? MainTableViewController else {
-          //TODO: Relay telemetry as this may be a severe failure
-          Logger.shared.log.debug("[SEVERE]: Unable to assign primary view controller")
-          return
-        }
         guard let additionalData = payload?.additionalData as? [String: String] else {
           //TODO: Relay telemetry as this may be a severe failure
           Logger.shared.log.debug("[SEVERE]: Unable to unwrap addtional data dictionary from payload")
@@ -67,9 +56,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let payloadFeedItem = FeedItem()
         payloadFeedItem.title = fullMessage
         payloadFeedItem.link = link
-        primaryViewController.pushedFeedItem = payloadFeedItem
+        self.pushedFeedItem = payloadFeedItem
       } else {
-        // Handle other types of push notifications here
+        // Handle other types of push notifications here in the future
       }
     }
     return true

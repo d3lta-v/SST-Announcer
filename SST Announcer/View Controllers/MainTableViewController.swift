@@ -27,8 +27,13 @@ class MainTableViewController: UITableViewController {
   // MARK: Feeder related variables
   fileprivate var feeder = Feeder()
   fileprivate var filteredFeeds: [FeedItem] = []
-  /// A `FeedItem` object that is pushed from push notifications
-  internal var pushedFeedItem: FeedItem?
+  /// A `FeedItem` object that is pushed from push notifications, automatically
+  /// retrieving it from AppDelegate
+  fileprivate var pushedFeedItem: FeedItem? = {
+    // swiftlint:disable:next force_cast
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    return appDelegate.pushedFeedItem
+  }()
 
   // MARK: UI
   fileprivate var searchController: UISearchController = {
@@ -61,6 +66,7 @@ class MainTableViewController: UITableViewController {
 
     // Add refresh control
     refreshControl = UIRefreshControl()
+    // swiftlint:disable:next line_length
     refreshControl?.addTarget(self, action: #selector(refreshTriggered(sender:)), for: .valueChanged)
 
     // Start loading feeds asynchronously
@@ -133,7 +139,9 @@ class MainTableViewController: UITableViewController {
     return feeder.feeds.count
   }
 
+  // swiftlint:disable:next line_length
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    // swiftlint:disable:next line_length
     guard let cell = tableView.dequeueReusableCell(withIdentifier: "postcell", for: indexPath) as? PostTableViewCell else {
       fatalError("Unable to cast tableView's cell as a PostTableViewCell!")
     }
@@ -199,6 +207,7 @@ class MainTableViewController: UITableViewController {
 
 extension MainTableViewController: UISplitViewControllerDelegate {
 
+  // swiftlint:disable:next line_length
   func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
     return collapseDetailViewController
   }
@@ -259,6 +268,7 @@ extension MainTableViewController: FeederDelegate {
             errorHud.dismiss(afterDelay: 2)
           }
         }
+        self.pushedFeedItem = nil //reset the variable
       }
     }
   }
@@ -287,6 +297,7 @@ extension MainTableViewController: UISearchResultsUpdating {
 @available(iOS 9.0, *) //only available on iOS 9 and above
 extension MainTableViewController: UIViewControllerPreviewingDelegate {
 
+  // swiftlint:disable line_length
   func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
     guard let indexPath = tableView.indexPathForRow(at: location) else { return nil }
     guard let cell = tableView.cellForRow(at: indexPath) else { return nil }
@@ -309,5 +320,6 @@ extension MainTableViewController: UIViewControllerPreviewingDelegate {
   func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
     show(viewControllerToCommit, sender: self)
   }
+  // swiftlint:enable line_length
 
 }
