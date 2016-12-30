@@ -41,14 +41,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Logger.shared.log.debug("[SEVERE]: Unable to unwrap fullMessage!")
         return
       }
+      Logger.shared.log.debug("Payload additional data: \(payload?.additionalData)")
       // Check if this is a "New Post!" type of message
       if title == "New Post!" {
-        guard let additionalData = payload?.additionalData as? [String: String] else {
+        guard let additionalData = payload?.additionalData else {
           //TODO: Relay telemetry as this may be a severe failure
-          Logger.shared.log.debug("[SEVERE]: Unable to unwrap addtional data dictionary from payload")
+          Logger.shared.log.debug("[SEVERE]: Unable to unwrap additional data dictionary from payload")
           return
         }
-        guard let link = additionalData["link"] else {
+        guard let link = additionalData["link"] as? String else {
           //TODO: Relay telemetry as this may be a severe failure
           Logger.shared.log.debug("[SEVERE]: Unable to unwrap link from addtionalData array")
           return
