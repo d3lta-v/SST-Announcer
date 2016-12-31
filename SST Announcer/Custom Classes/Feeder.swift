@@ -18,6 +18,9 @@ protocol FeederDelegate: class {
 
 class Feeder: NSObject {
 
+  private let request = URLRequest(url: URL(string: "https://node1.sstinc.org/api/cache/blogrss.csv")!)
+  private var config = URLSessionConfiguration.default
+  private var session: URLSession?
   fileprivate var expectedContentLength: Int64 = 0
   fileprivate var buffer: Data = Data()
 
@@ -50,13 +53,13 @@ class Feeder: NSObject {
   /// Requests for feeds asynchronously and caches them
   internal func requestFeedsAsynchronous() {
     buffer = Data() //clear buffer, this is very important for refreshing logic to work
-    let request = URLRequest(url: URL(string: "https://node1.sstinc.org/api/cache/blogrss.csv")!)
+    expectedContentLength = 0
 
-    let config = URLSessionConfiguration.default
-    let session = URLSession(configuration: config, delegate: self, delegateQueue: nil)
-    let dataTask = session.dataTask(with: request)
+    session = nil
+    session = URLSession(configuration: config, delegate: self, delegateQueue: nil)
+    let dataTask = session!.dataTask(with: request)
     dataTask.resume()
-    session.finishTasksAndInvalidate()
+    session!.finishTasksAndInvalidate()
   }
 
   /**
@@ -97,6 +100,7 @@ extension Feeder: URLSessionDataDelegate {
   func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
     buffer.append(data)
     let percentDownloaded = Float(buffer.count) / Float(expectedContentLength)
+    print("Buffer count: \(buffer.count)\nExpected Content Length: \(expectedContentLength)")
     delegate?.feedLoadedPercent(percentDownloaded)
   }
 
