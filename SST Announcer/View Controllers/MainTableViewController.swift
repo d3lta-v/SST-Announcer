@@ -29,11 +29,7 @@ class MainTableViewController: UITableViewController {
   fileprivate var filteredFeeds: [FeedItem] = []
   /// A `FeedItem` object that is pushed from push notifications, automatically
   /// retrieving it from AppDelegate
-  fileprivate var pushedFeedItem: FeedItem? = {
-    // swiftlint:disable:next force_cast
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    return appDelegate.pushedFeedItem
-  }()
+  fileprivate var pushedFeedItem: FeedItem?
 
   // MARK: UI
   fileprivate var searchController: UISearchController = {
@@ -82,6 +78,10 @@ class MainTableViewController: UITableViewController {
     }
 
     // Check for push notification, if present, open push
+    // swiftlint:disable:next force_cast
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    Logger.shared.log.debug("Pushed feed item in Maintable: \(appDelegate.pushedFeedItem)")
+    pushedFeedItem = appDelegate.pushedFeedItem
     if pushedFeedItem != nil {
       pushHud.show(in: self.splitViewController!.view)
     }

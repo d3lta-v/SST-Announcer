@@ -41,7 +41,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Logger.shared.log.debug("[SEVERE]: Unable to unwrap fullMessage!")
         return
       }
-      Logger.shared.log.debug("Payload additional data: \(payload?.additionalData)")
       // Check if this is a "New Post!" type of message
       if title == "New Post!" {
         guard let additionalData = payload?.additionalData else {
@@ -51,13 +50,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         guard let link = additionalData["link"] as? String else {
           //TODO: Relay telemetry as this may be a severe failure
-          Logger.shared.log.debug("[SEVERE]: Unable to unwrap link from addtionalData array")
+          Logger.shared.log.debug("[SEVERE]: Unable to unwrap link from additionalData array")
           return
         }
         let payloadFeedItem = FeedItem()
         payloadFeedItem.title = fullMessage
         payloadFeedItem.link = link
         self.pushedFeedItem = payloadFeedItem
+        Logger.shared.log.debug("[DEBUG]: Successfully changed pushedFeedItem to non-nil value")
       } else {
         // Handle other types of push notifications here in the future
       }
