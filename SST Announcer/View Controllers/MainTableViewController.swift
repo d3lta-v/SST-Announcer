@@ -51,8 +51,14 @@ class MainTableViewController: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    splitViewController!.delegate = self
-    splitViewController!.preferredDisplayMode = .automatic
+    // Initialize necessary push notification delegates
+    // swiftlint:disable:next force_cast
+    let splitViewController = self.splitViewController! as! SplitViewController
+    splitViewController.pushDelegate = self
+
+    // UI
+    splitViewController.delegate = self
+    splitViewController.preferredDisplayMode = .automatic
 
     // Set navigation bar to the search bar and set delegates
     navigationItem.titleView = searchController.searchBar
@@ -75,15 +81,6 @@ class MainTableViewController: UITableViewController {
       if traitCollection.forceTouchCapability == .available {
         registerForPreviewing(with: self, sourceView: view)
       }
-    }
-
-    // Check for push notification, if present, open push
-    // swiftlint:disable:next force_cast
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    Logger.shared.log.debug("Pushed feed item in Maintable: \(appDelegate.pushedFeedItem)")
-    pushedFeedItem = appDelegate.pushedFeedItem
-    if pushedFeedItem != nil {
-      pushHud.show(in: self.splitViewController!.view)
     }
   }
 
@@ -210,6 +207,47 @@ extension MainTableViewController: UISplitViewControllerDelegate {
   // swiftlint:disable:next line_length
   func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
     return collapseDetailViewController
+  }
+
+}
+
+// MARK: - SplitViewControllerPushDelegate
+
+extension MainTableViewController: SplitViewControllerPushDelegate {
+
+  func feedPushed() {
+    // swiftlint:disable:next force_cast
+    pushedFeedItem = (self.splitViewController as! SplitViewController).pushedFeedItem
+    if feeder.loading {
+      // Show HUD
+      pushHud.show(in: self.splitViewController!.view)
+    } else {
+      // Directly go to push notification
+      if let feedItem = self.pushedFeedItem {
+        // Cycle through all feeds to find and select that post
+        var successfullyOpenedPush = false
+        for (index, element) in self.feeder.feeds.enumerated() {
+          if element.link == feedItem.link {
+            successfullyOpenedPush = true
+            let indexPath = IndexPath(row: index, section: 0)
+            self.tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
+            self.performSegue(withIdentifier: "presentPostFromMain", sender: self)
+          }
+        }
+        if !successfullyOpenedPush {
+          // Show error
+          let errorHud = JGProgressHUD(style: .dark)!
+          errorHud.indicatorView = JGProgressHUDErrorIndicatorView()
+          errorHud.textLabel.text = "Unable to open push"
+          errorHud.interactionType = .blockTouchesOnHUDView
+          errorHud.show(in: self.splitViewController!.view)
+          errorHud.dismiss(afterDelay: 2)
+        }
+      } else {
+        Logger.shared.log.debug("[SEVERE]: Feed item is valid but unable to unwrap feed item!")
+      }
+      self.pushedFeedItem = nil //reset the variable
+    }
   }
 
 }

@@ -16,8 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
 
-  var pushedFeedItem: FeedItem?
-
   // swiftlint:disable line_length
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
@@ -44,20 +42,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       // Check if this is a "New Post!" type of message
       if title == "New Post!" {
         guard let additionalData = payload?.additionalData else {
-          //TODO: Relay telemetry as this may be a severe failure
           Logger.shared.log.debug("[SEVERE]: Unable to unwrap additional data dictionary from payload")
           return
         }
         guard let link = additionalData["link"] as? String else {
-          //TODO: Relay telemetry as this may be a severe failure
           Logger.shared.log.debug("[SEVERE]: Unable to unwrap link from additionalData array")
+          return
+        }
+        guard let splitViewController = self.window!.rootViewController as? SplitViewController else {
+          Logger.shared.log.debug("[SEVERE]: Unable to unwrap SplitViewController!")
           return
         }
         let payloadFeedItem = FeedItem()
         payloadFeedItem.title = fullMessage
         payloadFeedItem.link = link
-        self.pushedFeedItem = payloadFeedItem
-        Logger.shared.log.debug("[DEBUG]: Successfully changed pushedFeedItem to non-nil value")
+        splitViewController.pushedFeedItem = payloadFeedItem
       } else {
         // Handle other types of push notifications here in the future
       }

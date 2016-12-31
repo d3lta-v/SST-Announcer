@@ -28,6 +28,7 @@ class Feeder: NSObject {
 
   fileprivate var parser: XMLParser!
   internal var feeds: [FeedItem] = []
+  internal var loading = false
   fileprivate var currentFeedItem = FeedItem()
   fileprivate var currentElement = ""
 
@@ -55,6 +56,7 @@ class Feeder: NSObject {
     buffer = Data() //clear buffer, this is very important for refreshing logic to work
     expectedContentLength = 0
 
+    loading = true
     session = nil
     session = URLSession(configuration: config, delegate: self, delegateQueue: nil)
     let dataTask = session!.dataTask(with: request)
@@ -104,6 +106,7 @@ extension Feeder: URLSessionDataDelegate {
   }
 
   func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+    loading = false
     if let error = error {
       let error = AnnouncerError(type: .networkError, errorDescription: error.localizedDescription)
       delegate?.feedFinishedParsing(withFeedArray: nil, error: error)

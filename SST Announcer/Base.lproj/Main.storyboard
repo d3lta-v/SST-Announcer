@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AAx-E3-uRC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AAx-E3-uRC">
     <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -160,7 +160,7 @@
         <!--Split View Controller-->
         <scene sceneID="nOY-K7-bkm">
             <objects>
-                <splitViewController id="AAx-E3-uRC" sceneMemberID="viewController">
+                <splitViewController id="AAx-E3-uRC" customClass="SplitViewController" customModule="SST_Announcer" customModuleProvider="target" sceneMemberID="viewController">
                     <connections>
                         <segue destination="LqM-96-0WU" kind="relationship" relationship="masterViewController" id="Scd-er-aUa"/>
                         <segue destination="Iqn-Zk-s5G" kind="relationship" relationship="detailViewController" id="eTs-bJ-jmR"/>
@@ -194,6 +194,6 @@
         <image name="Indicator" width="12" height="12"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="UhS-25-RRp"/>
+        <segue reference="eTs-bJ-jmR"/>
     </inferredMetricsTieBreakers>
 </document>
