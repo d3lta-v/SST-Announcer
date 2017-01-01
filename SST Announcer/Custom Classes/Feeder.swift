@@ -18,7 +18,11 @@ protocol FeederDelegate: class {
 
 class Feeder: NSObject {
 
-  private let request = URLRequest(url: URL(string: "https://node1.sstinc.org/api/cache/blogrss.csv")!)
+  private let request: URLRequest = {
+    let url = URL(string: "https://node1.sstinc.org/api/cache/blogrss.csv")!
+    let rq = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 60)
+    return rq
+  }()
   private var config = URLSessionConfiguration.default
   private var session: URLSession?
   fileprivate var expectedContentLength: Int64 = 0
@@ -57,7 +61,6 @@ class Feeder: NSObject {
     expectedContentLength = 0
 
     loading = true
-    session = nil
     session = URLSession(configuration: config, delegate: self, delegateQueue: nil)
     let dataTask = session!.dataTask(with: request)
     dataTask.resume()
