@@ -98,25 +98,27 @@ class MainTableViewController: UITableViewController {
   // MARK: - Objective-C selectors and helpers
 
   fileprivate func displayError(_ error: AnnouncerError) {
-    let errorHud = JGProgressHUD(style: .dark)!
-    errorHud.indicatorView = JGProgressHUDErrorIndicatorView()
-    errorHud.interactionType = .blockTouchesOnHUDView
-    switch error.errorType {
-    case .networkError:
-      errorHud.textLabel.text = "Network error occured"
-      errorHud.detailTextLabel.text = error.localizedDescription
-    case .parseError:
-      errorHud.textLabel.text = "Parsing error occured"
-    case .unwrapError:
-      errorHud.textLabel.text = "Internal error occured"
-    default:
-      errorHud.textLabel.text = "Unknown error occured"
-      let errorMessage = "Feed failed parsing and switched to default case"
-      let error = AnnouncerError(type: .unknownError, errorDescription: errorMessage)
-      error.relayTelemetry()
+    DispatchQueue.main.async {
+      let errorHud = JGProgressHUD(style: .dark)!
+      errorHud.indicatorView = JGProgressHUDErrorIndicatorView()
+      errorHud.interactionType = .blockTouchesOnHUDView
+      switch error.errorType {
+      case .networkError:
+        errorHud.textLabel.text = "Network error occured"
+        errorHud.detailTextLabel.text = error.localizedDescription
+      case .parseError:
+        errorHud.textLabel.text = "Parsing error occured"
+      case .unwrapError:
+        errorHud.textLabel.text = "Internal error occured"
+      default:
+        errorHud.textLabel.text = "Unknown error occured"
+        let errorMessage = "Feed failed parsing and switched to default case"
+        let error = AnnouncerError(type: .unknownError, errorDescription: errorMessage)
+        error.relayTelemetry()
+      }
+      errorHud.show(in: self.splitViewController!.view)
+      errorHud.dismiss(afterDelay: 2)
     }
-    errorHud.show(in: self.splitViewController!.view)
-    errorHud.dismiss(afterDelay: 2)
   }
 
   @objc private func refreshTriggered(sender: Any) {
