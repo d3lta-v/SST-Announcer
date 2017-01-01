@@ -27,11 +27,8 @@ class MainTableController: WKInterfaceController {
     feeder.requestFeedsAsynchronous()
 
     // Check if this is the first launch
-    let userDefaults = UserDefaults.standard
-    let notFirstLaunch = userDefaults.bool(forKey: "firstLaunch")
-    if !notFirstLaunch {
+    if feeder.feeds.count == 0 {
       // Is first launch
-      userDefaults.set(true, forKey: "firstLaunch")
       animationImage.setHidden(false)
       animationImage.startAnimating()
     }
