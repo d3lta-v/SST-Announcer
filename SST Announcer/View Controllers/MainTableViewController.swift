@@ -215,6 +215,25 @@ extension MainTableViewController: UISplitViewControllerDelegate {
 
 extension MainTableViewController: SplitViewControllerPushDelegate {
 
+  /*
+   Please take note: there is a complicated chain of data passing here and I will explain it here
+
+   This is the messaging mechanism for passing data from the push notification to the
+   MainTableViewController
+   AppDelegate > SplitViewController > SplitViewControllerPushDelegate > MainTableViewController
+
+   Reason: This piece of code is run on a seperate thread that is different from the Main Thread.
+   As a result, I cannot synchronously pass the data by setting some global property
+   (which is bad practice in the first place)
+   As such, a more complex messaging system was devised, based mostly on property observers and
+   protocol/delegates was made to ensure relative robustness compaired to a global state.
+
+   Steps:
+   1. AppDelegate retrieves the feed item, assigns it as a property of the SplitViewController
+   2. SplitViewController has a property observer on pushedFeedItem, which triggers a delegate call
+   3. The MainTableViewController receives this delegate call, and initiates the segue <-
+   */
+
   func feedPushed() {
     // swiftlint:disable:next force_cast
     pushedFeedItem = (self.splitViewController as! SplitViewController).pushedFeedItem
