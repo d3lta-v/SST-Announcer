@@ -48,14 +48,28 @@ class MainTableController: WKInterfaceController {
   }
 
   override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
+    feeder.feeds[rowIndex].read = true
     let context = feeder.feeds[rowIndex]
+    feeder.setCachedFeeds()
     pushController(withName: "Post", context: context)
+    reloadTableView()
   }
 
   @IBAction func refreshTapped() {
     feeder.requestFeedsAsynchronous()
     feedSourceLabel.setText("Refreshing...")
     feedSourceLabel.setHidden(false)
+  }
+
+  fileprivate func reloadTableView() {
+    table.setNumberOfRows(self.feeder.feeds.count, withRowType: "postRow")
+    for i in 0..<feeder.feeds.count {
+      guard let controller = self.table.rowController(at: i) as? PostRowController else {
+        //TODO: Relay telemetry, severe error may have occured
+        continue
+      }
+      controller.feed = feeder.feeds[i]
+    }
   }
 
 }
@@ -68,14 +82,7 @@ extension MainTableController: FeederDelegate {
       self.feedSourceLabel.setHidden(true)
       self.animationImage.stopAnimating()
       self.animationImage.setHidden(true)
-      self.table.setNumberOfRows(self.feeder.feeds.count, withRowType: "postRow")
-      for i in 0..<self.feeder.feeds.count {
-        guard let controller = self.table.rowController(at: i) as? PostRowController else {
-          //TODO: Relay telemetry, severe error may have occured
-          continue
-        }
-        controller.feed = self.feeder.feeds[i]
-      }
+      self.reloadTableView()
     }
   }
 
@@ -86,14 +93,7 @@ extension MainTableController: FeederDelegate {
       self.feedSourceLabel.setText("Loaded from cache")
       self.animationImage.stopAnimating()
       self.animationImage.setHidden(true)
-      self.table.setNumberOfRows(self.feeder.feeds.count, withRowType: "postRow")
-      for i in 0..<self.feeder.feeds.count {
-        guard let controller = self.table.rowController(at: i) as? PostRowController else {
-          //TODO: Relay telemetry, severe error may have occured
-          continue
-        }
-        controller.feed = self.feeder.feeds[i]
-      }
+      self.reloadTableView()
     }
   }
 

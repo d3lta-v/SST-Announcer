@@ -24,7 +24,12 @@
                                 <tableRow identifier="postRow" id="0hi-hh-2kq" customClass="PostRowController" customModule="Announcer_Extension">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" id="mTx-nQ-Ibi">
                                         <items>
-                                            <separator alignment="left" id="tIa-bZ-p9R"/>
+                                            <group width="2" height="1" heightAdjustment="-16" alignment="left" verticalAlignment="center" radius="1" id="Nb3-Af-Nn4">
+                                                <color key="backgroundColor" red="0.98823529409999999" green="0.19215686269999999" blue="0.34901960780000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            </group>
+                                            <separator alignment="left" id="o4v-cw-1A2">
+                                                <color key="color" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            </separator>
                                             <group width="1" alignment="left" layout="vertical" id="eK9-KM-Bo8">
                                                 <items>
                                                     <label alignment="left" text="Title" numberOfLines="2" id="cGI-Zu-lGg">
@@ -42,10 +47,12 @@
                                                 <edgeInsets key="margins" left="0.0" right="0.0" top="4" bottom="4"/>
                                             </group>
                                         </items>
+                                        <edgeInsets key="margins" left="4" right="8" top="0.0" bottom="0.0"/>
                                     </group>
                                     <connections>
                                         <outlet property="authorLabel" destination="J3g-rZ-5ga" id="Nmk-QB-DOt"/>
                                         <outlet property="dateLabel" destination="OWB-QC-DT6" id="CHv-EL-QVE"/>
+                                        <outlet property="readIndicator" destination="Nb3-Af-Nn4" id="3yC-yw-LdJ"/>
                                         <outlet property="titleLabel" destination="cGI-Zu-lGg" id="2jQ-Tk-oUb"/>
                                     </connections>
                                 </tableRow>
@@ -115,7 +122,7 @@
             <objects>
                 <notificationController id="YCC-NB-fut">
                     <items>
-                        <label alignment="left" text="Alert Label" id="IdU-wH-bcW">
+                        <label alignment="left" text="Alert Label" numberOfLines="0" id="IdU-wH-bcW">
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         </label>
                     </items>
