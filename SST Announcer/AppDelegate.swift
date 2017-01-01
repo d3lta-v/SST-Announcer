@@ -22,7 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     Fabric.with([Crashlytics.self, Answers.self])
     let appId = "76349b34-5515-4dbe-91bd-3dff5ca1e780"
     OneSignal.initWithLaunchOptions(launchOptions, appId: appId) { result in
-      Logger.shared.log.debug("[DEBUG]: Launching from push notification...")
       guard let result = result else {
         AnnouncerError(type: .unwrapError, errorDescription: "Unable to unwrap push result!").relayTelemetry()
         Logger.shared.log.debug("[SEVERE]: Unable to unwrap result!")
