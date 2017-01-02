@@ -2,28 +2,29 @@
 ==========================
 
 
-Made by StatiX Industries  
+Made by FourierIndustries (formerly StatiX Industries)  
 
 ##Name:
 * SST Announcer
 
 ##Synopsis:
-###This application is still WORK IN PROGRESS! Some of the features may not be reflected in the actual build!  
 The Application is used for fetching RSS feeds over the Internet with HTTPS with a proxy server hosted by SST INC  
 Also, the app can push notifications to the user's iDevice (automatically registers with OneSignal servers)  
-Feed source: http://studentsblog.sst.edu.sg/feeds/posts/default?alt=rss
+Feed source: http://studentsblog.sst.edu.sg/feeds/posts/default
 
 1. Has inbuilt table that displays RSS feeds from the Student's Blog
-2. Feeds are displayed in a beautiful rich text view, courtesy of DTCoreText, and falls back to a web view if there are special elements that cannot be displayed
+2. Feeds are displayed in a beautiful rich text view, courtesy of DTCoreText, and falls back to a web view if there are special elements like embedded content that cannot be displayed
 3. Has loading indicators for web loading, feed loading and others
-4. Is able to display multiple categories of the blog (fetches data)
+4. Larger screened iDevices can enjoy a split view which displays both the posts and the contents of a post
 5. Pushes notifications to the user when the feed is updated (via OpenSignal + APNS)
 6. Has inbuilt web browser to open links
 7. Almost entirely written in Apple's new programming language Swift, with exception of certain third party APIs
+8. Compatible with the Apple ⌚
+9. Supports 3D Touch peek and pop on devices that support 3D Touch
 
 
 ##Availability:
-The App is only usable on the iOS 8.0+ platform
+The App is only usable on the iOS 8.0+ platform and watchOS 3.1+ platform
 Compiles on iOS SDK 10.1, downwards compatible to iOS 8.0
 
 
@@ -39,9 +40,8 @@ FourierIndustries:
 
 
 ##Caveats:
-* The Xcode Project file must be opened in Xcode 8.1 for iOS 10.1 SDK
-* SwiftLint is required. If you do not need SwiftLint, you have to remove the final build phrase
-* All the external dependencies MUST be met in order to compile the project (including account-specific dependencies such as Fabric). If you choose not to, you have to delete the run scripts phrase and delete the dependency entirely from the project.
+* The Xcode Project file must be opened in Xcode 8.2.1 for iOS 10.1 SDK
+* All the external dependencies MUST be met in order to compile the project, that means running installing CocoaPods and running `pod install` to install all the dependencies 
 
 
 ##Dependencies:
