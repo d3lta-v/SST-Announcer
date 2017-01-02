@@ -38,6 +38,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Logger.shared.log.debug("[SEVERE]: Unable to unwrap fullMessage!")
         return
       }
+      guard let splitViewController = self.window!.rootViewController as? SplitViewController else {
+        Logger.shared.log.debug("[SEVERE]: Unable to unwrap SplitViewController!")
+        return
+      }
       // Check if this is a "New Post!" type of message
       if title == "New Post!" {
         guard let additionalData = payload?.additionalData else {
@@ -46,10 +50,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         guard let link = additionalData["link"] as? String else {
           Logger.shared.log.debug("[SEVERE]: Unable to unwrap link from additionalData array")
-          return
-        }
-        guard let splitViewController = self.window!.rootViewController as? SplitViewController else {
-          Logger.shared.log.debug("[SEVERE]: Unable to unwrap SplitViewController!")
           return
         }
         let payloadFeedItem = FeedItem()
@@ -74,8 +74,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          3. The MainTableViewController receives this delegate call, and initiates the segue
          */
         splitViewController.pushedFeedItem = payloadFeedItem
+      } else if title == "Notice" {
+        // Notice type push notifications, which shows a UIAlertController instead
+        let alertView = UIAlertController(title: title, message: fullMessage, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
+        alertView.addAction(cancelAction)
+        splitViewController.present(alertView, animated: true, completion: nil)
       } else {
         // Handle other types of push notifications here in the future
+        Logger.shared.log.debug("[DEBUG]: An unknown push notification type was opened")
       }
     }
     return true
