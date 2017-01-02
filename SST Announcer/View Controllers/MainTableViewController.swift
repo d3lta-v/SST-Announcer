@@ -239,35 +239,11 @@ extension MainTableViewController: SplitViewControllerPushDelegate {
   func feedPushed() {
     // swiftlint:disable:next force_cast
     pushedFeedItem = (self.splitViewController as! SplitViewController).pushedFeedItem
-    if feeder.loading {
-      // Show HUD
-      pushHud.show(in: self.splitViewController!.view)
-    } else {
-      // Directly go to push notification
-      if let feedItem = self.pushedFeedItem {
-        // Cycle through all feeds to find and select that post
-        var successfullyOpenedPush = false
-        for (index, element) in self.feeder.feeds.enumerated() {
-          if element.link == feedItem.link {
-            successfullyOpenedPush = true
-            let indexPath = IndexPath(row: index, section: 0)
-            self.tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
-            self.performSegue(withIdentifier: "presentPostFromMain", sender: self)
-          }
-        }
-        if !successfullyOpenedPush {
-          // Show error
-          let errorHud = JGProgressHUD(style: .dark)!
-          errorHud.indicatorView = JGProgressHUDErrorIndicatorView()
-          errorHud.textLabel.text = "Unable to open push"
-          errorHud.interactionType = .blockTouchesOnHUDView
-          errorHud.show(in: self.splitViewController!.view)
-          errorHud.dismiss(afterDelay: 2)
-        }
-      } else {
-        Logger.shared.log.debug("[SEVERE]: Feed item is valid but unable to unwrap feed item!")
-      }
-      self.pushedFeedItem = nil //reset the variable
+    // Show HUD
+    pushHud.show(in: self.splitViewController!.view)
+    if !feeder.loading {
+      // Reload from web just in case
+      feeder.requestFeedsAsynchronous()
     }
   }
 
