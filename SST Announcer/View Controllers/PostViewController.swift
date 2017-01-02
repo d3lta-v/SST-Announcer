@@ -57,9 +57,7 @@ class PostViewController: UIViewController {
       let isPortrait = UIInterfaceOrientationIsPortrait(UIApplication.shared.statusBarOrientation)
       if splitViewController.traitCollection.isRR && isPortrait {
         let btn = splitViewController.displayModeButtonItem
-        DispatchQueue.main.async {
-          btn.target!.performSelector(inBackground: btn.action!, with: btn)
-        }
+        btn.target!.performSelector(onMainThread: btn.action!, with: btn, waitUntilDone: false)
       }
     }
 
@@ -132,7 +130,7 @@ class PostViewController: UIViewController {
       hud.interactionType = .blockTouchesOnHUDView
       hud.textLabel.text = "Loading web version..."
       hud.detailTextLabel.text = "This post cannot be optimised"
-      hud.show(in: self.navigationController!.view)
+      hud.show(in: self.navigationController?.view)
       hud.dismiss(afterDelay: 2)
       // Adjust UI element hiding
       webView.isHidden = false
