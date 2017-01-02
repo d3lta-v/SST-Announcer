@@ -84,6 +84,7 @@ class Feeder: NSObject {
       return
     }
     NSKeyedUnarchiver.setClass(FeedItem.self, forClassName: "FeedItem")
+    // swiftlint:disable:next line_length
     guard let cachedFeeds = NSKeyedUnarchiver.unarchiveObject(with: feedsObject) as? [FeedItem] else {
       return
     }
@@ -97,6 +98,7 @@ class Feeder: NSObject {
 
 extension Feeder: URLSessionDataDelegate {
 
+  // swiftlint:disable:next line_length
   func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
     expectedContentLength = response.expectedContentLength
     completionHandler(.allow)
@@ -128,6 +130,7 @@ extension Feeder: URLSessionDataDelegate {
 
 extension Feeder: XMLParserDelegate {
 
+  // swiftlint:disable:next line_length
   func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
     currentElement = elementName
     if elementName == "entry" {
@@ -140,12 +143,14 @@ extension Feeder: XMLParserDelegate {
     }
   }
 
+  // swiftlint:disable:next line_length
   func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
     if elementName == "entry" {
       // Clean up "dirty" HTML by removing stuff caused by Blogger's editor
       currentFeedItem.rawHtmlContent = currentFeedItem.rawHtmlContent.cleanHTML
       // Strip HTML tags away for better previews on table views, as well as decoding HTML entities
       let decodedHtml = currentFeedItem.rawHtmlContent.stringByDecodingHTMLEntities
+      // swiftlint:disable:next line_length
       currentFeedItem.strippedHtmlContent = decodedHtml.cleanerHTML(withNewlineCharacter: " ", compactNewlines: true).strippedHTML.truncate(280)
       // Append to feeds array
       var sameElement = false
@@ -155,7 +160,9 @@ extension Feeder: XMLParserDelegate {
         if currentFeedItem.link == feed.link {
           sameElement = true
         }
-        if currentFeedItem.date == feed.date && currentFeedItem.rawHtmlContent != feed.rawHtmlContent {
+        let sameDate = currentFeedItem.date == feed.date
+        let differentHtml = currentFeedItem.rawHtmlContent != feed.rawHtmlContent
+        if sameDate && differentHtml {
           // An article with the same publication date has its content altered
           if !elementChanged {
             indexChanged = index

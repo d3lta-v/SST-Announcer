@@ -69,7 +69,8 @@ class PostViewController: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     // Add KVO for progress to webview
-    webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
+    let keypath = #keyPath(WKWebView.estimatedProgress)
+    webView.addObserver(self, forKeyPath: keypath, options: .new, context: nil)
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -279,6 +280,7 @@ extension PostViewController: WKNavigationDelegate {
 
 extension PostViewController: DTAttributedTextContentViewDelegate, DTLazyImageViewDelegate {
 
+  // swiftlint:disable:next line_length
   func attributedTextContentView(_ attributedTextContentView: DTAttributedTextContentView!, viewForLink url: URL!, identifier: String!, frame: CGRect) -> UIView! {
     let linkButton = DTLinkButton(frame: frame)
     linkButton.url = url
@@ -286,6 +288,7 @@ extension PostViewController: DTAttributedTextContentViewDelegate, DTLazyImageVi
     return linkButton
   }
 
+  // swiftlint:disable:next line_length
   func attributedTextContentView(_ attributedTextContentView: DTAttributedTextContentView!, viewFor attachment: DTTextAttachment!, frame: CGRect) -> UIView! {
     if attachment.isKind(of: DTImageTextAttachment.self) {
       let imageView = DTLazyImageView(frame: frame)
