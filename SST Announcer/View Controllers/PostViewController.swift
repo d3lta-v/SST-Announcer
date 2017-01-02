@@ -90,7 +90,11 @@ class PostViewController: UIViewController {
     // Remove observer
     webView.removeObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress))
     // Remove animation
-    (self.originalNavigationController ?? self.navigationController!).cancelSGProgress()
+    if let navController = self.originalNavigationController {
+      navController.cancelSGProgress()
+    } else {
+      self.navigationController?.cancelSGProgress()
+    }
   }
 
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -111,12 +115,21 @@ class PostViewController: UIViewController {
     if keyPath == #keyPath(WKWebView.estimatedProgress) {
       if webView.estimatedProgress != 1 {
         DispatchQueue.main.async {
-          // swiftlint:disable:next line_length
-          (self.originalNavigationController ?? self.navigationController!).setSGProgressPercentage(Float(self.webView.estimatedProgress * 100))
+          // swiftlint:disable line_length
+          if let navController = self.originalNavigationController {
+            navController.setSGProgressPercentage(Float(self.webView.estimatedProgress * 100))
+          } else {
+            self.navigationController?.setSGProgressPercentage(Float(self.webView.estimatedProgress * 100))
+          }
+          // swiftlint:enable line_length
         }
       } else {
         DispatchQueue.main.async {
-          (self.originalNavigationController ?? self.navigationController!).finishSGProgress()
+          if let navController = self.originalNavigationController {
+            navController.finishSGProgress()
+          } else {
+            self.navigationController?.finishSGProgress()
+          }
         }
       }
     } else {
@@ -231,20 +244,32 @@ class PostViewController: UIViewController {
 extension PostViewController: WKNavigationDelegate {
 
   func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-    (originalNavigationController ?? navigationController!).cancelSGProgress()
+    if let navController = originalNavigationController {
+      navController.cancelSGProgress()
+    } else {
+      navigationController?.cancelSGProgress()
+    }
     displayError("Unable to open webpage: \(error.localizedDescription)")
   }
 
   // swiftlint:disable:next line_length
   func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
-    (originalNavigationController ?? navigationController!).cancelSGProgress()
+    if let navController = self.originalNavigationController {
+      navController.cancelSGProgress()
+    } else {
+      self.navigationController?.cancelSGProgress()
+    }
     displayError("Unable to open webpage: \(error.localizedDescription)")
   }
 
   func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
     // set progress to 0
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { //0.5 seconds
-      (self.originalNavigationController ?? self.navigationController!).cancelSGProgress()
+      if let navController = self.originalNavigationController {
+        navController.cancelSGProgress()
+      } else {
+        self.navigationController?.cancelSGProgress()
+      }
     }
   }
 
