@@ -52,15 +52,6 @@ class PostViewController: UIViewController {
     navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
     navigationItem.leftItemsSupplementBackButton = true
 
-    // Automatically show popover if device is an iPad in Portrait (size class is reg, reg)
-    if let splitViewController = splitViewController {
-      let isPortrait = UIInterfaceOrientationIsPortrait(UIApplication.shared.statusBarOrientation)
-      if splitViewController.traitCollection.isRR && isPortrait {
-        let btn = splitViewController.displayModeButtonItem
-        btn.target!.performSelector(onMainThread: btn.action!, with: btn, waitUntilDone: false)
-      }
-    }
-
     guard let feedItem = feedObject else {
       return
     }
@@ -79,6 +70,18 @@ class PostViewController: UIViewController {
     super.viewWillAppear(animated)
     // Add KVO for progress to webview
     webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
+  }
+
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    // Automatically show popover if device is an iPad in Portrait (size class is reg, reg)
+    if let splitViewController = splitViewController {
+      let isPortrait = UIInterfaceOrientationIsPortrait(UIApplication.shared.statusBarOrientation)
+      if splitViewController.traitCollection.isRR && isPortrait {
+        let btn = splitViewController.displayModeButtonItem
+        btn.target!.performSelector(onMainThread: btn.action!, with: btn, waitUntilDone: true)
+      }
+    }
   }
 
   override func viewWillDisappear(_ animated: Bool) {
