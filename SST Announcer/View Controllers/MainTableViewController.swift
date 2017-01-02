@@ -295,12 +295,14 @@ extension MainTableViewController: FeederDelegate {
           }
           if !successfullyOpenedPush {
             // Show error
-            let errorHud = JGProgressHUD(style: .dark)!
-            errorHud.indicatorView = JGProgressHUDErrorIndicatorView()
-            errorHud.textLabel.text = "Unable to open push"
-            errorHud.interactionType = .blockTouchesOnHUDView
-            errorHud.show(in: self.splitViewController!.view)
-            errorHud.dismiss(afterDelay: 2)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+              let errorHud = JGProgressHUD(style: .dark)!
+              errorHud.indicatorView = JGProgressHUDErrorIndicatorView()
+              errorHud.textLabel.text = "Unable to open push"
+              errorHud.interactionType = .blockTouchesOnHUDView
+              errorHud.show(in: self.splitViewController!.view)
+              errorHud.dismiss(afterDelay: 2)
+            }
           }
         }
         self.pushedFeedItem = nil //reset the variable
