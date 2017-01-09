@@ -20,10 +20,10 @@ class Feeder: NSObject {
 
   private let request: URLRequest = {
     let url = URL(string: "https://node1.sstinc.org/api/cache/blogrss.csv")!
-    let rq = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 60)
+    let rq = URLRequest(url: url)
     return rq
   }()
-  private var config = URLSessionConfiguration.default
+  private var config = URLSessionConfiguration.ephemeral
   private var session: URLSession?
   fileprivate var expectedContentLength: Int64 = 0
   fileprivate var buffer: Data = Data()
