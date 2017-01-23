@@ -31,7 +31,7 @@ class Feeder: NSObject {
   private let defaults = UserDefaults.standard
 
   fileprivate var parser: XMLParser!
-  internal var feeds: [FeedItem] = []
+  internal var feeds = SafeArray<FeedItem>()
   internal var loading = false
   fileprivate var currentFeedItem = FeedItem()
   fileprivate var currentElement = ""
@@ -73,7 +73,7 @@ class Feeder: NSObject {
    */
   internal func setCachedFeeds() {
     NSKeyedArchiver.setClassName("FeedItem", for: FeedItem.self)
-    let cachedData = NSKeyedArchiver.archivedData(withRootObject: feeds)
+    let cachedData = NSKeyedArchiver.archivedData(withRootObject: feeds.elements)
     defaults.set(cachedData, forKey: "feedCache")
   }
 
@@ -88,7 +88,8 @@ class Feeder: NSObject {
     guard let cachedFeeds = NSKeyedUnarchiver.unarchiveObject(with: feedsObject) as? [FeedItem] else {
       return
     }
-    feeds = cachedFeeds
+    //feeds = cachedFeeds
+    feeds.reset(withElements: cachedFeeds)
     delegate?.feedLoadedFromCache()
   }
 
@@ -156,7 +157,7 @@ extension Feeder: XMLParserDelegate {
       var sameElement = false
       var elementChanged = false
       var indexChanged = -1
-      for (index, feed) in feeds.enumerated() {
+      for (index, feed) in feeds.elements.enumerated() {
         if currentFeedItem.link == feed.link {
           sameElement = true
         }
@@ -210,7 +211,7 @@ extension Feeder: XMLParserDelegate {
     }
     // Set cached feeds
     setCachedFeeds()
-    delegate?.feedFinishedParsing(withFeedArray: feeds, error: nil)
+    delegate?.feedFinishedParsing(withFeedArray: feeds.elements, error: nil)
   }
 
   func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {

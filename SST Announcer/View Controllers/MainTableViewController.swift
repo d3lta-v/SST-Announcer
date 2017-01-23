@@ -285,7 +285,7 @@ extension MainTableViewController: FeederDelegate {
         if let feedItem = self.pushedFeedItem {
           // Cycle through all feeds to find and select that post
           var successfullyOpenedPush = false
-          for (index, element) in self.feeder.feeds.enumerated() {
+          for (index, element) in self.feeder.feeds.elements.enumerated() {
             if element.link == feedItem.link {
               successfullyOpenedPush = true
               let indexPath = IndexPath(row: index, section: 0)
@@ -323,7 +323,7 @@ extension MainTableViewController: UISearchResultsUpdating {
   private func filter(forSearchText searchText: String) {
     filteredFeeds = feeder.feeds.filter { feed in
       return feed.title.lowercased().contains(searchText.lowercased())
-    }
+    }.elements
     tableView.reloadData()
   }
 
